@@ -1,0 +1,6 @@
+export default SCENE_TYPE = {
+    BATTLE_SCENE: "BATTLE_SCENE",
+    DUNGEON_SCENE: "DUNGEON_SCENE",
+    INN_SCENE : "INN_SCENE",
+    
+}
