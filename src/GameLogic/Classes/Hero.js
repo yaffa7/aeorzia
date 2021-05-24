@@ -1,19 +1,19 @@
-export default class Hero {
+import ActorBase from './ActorBase'
+import Utils from './Utils'
+
+export default class Hero extends ActorBase {
 
     constructor(name) {
+        super(name)
         this.name = name
-        this.strength = this.Roll(15)
-        this.dexterity = this.Roll(15)
-        this.constitution = this.Roll(15)
-        this.intelligence = this.Roll(15)
-        this.charisma = this.Roll(15)
+        this.strength += Utils.Roll(5)
+        this.dexterity += Utils.Roll(5)
+        this.constitution += Utils.Roll(5)
+        this.intelligence += Utils.Roll(5)
+        this.charisma = Utils.Roll(15)
     }
 
     printStats = () => {
         return (this.strength, this.dexterity, this.constitution, this.intelligence, this.charisma)
-    }
-
-    Roll = (sides) => {
-        return Math.floor((Math.random() * sides) + 1)
     }
 }

@@ -1,25 +1,31 @@
 import React from 'react'
+import './HeroSheet.css'
 
 export default function HeroSheet(props) {
 
 
-    const characterSheet = props.game.GetHeroes().map((hero, index) =>
-        <div>
-            <div key={index}>Name: {hero.name}</div>
-            <div key={index}>strength: { hero.strength }</div>
-            <div key={index}>dexterity: { hero.dexterity }</div>
-            <div key={index}>constitution: { hero.constitution }</div>
-            <div key={index}>intelligence: { hero.intelligence }</div>
-            <div key={index}>charisma: { hero.charisma }</div>
-            <br/>
+    const acts = (hero) => hero.actions.map((action) => 
+            <button style={{display: 'block'}} onClick={action.onExecute}>{action.name}</button>
+        )
+        
+  
+
+
+    const characterSheet = props.game.getHeroes().map((hero) =>
+        <div className="character-sheet">
+            <div >Name: {hero.name}</div>
+            {acts(hero)}
+            <div >strength: { hero.strength }</div>
+            <div >dexterity: { hero.dexterity }</div>
+            <div >constitution: { hero.constitution }</div>
+            <div >intelligence: { hero.intelligence }</div>
+            <div >charisma: { hero.charisma }</div>
         </div>
         );
     
 
-
     return (
         <div>
-            <h1>HeroSheet!</h1>
             <div>{characterSheet}</div>
         </div>
     )

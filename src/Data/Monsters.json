@@ -1,0 +1,9 @@
+{
+    "name": "bat",
+    "description": "A furry winged creature",
+    "minLevel": 1,
+    "maxLevel": 5,
+    "stats": {
+        
+    }
+}
