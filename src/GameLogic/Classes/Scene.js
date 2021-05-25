@@ -36,6 +36,8 @@ export default class Scene {
         console.log('Hero turn started!')
         // set active turn
         actorsByInitiaive.map((actor) => actor.isTurnActive = actor.name === actorsByInitiaive[0].name ? true : false)
+        // reset ap
+        this.heroes.map((hero) => hero.ap = 2)
     }
 
     startEnemyTurn(actorsByInitiaive) {

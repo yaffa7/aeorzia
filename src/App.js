@@ -18,7 +18,7 @@ class App extends React.Component
       <div className="main-content">
         <Roller></Roller>
         <ScenceArea game={this.GameInstance}></ScenceArea>
-        <HeroSheet game={this.GameInstance} ></HeroSheet>
+        {/* <HeroSheet game={this.GameInstance} ></HeroSheet> */}
       </div>
     );
   }

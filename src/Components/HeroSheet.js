@@ -5,9 +5,13 @@ export default function HeroSheet(props) {
 
 
 
+    const handleAction  = (action) => {
+        action.onExecute(props.game.sceneManager.current_scene.enemies[0]) // attack first enemy for now
+        props.onSceneChange(props.game.sceneManager.current_scene)
+    }
 
     const acts = (hero) => hero.actions.map((action) => 
-            <button disabled={!hero.isTurnActive} style={{display: 'block'}} onClick={() => action.onExecute(props.game.sceneManager.current_scene.enemies[0])}>{action.name}</button>
+            <button disabled={!hero.isTurnActive} style={{display: 'block'}} onClick={() => handleAction(action)}>{action.name}</button>
         )
         
   

@@ -38,7 +38,7 @@ export default class ActorBase {
         }
     ]
     items = []
-    ap = 0
+    ap = 2
     gameInstance = null
     constructor(name) {
         this.name = name

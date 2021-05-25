@@ -1,4 +1,5 @@
 import React from 'react'
+import HeroSheet from './HeroSheet'
 import './SceneArea.css'
 
 export default class ScenceArea extends React.Component {
@@ -11,9 +12,9 @@ export default class ScenceArea extends React.Component {
         }
     }
 
-    // handleSceneChange = scene => {
-    //     this.setState()
-    // }
+    handleSceneChange = scene => {
+        this.setState({ scene })
+    }
 
     computeBackgroundStyle = () => {
         return {
@@ -23,13 +24,16 @@ export default class ScenceArea extends React.Component {
 
     render() {
         return (
-            <div className="scene-area" style={this.computeBackgroundStyle()}>
-                <div className="name-area">{this.state.scene.name}</div>
-                <div className="monster-area">
-                    {this.state.scene.enemies.map((enemy) =>
-                        <div className="enemy">{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
-                    )}
+            <div>
+                <div className="scene-area" style={this.computeBackgroundStyle()}>
+                    <div className="name-area">{this.state.scene.name}</div>
+                    <div className="monster-area">
+                        {this.state.scene.enemies.map((enemy) =>
+                            <div className="enemy">{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
+                        )}
+                    </div>
                 </div>
+                <HeroSheet game={this.props.game} onSceneChange={this.handleSceneChange}></HeroSheet>
             </div>
         )
     }
