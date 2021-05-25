@@ -6,10 +6,18 @@ class Game {
     constructor() {
         this.names = ['varne', 'felen', 'elumbar', 'ingos']
         this.heroes = this.getrandomHeroes()
+        // this.mapReferences(this)
         this.sceneManager = new SceneManager(
             [new battle_scene1a(this.heroes)]
         )
         
+    }
+
+    
+    mapReferences(instance) {
+        this.heroes.forEach((hero) => {
+            hero.gameInstance = instance
+        })
     }
 
     getrandomHeroes() {
@@ -23,7 +31,7 @@ class Game {
 
     getRandomName() {
             let randIndex = Math.floor((Math.random() * this.names.length)) - 1
-            return this.names.splice(randIndex, 1)
+            return this.names.splice(randIndex, 1)[0]
     }
 
     getHeroes() {

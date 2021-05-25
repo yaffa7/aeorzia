@@ -4,13 +4,13 @@ import './HeroSheet.css'
 export default function HeroSheet(props) {
 
 
+
+
     const acts = (hero) => hero.actions.map((action) => 
-            <button style={{display: 'block'}} onClick={action.onExecute}>{action.name}</button>
+            <button disabled={!hero.isTurnActive} style={{display: 'block'}} onClick={() => action.onExecute(props.game.sceneManager.current_scene.enemies[0])}>{action.name}</button>
         )
         
   
-
-
     const characterSheet = props.game.getHeroes().map((hero) =>
         <div className="character-sheet">
             <div >Name: {hero.name}</div>
