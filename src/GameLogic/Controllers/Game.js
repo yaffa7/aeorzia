@@ -1,9 +1,15 @@
 import Hero from '../Classes/Hero'
+import battle_scene1a from '../Impl/Scenes/battle_scene1a'
+import SceneManager from './SceneManager'
 
 class Game {
     constructor() {
         this.names = ['varne', 'felen', 'elumbar', 'ingos']
         this.heroes = this.getrandomHeroes()
+        this.sceneManager = new SceneManager(
+            [new battle_scene1a(this.heroes)]
+        )
+        
     }
 
     getrandomHeroes() {

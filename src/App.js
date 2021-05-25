@@ -17,7 +17,7 @@ class App extends React.Component
     return (
       <div className="main-content">
         <Roller></Roller>
-        <ScenceArea></ScenceArea>
+        <ScenceArea game={this.GameInstance}></ScenceArea>
         <HeroSheet game={this.GameInstance} ></HeroSheet>
       </div>
     );

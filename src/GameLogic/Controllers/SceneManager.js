@@ -8,12 +8,14 @@ export default class SceneManager {
     prev_scene;
     constructor(scences) {
         this.scenes = scences
-        this.current_scene = scences[0]
-        this.next_scene = scences[1]
+        if (scences[0] != null)
+            this.current_scene = scences[0]
+        if (scences[1] != null)
+            this.next_scene = scences[1]
     }
 
     loadNextScene(){
-        curIndex = this.scenes.indexOf(this.current_scene)
+        let curIndex = this.scenes.indexOf(this.current_scene)
         this.prev_scene = this.current_scene
         this.current_scene = this.scenes[curIndex + 1]
         this.next_scene = this.scenes[curIndex + 2]

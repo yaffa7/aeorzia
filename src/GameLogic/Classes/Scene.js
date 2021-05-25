@@ -1,12 +1,16 @@
 import SCENE_TYPE from '../Constants/SCENE_TYPE'
 
 export default class Scene {
+    name;
     enemies = []
     heroes = []
     objects = []
-    SCENE_TYPE = SCENE_TYPE.BATTLE_SCENE
-    
-    constructor() {
-
+    background_image;
+    get actors() {
+        return [...this.enemies,...this.heroes]
+    }
+    SCENE_TYPE;
+    constructor(heroes) {
+        this.heroes = heroes
     }
 }
