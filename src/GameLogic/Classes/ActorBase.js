@@ -14,10 +14,13 @@ export default class ActorBase {
     experience = 0
     health = 1
     armor_class = 10
+    items = []
+    ap = 2
     actions = [
         {
             name: "attack",
             onExecute:  (target) => { 
+                this.ap-=2
                 console.log(this.name, 'attacked!', target.name)
                 let attackRoll = Utils.Roll(20)
                 let damageRoll = Utils.Roll(20) + this.strength
@@ -30,15 +33,19 @@ export default class ActorBase {
         },
         {
             name: "examine",
-            onExecute: (target) => { console.log(this.name, "examined", target.name) }
+            onExecute: (target) => {
+                this.ap-- 
+                console.log(this.name, "examined", target.name) 
+            }
         },
         {
             name: "Items",
-            onExecute: (target) => { console.log(this.name, "used an item action on", target.name)}
+            onExecute: (target) => { 
+                this.ap--
+                console.log(this.name, "used an item action on", target.name)
+            }
         }
     ]
-    items = []
-    ap = 2
     gameInstance = null
     constructor(name) {
         this.name = name

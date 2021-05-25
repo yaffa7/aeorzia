@@ -19,6 +19,7 @@ export default function HeroSheet(props) {
         <div className="character-sheet">
             <div >Name: {hero.name}</div>
             {acts(hero)}
+            <div>AP: {hero.ap} </div>
             <div >strength: { hero.strength }</div>
             <div >dexterity: { hero.dexterity }</div>
             <div >constitution: { hero.constitution }</div>
