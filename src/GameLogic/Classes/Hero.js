@@ -12,6 +12,9 @@ export default class Hero extends ActorBase {
         this.intelligence += Utils.Roll(5)
         this.charisma = Utils.Roll(15)
         this.isHero = true
+        this.health = 10
+        this.max_ap = 2
+        this.current_ap = 2
     }
 
     printStats = () => {

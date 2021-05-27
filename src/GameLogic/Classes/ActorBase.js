@@ -3,7 +3,7 @@ import Utils from './Utils'
 export default class ActorBase {
     name;
     description = ""
-    dead = false
+    isDead = false
     isHero = false
     isTurnActive = false
     strength = 10
@@ -15,34 +15,41 @@ export default class ActorBase {
     health = 1
     armor_class = 10
     items = []
-    ap = 2
+    max_ap = 10
+    current_ap = 10
     actions = [
         {
             name: "attack",
             onExecute:  (target) => { 
-                this.ap-=2
-                console.log(this.name, 'attacked!', target.name)
-                let attackRoll = Utils.Roll(20)
-                let damageRoll = Utils.Roll(20) + this.strength
-                if(attackRoll >= target.armor_class) {
-                    console.log(this.name, 'hits! with a damage of', damageRoll)
-                    target.health = target.health - damageRoll
-                    console.log('target.health', target.health)
-                }
+                if (this.current_ap >= 2 ) {
+                    this.current_ap= this.current_ap - 2
+                    console.log(this.name, 'attacked!', target.name)
+                    let attackRoll = Utils.Roll(20)
+                    let damageRoll = Utils.Roll(20) + this.strength
+                    if(attackRoll >= target.armor_class){ 
+                        console.log(this.name, 'hits! with a damage of', damageRoll)
+                        target.health = target.health - damageRoll
+                        console.log('target.health', target.health)
+                    } else { console.log(this.name, 'missed! their target', target.name, 'with a roll of', attackRoll)}
+                } else { console.log(this.name ,'Not enough AP!')}
             }
         },
         {
             name: "examine",
             onExecute: (target) => {
-                this.ap-- 
-                console.log(this.name, "examined", target.name) 
+                if(this.current_ap >= 1) {
+                    this.current_ap-- 
+                    console.log(this.name, "examined", target.name) 
+                } else { console.log(this.name ,'Not enough AP!')}
             }
         },
         {
             name: "Items",
             onExecute: (target) => { 
-                this.ap--
-                console.log(this.name, "used an item action on", target.name)
+                if(this.current_ap >= 1) {
+                    this.current_ap--
+                    console.log(this.name, "used an item action on", target.name)
+                } else { console.log(this.name ,'Not enough AP!')}
             }
         }
     ]

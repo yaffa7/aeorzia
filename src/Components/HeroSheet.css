@@ -4,3 +4,7 @@ div.character-sheet {
     border-radius: 1em;
     margin: 0px 2px
 }
+
+ .dead {
+    visibility: hidden;
+}
