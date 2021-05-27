@@ -25,10 +25,9 @@ export default class HeroSheet extends React.Component {
         this.state.scene.nextTurn()
         this.setState( {scene: this.state.scene} )
     }
-    getComputedStyle = (hero) => {
-        if(hero.isDead) {
-            return
-        }
+
+    onAttackClicked = () => {
+        
     }
  
     render() {

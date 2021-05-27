@@ -26,6 +26,16 @@ export default class Scene {
         return this.getActorsByInitiative()[this.active_index]
     }
 
+    enemiesDead() {
+        let allDead = true
+        this.enemies.forEach((e) => {
+            if(e.isDead === false) {
+                allDead = false
+            }
+        })
+        return allDead
+    }
+
     nextTurn() {
         // Death check
         this.getActorsByInitiative().forEach(a => {
@@ -33,6 +43,10 @@ export default class Scene {
                 a.isDead = true
             }
         })
+        // Victory check
+        if(this.enemiesDead()) {
+            console.log('Victory!')
+        }
         this.active_index++
         if(this.active_index > this.getActorsByInitiative().length - 1) {
             this.active_index = 0
@@ -70,7 +84,7 @@ export default class Scene {
         console.log('Enemy turn started!')
         let enemy = this.getActiveActor()
         // select hero target at random
-        let targetIndex = Utils.Roll(this.heroes.length - 1)
+        let targetIndex = Utils.Roll(this.heroes.filter(h => !h.isDead).length - 1)
         enemy.actions.forEach(action => {
             if(action.name === 'attack') {
                 action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
