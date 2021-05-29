@@ -10,11 +10,21 @@ export default class Scene {
     SCENE_TYPE;
     active_actor;
     active_index = 0
-    setStateCallback;
+    setStateCallbacks = [];
     constructor(heroes) {
         this.heroes = heroes
     }
 
+    // if called from react component, then component will recieve state updates
+    registerCallback(callback) {
+        this.setStateCallbacks.push(callback)
+    }
+
+    invokeCallbacks() {
+        this.setStateCallbacks.forEach(cb =>  {
+            cb()   
+        });
+    }
     // Only returns alive heroes
     getActorsByInitiative() {
         return this.heroes.concat(this.enemies)
@@ -59,6 +69,7 @@ export default class Scene {
             // reset ap
         this.heroes.map((hero) => hero.current_ap = hero.max_ap)
         }
+        this.invokeCallbacks()
     }
 
     startCombat() {
@@ -78,6 +89,7 @@ export default class Scene {
         console.log('Hero turn started!')
         // set active turn
         this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
+        this.invokeCallbacks()
     }
 
     startEnemyTurn() {
@@ -90,7 +102,7 @@ export default class Scene {
                 action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
             }
         });
-        this.setStateCallback()
+        this.invokeCallbacks()
         this.nextTurn()
     }
 }

@@ -14,7 +14,7 @@ export default class HeroSheet extends React.Component {
     }
 
     componentDidMount() {
-        this.props.game.sceneManager.current_scene.setStateCallback = () => this.setState(this.state.scene)
+        this.state.scene.registerCallback(() => this.setState(this.state.scene))
     }
 
     handleAction  = (target) => {

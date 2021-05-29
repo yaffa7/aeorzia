@@ -1,6 +1,7 @@
 import React from 'react'
 import HeroSheet from './HeroSheet'
 import './SceneArea.css'
+import TurnOrder from './TurnOrder'
 
 export default class ScenceArea extends React.Component {
 
@@ -34,6 +35,7 @@ export default class ScenceArea extends React.Component {
                         )}
                     </div>
                 </div>
+                <TurnOrder game={this.props.game} onSceneChange={this.handleSceneChange}></TurnOrder>
                 <HeroSheet game={this.props.game} onSceneChange={this.handleSceneChange}></HeroSheet>
             </div>
         )

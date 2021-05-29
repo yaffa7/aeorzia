@@ -1,0 +1,14 @@
+
+
+div.hero {
+    display: inline-block;
+    border: 1px solid rgb(62, 200, 57);
+}
+
+div.enemy {
+    display: inline-block;
+    border: 1px solid rgb(255, 0, 0);
+}
+div.hero.selected {
+    border: 3px solid rgb(62, 200, 57);
+}
