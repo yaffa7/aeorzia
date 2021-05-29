@@ -7,7 +7,9 @@ export default class HeroSheet extends React.Component {
         super(props)
         this.state = {
             onSceneChange: props.onSceneChange,
-            scene: props.game.sceneManager.current_scene
+            scene: props.game.sceneManager.current_scene,
+            targetAction: false,
+            action: null
         }
     }
 
@@ -15,15 +17,15 @@ export default class HeroSheet extends React.Component {
         this.props.game.sceneManager.current_scene.setStateCallback = () => this.setState(this.state.scene)
     }
 
-    handleAction  = (action) => {
-        action.onExecute(this.state.scene.enemies[0]) // attack first enemy for now
+    handleAction  = (target) => {
+        this.state.action.onExecute(target) // attack first enemy for now
         this.state.onSceneChange(this.state.scene)
     }
 
     endTurn = () => {
         console.log('Turn ended')
         this.state.scene.nextTurn()
-        this.setState( {scene: this.state.scene} )
+        this.setState( {scene: this.state.scene, targetAction: false} )
     }
 
     onAttackClicked = () => {
@@ -38,7 +40,12 @@ export default class HeroSheet extends React.Component {
                     <div className={ hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
                         <div >Name: {hero.name}</div>
                         {hero.actions.map((action) => 
-                            <button disabled={!hero.isTurnActive} style={{display: 'block'}} onClick={() => this.handleAction(action)}>{action.name}</button>
+                            <button disabled={!hero.isTurnActive} style={{display: 'block'}} onClick={() => this.setState({ targetAction: true, action: action})}>{action.name}</button>
+                        )}
+                        {this.state.scene.enemies.map((enemy) => 
+                            this.state.targetAction && hero.isTurnActive && !enemy.isDead &&
+                            <button onClick={() => this.handleAction(enemy)}>{ enemy.name } | { enemy.health }</button>
+                        
                         )}
                         <div>AP: {hero.current_ap} </div>
                         <div>Health: {hero.health } </div>

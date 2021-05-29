@@ -10,6 +10,7 @@ export default class battle_scene1a extends Scene {
         this.name = "battle_scene1a"
         this.enemies = [
            new bat(),
+           new bat(),
         ]
         this.background_image = mountains
         this.SCENE_TYPE = SCENE_TYPE.BATTLE_SCENE
