@@ -46,6 +46,16 @@ export default class Scene {
         return allDead
     }
 
+    heroesDead() {
+        let allDead = true
+        this.enemies.forEach((e) => {
+            if(e.isDead === false) {
+                allDead = false
+            }
+        })
+        return allDead
+    }
+
     nextTurn() {
         // Death check
         this.getActorsByInitiative().forEach(a => {

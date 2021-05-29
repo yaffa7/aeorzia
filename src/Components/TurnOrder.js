@@ -20,6 +20,9 @@ export default class TurnOrder extends React.Component {
         if (actor.isTurnActive) {
             className+=' selected'
         }
+        if (actor.isDead) {
+            className+=' dead'
+        }
         return className
     }
 
