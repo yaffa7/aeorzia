@@ -7,7 +7,7 @@ class Game {
         this.names = ['varne', 'felen', 'elumbar', 'ingos']
         this.heroes = this.getrandomHeroes()
         this.sceneManager = new SceneManager(
-            [new battle_scene1a(this.heroes)]
+            [new battle_scene1a(this.heroes, this.sceneManager)]
         )
         
     }

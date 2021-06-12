@@ -1,4 +1,5 @@
 import SCENE_TYPE from '../Constants/SCENE_TYPE'
+import defeat_scene from '../Impl/Scenes/defeat_scence';
 import Utils from './Utils';
 
 export default class Scene {
@@ -11,8 +12,10 @@ export default class Scene {
     active_actor;
     active_index = 0
     setStateCallbacks = [];
-    constructor(heroes) {
+    sceneManager;
+    constructor(heroes = [], sceneManager) {
         this.heroes = heroes
+        this.sceneManager = sceneManager
     }
 
     // if called from react component, then component will recieve state updates
@@ -114,7 +117,10 @@ export default class Scene {
                     action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
                 }
             });
-        } else { console.log('Your party was defeated..') }
+        } else { 
+            console.log('Your party was defeated..')
+            // this.sceneManager.changeScene(new defeat_scene(this.heroes)) 
+        }
         this.invokeCallbacks()
         this.nextTurn()
     }

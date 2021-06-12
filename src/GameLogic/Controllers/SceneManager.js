@@ -22,6 +22,10 @@ export default class SceneManager {
         this.next_scene = this.scenes[curIndex + 2]
     }
 
+    changeScene(scene) {
+        this.current_scene = scene
+    }
+
     Defeat() {
         this.current_scene = new defeat_scene()
     }

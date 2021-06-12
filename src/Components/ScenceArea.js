@@ -23,9 +23,6 @@ export default class ScenceArea extends React.Component {
         }
     }
 
-    onDefeat = () => {
-        
-    }
 
     render() {
         return (
