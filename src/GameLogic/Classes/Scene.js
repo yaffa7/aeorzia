@@ -107,11 +107,14 @@ export default class Scene {
         let enemy = this.getActiveActor()
         // select hero target at random
         let targetIndex = Utils.Roll(this.heroes.filter(h => !h.isDead).length - 1)
-        enemy.actions.forEach(action => {
-            if(action.name === 'attack') {
-                action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
-            }
-        });
+        let targetHero = this.heroes.filter(h => !h.isDead)[targetIndex]
+        if (targetHero != null) {
+            enemy.actions.forEach(action => {
+                if(action.name === 'attack') {
+                    action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
+                }
+            });
+        } else { console.log('Your party was defeated..') }
         this.invokeCallbacks()
         this.nextTurn()
     }

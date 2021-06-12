@@ -1,3 +1,4 @@
+import defeat_scene from "../Impl/Scenes/defeat_scence";
 
 
 export default class SceneManager {
@@ -19,5 +20,9 @@ export default class SceneManager {
         this.prev_scene = this.current_scene
         this.current_scene = this.scenes[curIndex + 1]
         this.next_scene = this.scenes[curIndex + 2]
+    }
+
+    Defeat() {
+        this.current_scene = new defeat_scene()
     }
 }

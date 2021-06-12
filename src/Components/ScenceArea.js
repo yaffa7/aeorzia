@@ -1,5 +1,5 @@
 import React from 'react'
-import HeroSheet from './HeroSheet'
+import HeroSheet from './HeroSheet/HeroSheet'
 import './SceneArea.css'
 import TurnOrder from './TurnOrder'
 
@@ -21,6 +21,10 @@ export default class ScenceArea extends React.Component {
         return {
             backgroundImage: `url(${this.state.scene.background_image})`
         }
+    }
+
+    onDefeat = () => {
+        
     }
 
     render() {
