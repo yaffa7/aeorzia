@@ -8,13 +8,17 @@ export default class ScenceArea extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            game: props.game,
             scene: props.game.sceneManager.current_scene,
-
         }
     }
 
+    componentDidMount() {
+        this.state.scene.registerCallback(() => this.setState(this.state.game.sceneManager.current_scene))
+    }
+
     handleSceneChange = scene => {
-        this.setState({ scene })
+        this.setState({ scene: scene})
     }
 
     computeBackgroundStyle = () => {
@@ -22,6 +26,8 @@ export default class ScenceArea extends React.Component {
             backgroundImage: `url(${this.state.scene.background_image})`
         }
     }
+
+
 
 
     render() {
@@ -34,10 +40,15 @@ export default class ScenceArea extends React.Component {
                             !enemy.isDead &&
                             <div className="enemy">{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
                         )}
-                    </div>
+                        </div>
                 </div>
-                <TurnOrder game={this.props.game} onSceneChange={this.handleSceneChange}></TurnOrder>
-                <HeroSheet game={this.props.game} onSceneChange={this.handleSceneChange}></HeroSheet>
+                {
+                    this.state.scene.isBattleScene &&
+                    <div>
+                        <TurnOrder game={this.props.game} onSceneChange={this.handleSceneChange}></TurnOrder>
+                        <HeroSheet game={this.props.game} onSceneChange={this.handleSceneChange}></HeroSheet>
+                    </div>
+                }
             </div>
         )
     }

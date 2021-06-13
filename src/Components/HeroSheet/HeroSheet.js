@@ -25,7 +25,6 @@ export default class HeroSheet extends React.Component {
     endTurn = () => {
         console.log('Turn ended')
         this.state.scene.nextTurn()
-        this.setState( {scene: this.state.scene, targetAction: false} )
     }
 
     onAttackClicked = () => {

@@ -9,12 +9,24 @@ class App extends React.Component
     super(props)
     this.GameInstance = new Game()
     console.log(this.GameInstance)
+    this.state = {
+      isLoading: false
+    }
   }
+ 
+  componentDidMount() {
+    this.GameInstance.sceneManager.loading = () => this.setState({ isLoading: true})
+    this.GameInstance.sceneManager.doneLoading = () => this.setState({ isLoading: false})
+}
 
   render() {
     return (
       <div className="main-content">
-        <ScenceArea game={this.GameInstance}></ScenceArea>
+        {/* SceneManager needs to invoke setState call back on Scene Area on changeScene() */}
+        {/*  optionally conditionaly unmount SceneArea */}
+        { !this.state.isLoading &&
+          <ScenceArea game={this.GameInstance}></ScenceArea>
+        }
       </div>
     );
   }

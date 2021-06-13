@@ -1,13 +1,13 @@
-import Scene from "../../Classes/Scene";
 import { bat } from "../Enemies/bat";
-import SCENE_TYPE from '../../Constants/SCENE_TYPE'
 import mountains from '../../../assets/Scenes/mountains.jpg'
+import BattleScene from "../../Classes/BattleScene";
 
-export default class battle_scene1a extends Scene {
+export default class battle_scene1a extends BattleScene {
 
-    constructor(heroes) {
-        super(heroes)
+    constructor(heroes, sceneManager) {
+        super(heroes, sceneManager)
         this.name = "battle_scene1a"
+        this.isBattleScene = true
         this.enemies = [
            new bat(),
            new bat(),
@@ -15,7 +15,6 @@ export default class battle_scene1a extends Scene {
            new bat(),
         ]
         this.background_image = mountains
-        this.SCENE_TYPE = SCENE_TYPE.BATTLE_SCENE
         this.startCombat()
     }
 }

@@ -1,5 +1,3 @@
-import defeat_scene from "../Impl/Scenes/defeat_scence";
-
 
 export default class SceneManager {
 
@@ -7,12 +5,10 @@ export default class SceneManager {
     current_scene;
     next_scene;
     prev_scene;
-    constructor(scences) {
-        this.scenes = scences
-        if (scences[0] != null)
-            this.current_scene = scences[0]
-        if (scences[1] != null)
-            this.next_scene = scences[1]
+    loading = null;
+    doneLoading = null;
+    constructor(scenes = []) {
+        this.scenes = scenes
     }
 
     loadNextScene(){
@@ -23,10 +19,11 @@ export default class SceneManager {
     }
 
     changeScene(scene) {
+        let current_heroes = this.current_scene.heroes
+        this.loading()
+        scene.heroes = current_heroes
         this.current_scene = scene
+        this.doneLoading()
     }
 
-    Defeat() {
-        this.current_scene = new defeat_scene()
-    }
 }

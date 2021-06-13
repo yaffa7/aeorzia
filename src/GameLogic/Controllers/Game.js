@@ -6,9 +6,8 @@ class Game {
     constructor() {
         this.names = ['varne', 'felen', 'elumbar', 'ingos']
         this.heroes = this.getrandomHeroes()
-        this.sceneManager = new SceneManager(
-            [new battle_scene1a(this.heroes, this.sceneManager)]
-        )
+        this.sceneManager = new SceneManager()
+        this.sceneManager.current_scene = new battle_scene1a(this.heroes, this.sceneManager)
         
     }
 
