@@ -1,6 +1,6 @@
 import React from 'react'
-import BattleScene from './Scenes/BattleScene'
-import GameOverScreen from './Scenes/GameOverScreen'
+import BattleScene from '../Scenes/BattleScene'
+import GameOverScreen from '../Scenes/GameOverScreen'
 import './SceneArea.css'
 
 

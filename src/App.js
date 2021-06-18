@@ -1,6 +1,6 @@
 import  React  from 'react';
 import Game from './GameLogic/Controllers/Game'
-import SceneArea from './Components/SceneArea';
+import SceneArea from './Components/SceneArea/SceneArea';
 import './App.css'
 
 class App extends React.Component 

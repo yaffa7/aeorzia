@@ -1,5 +1,5 @@
 
-import TurnOrder from "../TurnOrder"
+import TurnOrder from "../TurnOrder/TurnOrder"
 import HeroSheet from "../HeroSheet/HeroSheet"
 import React from 'react'
 
