@@ -1,6 +1,6 @@
 import  React  from 'react';
 import Game from './GameLogic/Controllers/Game'
-import ScenceArea from './Components/ScenceArea';
+import SceneArea from './Components/SceneArea';
 import './App.css'
 
 class App extends React.Component 
@@ -23,10 +23,11 @@ class App extends React.Component
   render() {
     return (
       <div className="main-content">
-        {/* SceneManager needs to invoke setState call back on Scene Area on changeScene() */}
-        {/*  optionally conditionaly unmount SceneArea */}
         { !this.state.isLoading &&
-          <ScenceArea game={this.GameInstance}></ScenceArea>
+          <SceneArea game={this.GameInstance}></SceneArea>
+        }
+        { this.state.isLoading &&
+          <div>Loading</div>      
         }
       </div>
     );

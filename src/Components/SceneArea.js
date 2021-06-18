@@ -3,7 +3,7 @@ import HeroSheet from './HeroSheet/HeroSheet'
 import './SceneArea.css'
 import TurnOrder from './TurnOrder'
 
-export default class ScenceArea extends React.Component {
+export default class SceneArea extends React.Component {
 
     constructor(props) {
         super(props)
