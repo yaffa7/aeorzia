@@ -17,6 +17,5 @@ div.hero.dead {
     background-color: gray;
 }
 div.enemy.dead {
-    display: inline-block;
     border: 1px solid rgb(121, 121, 121);
 }
