@@ -62,7 +62,7 @@ export default class BattleScene extends Scene {
             setTimeout(() => this.startEnemyTurn(), window.delay)
         } else {
             // reset ap
-        this.heroes.map((hero) => hero.current_ap = hero.max_ap)
+        this.getActiveActor().current_ap = this.getActiveActor().max_ap
         }
         if (!this.heroesDead())
             this.invokeCallbacks()

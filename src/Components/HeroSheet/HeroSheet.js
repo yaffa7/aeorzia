@@ -17,10 +17,13 @@ export default class HeroSheet extends React.Component {
         this.state.scene.registerCallback(() => this.setState(this.state.scene))
     }
 
-    handleAction  = (target) => {
-        this.state.action.onExecute(target) // attack first enemy for now
+    handleAction  = (target, hero) => {
+        this.state.action.onExecute(target)
         this.state.onSceneChange(this.state.scene)
         this.setState({ targetAction: false})
+        if (hero.current_ap === 0) {
+            this.endTurn()
+        }
     }
 
     endTurn = () => {
@@ -44,7 +47,7 @@ export default class HeroSheet extends React.Component {
                         )}
                         {this.state.scene.enemies.map((enemy) => 
                             this.state.targetAction && hero.isTurnActive && !enemy.isDead &&
-                            <button onClick={() => this.handleAction(enemy)}>{ enemy.name } | { enemy.health }</button>
+                            <button onClick={() => this.handleAction(enemy,hero)}>{ enemy.name } | { enemy.health }</button>
                         
                         )}
                         <div>AP: {hero.current_ap} </div>
