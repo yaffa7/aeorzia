@@ -9,6 +9,7 @@ export default class SceneManager {
     doneLoading = null;
     constructor(scenes = []) {
         this.scenes = scenes
+        this.current_scene = scenes[0]
     }
 
     loadNextScene(){

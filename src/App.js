@@ -8,6 +8,7 @@ class App extends React.Component
   constructor(props) {
     super(props)
     this.GameInstance = new Game()
+    window.game = this.GameInstance
     console.log(this.GameInstance)
     this.state = {
       isLoading: false

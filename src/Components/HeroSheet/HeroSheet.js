@@ -20,6 +20,7 @@ export default class HeroSheet extends React.Component {
     handleAction  = (target) => {
         this.state.action.onExecute(target) // attack first enemy for now
         this.state.onSceneChange(this.state.scene)
+        this.setState({ targetAction: false})
     }
 
     endTurn = () => {
