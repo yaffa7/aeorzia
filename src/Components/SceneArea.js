@@ -1,7 +1,8 @@
 import React from 'react'
-import HeroSheet from './HeroSheet/HeroSheet'
+import BattleScene from './Scenes/BattleScene'
+import GameOverScreen from './Scenes/GameOverScreen'
 import './SceneArea.css'
-import TurnOrder from './TurnOrder'
+
 
 export default class SceneArea extends React.Component {
 
@@ -22,33 +23,20 @@ export default class SceneArea extends React.Component {
     }
 
     computeBackgroundStyle = () => {
-        return {
-            backgroundImage: `url(${this.state.scene.background_image})`
-        }
+        return { backgroundImage: `url(${this.state.scene.background_image})` }
     }
-
-
-
 
     render() {
         return (
             <div>
                 <div className="scene-area" style={this.computeBackgroundStyle()}>
-                    <div className="name-area">{this.state.scene.name}</div>
-                    <div className="monster-area">
-                        {this.state.scene.enemies.map((enemy) =>
-                            !enemy.isDead &&
-                            <div className="enemy">{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
-                        )}
-                        </div>
+                    { this.state.scene.isBattleScene &&
+                        <BattleScene game={this.state.game} scene={this.state.scene} handleSceneChange={this.handleSceneChange}/>
+                    }
+                    { this.state.scene.isDefeatScene && 
+                        <GameOverScreen />
+                    }
                 </div>
-                {
-                    this.state.scene.isBattleScene &&
-                    <div>
-                        <TurnOrder game={this.props.game} onSceneChange={this.handleSceneChange}></TurnOrder>
-                        <HeroSheet game={this.props.game} onSceneChange={this.handleSceneChange}></HeroSheet>
-                    </div>
-                }
             </div>
         )
     }

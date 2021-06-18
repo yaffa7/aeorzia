@@ -15,6 +15,5 @@ export default class battle_scene1b extends BattleScene {
            new bat(),
         ]
         this.background_image = mountains
-        this.startCombat()
     }
 }

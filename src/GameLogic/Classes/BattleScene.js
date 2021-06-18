@@ -89,6 +89,7 @@ export default class BattleScene extends Scene {
     startEnemyTurn() {
         console.log('Enemy turn started!')
         let enemy = this.getActiveActor()
+        console.log('active actor is', enemy)
         // select hero target at random
         let targetIndex = Utils.Roll(this.heroes.filter(h => !h.isDead).length)
         targetIndex--
