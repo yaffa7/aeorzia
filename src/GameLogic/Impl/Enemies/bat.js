@@ -10,4 +10,7 @@ export class bat extends ActorBase {
         this.dexterity = 10
         this.strength = 1
     }
+
+
+    
 }

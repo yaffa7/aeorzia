@@ -1,3 +1,4 @@
+import Potion from '../Impl/Items/potion'
 import ActorBase from './ActorBase'
 import Utils from './Utils'
 
@@ -12,9 +13,10 @@ export default class Hero extends ActorBase {
         this.intelligence += Utils.Roll(5)
         this.charisma = Utils.Roll(15)
         this.isHero = true
-        this.health = 10
+        this.health = 20
         this.max_ap = 2
         this.current_ap = 2
+        this.items = [new Potion()]
     }
 
     printStats = () => {

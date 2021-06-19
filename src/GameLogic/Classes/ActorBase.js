@@ -29,7 +29,6 @@ export default class ActorBase {
                     if(attackRoll >= target.armor_class){ 
                         console.log(this.name, 'hits! with a damage of', damageRoll)
                         target.health = target.health - damageRoll
-                        // console.log('target.health', target.health)
                     } else { 
                         console.log(this.name, 'missed! their target', target.name, 'with a roll of', attackRoll)
                     }
@@ -59,4 +58,5 @@ export default class ActorBase {
     constructor(name) {
         this.name = name
     }
+
 }

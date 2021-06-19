@@ -58,12 +58,11 @@ export default class BattleScene extends Scene {
         }
         // set active turn
         this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
+        // reset ap
+        this.getActiveActor().current_ap = this.getActiveActor().max_ap
         if(!this.getActiveActor().isHero) {
             setTimeout(() => this.startEnemyTurn(), window.delay)
-        } else {
-            // reset ap
-        this.getActiveActor().current_ap = this.getActiveActor().max_ap
-        }
+        } 
         if (!this.heroesDead())
             this.invokeCallbacks()
     }
