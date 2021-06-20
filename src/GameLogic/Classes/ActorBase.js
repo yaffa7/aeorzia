@@ -55,8 +55,5 @@ export default class ActorBase {
         }
     ]
     gameInstance = null
-    constructor(name) {
-        this.name = name
-    }
 
 }

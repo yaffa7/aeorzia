@@ -5,52 +5,20 @@ import Utils from './Utils'
 
 export default class BattleScene extends Scene {
 
-    constructor(heroes, sceneManager) {
-        super(heroes, sceneManager)
+    constructor( ) {
+        super()
         window.delay = 500
+        this.heroes = window.game.heroes
     }
 
-    // Only returns alive heroes
-    getActorsByInitiative() {
-        return this.heroes.concat(this.enemies)
-                            .sort(function(a,b) { return a.dexterity < b.dexterity })
-                            .filter(e => !e.isDead)
-    }
-
-    getActiveActor() {
-        return this.getActorsByInitiative()[this.active_index]
-    }
-
-    enemiesDead() {
-        let allDead = true
-        this.enemies.forEach((e) => {
-            if(e.isDead === false) {
-                allDead = false
-            }
-        })
-        return allDead
-    }
-
-    heroesDead() {
-        let allDead = true
-        this.enemies.forEach((e) => {
-            if(e.isDead === false) {
-                allDead = false
-            }
-        })
-        return allDead
-    }
-
+    
     nextTurn() {
-        // Death check
-        this.getActorsByInitiative().forEach(a => {
-            if(a.health <= 0) {
-                a.isDead = true
-            }
-        })
+        this.setDeathStatus()
         // Victory check
         if(this.enemiesDead()) {
             console.log('Victory!')
+            window.game.sceneManager.loadNextScene()
+            return;
         }
         this.active_index++
         if(this.active_index > this.getActorsByInitiative().length - 1) {
@@ -102,10 +70,52 @@ export default class BattleScene extends Scene {
             this.invokeCallbacks()
             this.nextTurn()
         } else { 
-            this.sceneManager.changeScene(new defeat_scene())
+            window.game.sceneManager.changeScene(new defeat_scene())
             console.log('Your party was defeated..')
-            return;
         }
     }
+
+
+
+
+    // Only returns alive heroes
+    getActorsByInitiative() {
+        return this.heroes.concat(this.enemies)
+                            .sort(function(a,b) { return a.dexterity < b.dexterity })
+                            .filter(e => !e.isDead)
+    }
+
+    getActiveActor() {
+        return this.getActorsByInitiative()[this.active_index]
+    }
+
+    enemiesDead() {
+        let allDead = true
+        this.enemies.forEach((e) => {
+            if(e.isDead === false) {
+                allDead = false
+            }
+        })
+        return allDead
+    }
+
+    heroesDead() {
+        let allDead = true
+        this.enemies.forEach((e) => {
+            if(e.isDead === false) {
+                allDead = false
+            }
+        })
+        return allDead
+    }
+
+    setDeathStatus() {
+        this.getActorsByInitiative().forEach(a => {
+            if(a.health <= 0) {
+                a.isDead = true
+            }
+        })
+    }
+
 
 }

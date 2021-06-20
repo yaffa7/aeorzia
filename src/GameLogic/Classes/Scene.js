@@ -12,9 +12,7 @@ export default class Scene {
     isBattleScene = false
     isDefeatScene = false
 
-    constructor(heroes = [], sceneManager) {
-        this.heroes = heroes
-        this.sceneManager = sceneManager
+    constructor() {
     }
 
     // if called from react component, then component will recieve state updates
