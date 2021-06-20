@@ -5,23 +5,22 @@ export default class TurnOrder extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            actors: props.game.sceneManager.current_scene.getActorsByInitiative(),
             onSceneChange: props.onSceneChange,
             scene: props.game.sceneManager.current_scene
         }
     }
 
     componentDidMount() {
-        this.state.scene.registerCallback(() => this.setState(this.state.scene))
+        window.game.sceneManager.registerCallback(() => this.setState({ scene: window.game.sceneManager.current_scene }))
     }
 
     getComputedClassName = (actor) => {
         let className = actor.isHero ? 'hero' : 'enemy'
         if (actor.isTurnActive) {
-            className+=' selected'
+            className += ' selected'
         }
         if (actor.isDead) {
-            className+=' dead'
+            className += ' dead'
         }
         return className
     }
@@ -31,8 +30,8 @@ export default class TurnOrder extends React.Component {
             <div className="turn-container">
                 <div>Turn Order</div>
                 {
-                    this.state.actors.map((actor) => 
-                        <div className={this.getComputedClassName(actor)}> { actor.name }</div>
+                    this.state.scene.getActorsByInitiative().map((actor) =>
+                        <div className={this.getComputedClassName(actor)}> {actor.name}</div>
                     )
                 }
             </div>

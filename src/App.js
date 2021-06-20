@@ -22,12 +22,7 @@ class App extends React.Component
   render() {
     return (
       <div className="main-content">
-        { !this.state.isLoading &&
           <SceneArea game={this.GameInstance}></SceneArea>
-        }
-        { this.state.isLoading &&
-          <div>Loading</div>      
-        }
       </div>
     );
   }

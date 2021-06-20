@@ -26,13 +26,12 @@ export default class BattleScene extends Scene {
         }
         // set active turn
         this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
-        // reset ap
-        this.getActiveActor().current_ap = this.getActiveActor().max_ap
+        this.resetAp()
         if(!this.getActiveActor().isHero) {
             setTimeout(() => this.startEnemyTurn(), window.delay)
         } 
         if (!this.heroesDead())
-            this.invokeCallbacks()
+            window.game.sceneManager.invokeCallbacks()
     }
 
     startCombat() {
@@ -48,9 +47,10 @@ export default class BattleScene extends Scene {
 
     startHeroTurn() {
         console.log('Hero turn started!')
+        this.resetAp()
         // set active turn
         this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
-        this.invokeCallbacks()
+        window.game.sceneManager.invokeCallbacks()
     }
 
     startEnemyTurn() {
@@ -67,7 +67,7 @@ export default class BattleScene extends Scene {
                     action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
                 }
             });
-            this.invokeCallbacks()
+            window.game.sceneManager.invokeCallbacks()
             this.nextTurn()
         } else { 
             window.game.sceneManager.changeScene(new defeat_scene())
@@ -77,6 +77,9 @@ export default class BattleScene extends Scene {
 
 
 
+    resetAp() {
+        this.getActiveActor().current_ap = this.getActiveActor().max_ap
+    }
 
     // Only returns alive heroes
     getActorsByInitiative() {

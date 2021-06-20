@@ -7,22 +7,10 @@ export default class Scene {
     background_image;
     active_actor;
     active_index = 0
-    setStateCallbacks = [];
-    sceneManager;
     isBattleScene = false
     isDefeatScene = false
-
+    isVictoryScene = false
     constructor() {
     }
 
-    // if called from react component, then component will recieve state updates
-    registerCallback(callback) {
-        this.setStateCallbacks.push(callback)
-    }
-
-    invokeCallbacks() {
-        this.setStateCallbacks.forEach(cb =>  {
-            cb()   
-        });
-    }
 }

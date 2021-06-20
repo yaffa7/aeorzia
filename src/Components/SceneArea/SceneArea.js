@@ -1,6 +1,7 @@
 import React from 'react'
 import BattleScene from '../Scenes/BattleScene'
 import GameOverScreen from '../Scenes/GameOverScreen'
+import VictoryScene from '../Scenes/VictoryScene'
 import './SceneArea.css'
 
 
@@ -15,11 +16,11 @@ export default class SceneArea extends React.Component {
     }
 
     componentDidMount() {
-        this.state.scene.registerCallback(() => this.setState(this.state.game.sceneManager.current_scene))
+        window.game.sceneManager.registerCallback(() => this.setState(this.state.game.sceneManager.current_scene))
     }
 
     handleSceneChange = scene => {
-        this.setState({ scene: scene})
+        this.setState({ scene: scene })
     }
 
     computeBackgroundStyle = () => {
@@ -30,11 +31,14 @@ export default class SceneArea extends React.Component {
         return (
             <div>
                 <div className="scene-area" style={this.computeBackgroundStyle()}>
-                    { this.state.scene.isBattleScene &&
-                        <BattleScene game={this.state.game} scene={this.state.scene} handleSceneChange={this.handleSceneChange}/>
+                    {this.state.scene.isBattleScene &&
+                        <BattleScene game={this.state.game} scene={this.state.scene} handleSceneChange={this.handleSceneChange} />
                     }
-                    { this.state.scene.isDefeatScene && 
+                    {this.state.scene.isDefeatScene &&
                         <GameOverScreen />
+                    }
+                    {this.state.scene.isVictoryScene &&
+                        <VictoryScene />
                     }
                 </div>
             </div>

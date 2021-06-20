@@ -8,14 +8,21 @@ export default class BattleScene extends React.Component {
     constructor(props) {
         super(props)
         this.props.scene.startCombat()
+        this.state = {
+            scene: this.props.scene
+        }
+    }
+
+    componentDidMount() {
+        window.game.sceneManager.registerCallback(() => this.setState({ scene: window.game.sceneManager.current_scene }))
     }
 
     render() {
         return (
             <div>
-                <div className="name-area">{this.props.scene.name}</div>
+                <div className="name-area">{this.state.scene.name}</div>
                 <div className="monster-area">
-                    {this.props.scene.enemies.map((enemy) =>
+                    {this.state.scene.enemies.map((enemy) =>
                         !enemy.isDead &&
                         <div className="enemy">{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
                     )}

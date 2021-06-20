@@ -14,7 +14,7 @@ export default class HeroSheet extends React.Component {
     }
 
     componentDidMount() {
-        this.state.scene.registerCallback(() => this.setState(this.state.scene))
+        window.game.sceneManager.registerCallback(() => this.setState({ scene: window.game.sceneManager.current_scene }))
     }
 
     handleAction = (target, hero) => {
@@ -29,6 +29,7 @@ export default class HeroSheet extends React.Component {
     endTurn = () => {
         console.log('Turn ended')
         this.state.scene.nextTurn()
+        this.state.onSceneChange(this.state.scene)
     }
 
     onAttackClicked = () => {
