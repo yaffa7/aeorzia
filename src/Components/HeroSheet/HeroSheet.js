@@ -49,12 +49,6 @@ export default class HeroSheet extends React.Component {
                             <button onClick={() => this.handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
 
                         )}
-                        { hero.items.map((item) => 
-                            this.state.action === 'Item' && hero.isTurnActive &&
-
-                            <button>{ item.name }</button>
-                        
-                        )}
                         <div>AP: {hero.current_ap} </div>
                         <div>Health: {hero.health} </div>
                         <div >strength: {hero.strength}</div>
