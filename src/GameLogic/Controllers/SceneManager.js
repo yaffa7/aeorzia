@@ -22,10 +22,8 @@ export default class SceneManager {
 
     changeScene(scene) {
         let current_heroes = this.current_scene.heroes
-        this.loading()
         scene.heroes = current_heroes
         this.current_scene = scene
-        this.doneLoading()
     }
 
 }

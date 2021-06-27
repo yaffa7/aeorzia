@@ -1,14 +1,10 @@
+import { useGameStore } from "../../GameContext";
 import defeat_scene from "../Impl/Scenes/defeat_scene";
 import Scene from "./Scene";
 import Utils from './Utils'
 
 
 export default class BattleScene extends Scene {
-
-    constructor(heroes, sceneManager) {
-        super(heroes, sceneManager)
-        window.delay = 500
-    }
 
     // Only returns alive heroes
     getActorsByInitiative() {
@@ -63,8 +59,6 @@ export default class BattleScene extends Scene {
         if(!this.getActiveActor().isHero) {
             setTimeout(() => this.startEnemyTurn(), window.delay)
         } 
-        if (!this.heroesDead())
-            this.invokeCallbacks()
     }
 
     startCombat() {
@@ -82,7 +76,6 @@ export default class BattleScene extends Scene {
         console.log('Hero turn started!')
         // set active turn
         this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
-        this.invokeCallbacks()
     }
 
     startEnemyTurn() {
@@ -99,10 +92,9 @@ export default class BattleScene extends Scene {
                     action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
                 }
             });
-            this.invokeCallbacks()
             this.nextTurn()
         } else { 
-            this.sceneManager.changeScene(new defeat_scene())
+            this.gameStore.sceneManager.changeScene(new defeat_scene())
             console.log('Your party was defeated..')
             return;
         }

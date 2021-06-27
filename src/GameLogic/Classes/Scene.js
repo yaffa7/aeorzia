@@ -1,5 +1,7 @@
+import { useGameStore } from "../../GameContext";
 
 export default class Scene {
+    gameStore = window.store
     name;
     enemies = []
     heroes = []
@@ -11,20 +13,4 @@ export default class Scene {
     sceneManager;
     isBattleScene = false
     isDefeatScene = false
-
-    constructor(heroes = [], sceneManager) {
-        this.heroes = heroes
-        this.sceneManager = sceneManager
-    }
-
-    // if called from react component, then component will recieve state updates
-    registerCallback(callback) {
-        this.setStateCallbacks.push(callback)
-    }
-
-    invokeCallbacks() {
-        this.setStateCallbacks.forEach(cb =>  {
-            cb()   
-        });
-    }
 }
