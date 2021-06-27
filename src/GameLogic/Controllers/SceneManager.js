@@ -1,3 +1,4 @@
+import battle_scene1a from '../Impl/Scenes/battle_scene1a'
 
 export default class SceneManager {
 
@@ -7,9 +8,9 @@ export default class SceneManager {
     prev_scene;
     loading = null;
     doneLoading = null;
-    constructor(scenes = []) {
+    constructor(scenes = [], heroes) {
         this.scenes = scenes
-        this.current_scene = scenes[0]
+        this.current_scene = new battle_scene1a(heroes)
     }
 
     loadNextScene(){
