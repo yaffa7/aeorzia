@@ -1,4 +1,3 @@
-import { useGameStore } from "../../GameContext";
 
 export default class Scene {
     gameStore = window.store

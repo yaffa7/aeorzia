@@ -11,6 +11,7 @@ export default class SceneManager {
     constructor(scenes = [], heroes) {
         this.scenes = scenes
         this.current_scene = new battle_scene1a(heroes)
+        // this.current_scene.startCombat()
     }
 
     loadNextScene(){
