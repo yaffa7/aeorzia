@@ -17,7 +17,7 @@ export const BattleScene = () => {
             <div className="monster-area">
                 {scene.enemies.map((enemy) =>
                     !enemy.isDead &&
-                    <div className="enemy">{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
+                    <div className="enemy" key={enemy.id}>{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
                 )}
             </div>
             <TurnOrder />

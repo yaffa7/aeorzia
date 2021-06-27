@@ -5,10 +5,6 @@ import './HeroSheet.css'
 export const HeroSheet = () => {
     const gameStore = useGameStore()
 
-    // onSceneChange: props.onSceneChange,
-    // scene: props.game.sceneManager.current_scene,
-    // targetAction: false,
-    // action: null
 
     const [targetAction, setTargetAction] = React.useState("")
     const [action, setAction] = React.useState("")
@@ -18,7 +14,7 @@ export const HeroSheet = () => {
         action.onExecute(target)
         setTargetAction(false)
         if (hero.current_ap === 0) {
-            this.endTurn()
+            endTurn()
         }
     }
 
@@ -29,7 +25,7 @@ export const HeroSheet = () => {
 
     const endTurn = () => {
         console.log('Turn ended')
-        this.state.scene.nextTurn()
+        gameStore.sceneManager.current_scene.nextTurn()
     }
 
     return (
@@ -38,11 +34,11 @@ export const HeroSheet = () => {
                 <div className={hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
                     <div >Name: {hero.name}</div>
                     {hero.actions.map((action) =>
-                        <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)}>{action.name}</button>
+                        <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)} key={hero.id}>{action.name}</button>
                     )}
                     {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
-                        this.state.targetAction && hero.isTurnActive && !enemy.isDead &&
-                        <button onClick={() => handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
+                        targetAction && hero.isTurnActive && !enemy.isDead &&
+                        <button key={enemy.id} onClick={() => handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
 
                     )}
                     <div>AP: {hero.current_ap} </div>

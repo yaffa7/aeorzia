@@ -21,7 +21,7 @@ export const TurnOrder = () => {
             <div>Turn Order</div>
             {
                 gameStore.sceneManager.current_scene.getActorsByInitiative().map((actor) =>
-                    <div className={() => getComputedClassName(actor)}> {actor.name}</div>
+                    <div className={() => getComputedClassName(actor)} key={actor.id}> {actor.name}</div>
                 )
             }
         </div>

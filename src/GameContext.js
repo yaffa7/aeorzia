@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocalStore } from 'mobx-react'
+import { useLocalObservable } from 'mobx-react'
 import { GameStore } from './GameStore'
 
 const GameContext = React.createContext(null)
@@ -7,7 +7,7 @@ const store = new GameStore()
 window.store = store
 
 export const GameProvider = ({ children }) => {
-    const gameStore = useLocalStore(() => store)
+    const gameStore = useLocalObservable(() => store)
 
     return <GameContext.Provider value={gameStore}>
         {children}
