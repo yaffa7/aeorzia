@@ -8,9 +8,10 @@ export default class SceneManager {
     prev_scene;
     loading = null;
     doneLoading = null;
-    constructor(scenes = [], heroes) {
-        this.scenes = scenes
-        this.current_scene = new battle_scene1a(heroes)
+    constructor(heroes) {
+        let startScene = new battle_scene1a()
+        startScene.heroes = heroes
+        this.current_scene = startScene
         // this.current_scene.startCombat()
     }
 
