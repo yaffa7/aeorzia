@@ -2,26 +2,37 @@
 import React from 'react'
 import { TurnOrder } from "../TurnOrder/TurnOrder"
 import { HeroSheet } from "../HeroSheet/HeroSheet"
-import { useGameStore } from "../../GameContext"
+import { GameContext } from '../../GameContext'
 
-export const BattleScene = () => {
-    const gameStore = useGameStore()
-    const scene = gameStore.sceneManager.current_scene
+export class BattleScene extends React.Component {
+    static contextType = GameContext
 
-    // call this in the scene object somewhere
-    // this.props.scene.startCombat()
+    constructor() {
+        super()
+        this.state = {
+            scene: null
+        }
+    }
 
-    return (
-        <>
-            <div className="name-area">{scene.name}</div>
-            <div className="monster-area">
-                {scene.enemies.map((enemy) =>
-                    !enemy.isDead &&
-                    <div className="enemy" key={enemy.id}>{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
-                )}
-            </div>
-            <TurnOrder />
-            <HeroSheet />
-        </>
-    )
+    componentDidMount() {
+        const context = this.context;
+        this.setState({scene: context.sceneManager.current_scene })
+        this.state.scene.startCombat()
+    }
+
+    render() {
+        return (
+            <>
+                <div className="name-area">{this.state.scene.name}</div>
+                <div className="monster-area">
+                    {this.state.scene.enemies.map((enemy) =>
+                        !enemy.isDead &&
+                        <div className="enemy" key={enemy.id}>{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
+                    )}
+                </div>
+                <TurnOrder />
+                <HeroSheet />
+            </>
+        )
+    }
 }

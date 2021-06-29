@@ -4,8 +4,6 @@ import './HeroSheet.css'
 
 export const HeroSheet = () => {
     const gameStore = useGameStore()
-
-
     const [targetAction, setTargetAction] = React.useState("")
     const [action, setAction] = React.useState("")
 

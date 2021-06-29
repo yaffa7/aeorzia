@@ -1,6 +1,6 @@
 import React from 'react';
 import { Observer } from 'mobx-react-lite';
-import  { SceneArea } from './Components/SceneArea/SceneArea';
+import { SceneArea } from './Components/SceneArea/SceneArea';
 import './App.css'
 
 function App() {

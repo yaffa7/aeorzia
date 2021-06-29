@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocalObservable } from 'mobx-react'
 import { GameStore } from './GameStore'
 
-const GameContext = React.createContext(null)
+export const GameContext = React.createContext("game")
 const store = new GameStore()
 window.store = store
 

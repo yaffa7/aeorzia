@@ -7,7 +7,6 @@ import './SceneArea.css'
 
 export const SceneArea = () => {
     const gameStore = useGameStore()
-    console.log(gameStore)
     const scene = gameStore.sceneManager.current_scene
 
     const computeBackgroundStyle = () => {
