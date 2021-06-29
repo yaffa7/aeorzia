@@ -6,8 +6,6 @@ export default class SceneManager {
     current_scene;
     next_scene;
     prev_scene;
-    loading = null;
-    doneLoading = null;
     constructor(heroes) {
         let startScene = new battle_scene1a()
         startScene.heroes = heroes

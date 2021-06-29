@@ -2,21 +2,19 @@
 import React from 'react'
 import { TurnOrder } from "../TurnOrder/TurnOrder"
 import { HeroSheet } from "../HeroSheet/HeroSheet"
-import { GameContext } from '../../GameContext'
+import { instance } from '../../GameStore'
 
 export class BattleScene extends React.Component {
-    static contextType = GameContext
 
     constructor() {
         super()
+        console.log(instance)
         this.state = {
-            scene: null
+            scene: instance.sceneManager.current_scene
         }
     }
 
     componentDidMount() {
-        const context = this.context;
-        this.setState({scene: context.sceneManager.current_scene })
         this.state.scene.startCombat()
     }
 

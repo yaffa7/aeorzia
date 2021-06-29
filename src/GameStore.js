@@ -21,3 +21,5 @@ export class GameStore {
         return this.heroes
     }
 }
+
+export const instance = new GameStore()

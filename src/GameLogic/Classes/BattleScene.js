@@ -1,3 +1,4 @@
+import { instance } from "../../GameStore";
 import defeat_scene from "../Impl/Scenes/defeat_scene";
 import Scene from "./Scene";
 import Utils from './Utils'
@@ -93,7 +94,7 @@ export default class BattleScene extends Scene {
             });
             this.nextTurn()
         } else { 
-            this.gameStore.sceneManager.changeScene(new defeat_scene())
+            instance.sceneManager.changeScene(new defeat_scene())
             console.log('Your party was defeated..')
             return;
         }

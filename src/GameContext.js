@@ -1,13 +1,13 @@
 import React from 'react'
 import { useLocalObservable } from 'mobx-react'
-import { GameStore } from './GameStore'
+import { instance } from './GameStore'
 
-export const GameContext = React.createContext("game")
-const store = new GameStore()
-window.store = store
+const GameContext = React.createContext("game")
+
 
 export const GameProvider = ({ children }) => {
-    const gameStore = useLocalObservable(() => store)
+    const gameStore = useLocalObservable(() => instance)
+    console.log('store from Provider', instance)
 
     return <GameContext.Provider value={gameStore}>
         {children}
