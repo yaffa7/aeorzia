@@ -1,4 +1,3 @@
-import { makeAutoObservable, makeObservable, observable } from 'mobx'
 import Hero from './GameLogic/Classes/Hero'
 import SceneManager from './GameLogic/Controllers/SceneManager'
 
@@ -11,11 +10,7 @@ export class GameStore {
         new Hero(this.getRandomName())
     ]
     sceneManager = new SceneManager(this.heroes)
-    constructor() {
-     makeObservable(this, {
-        heroes: observable,
-     })
-    }
+
     setHeroDeadStatus(heroid, isDead) {
         this.heroes.find(h => h.id === heroid).isDead = isDead
     }

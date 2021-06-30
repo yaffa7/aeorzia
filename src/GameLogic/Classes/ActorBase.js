@@ -1,8 +1,9 @@
 import Utils from './Utils'
 import { nanoid } from 'nanoid'
+import { makeObservable, observable } from 'mobx';
 
 export default class ActorBase {
-    name;
+    name = "";
     id = nanoid()
     description = ""
     isDead = false
@@ -27,7 +28,7 @@ export default class ActorBase {
                     this.current_ap = this.current_ap - 2
                     console.log(this.name, 'attacked!', target.name)
                     let attackRoll = Utils.Roll(20)
-                    let damageRoll = Utils.Roll(20) + this.strength
+                    let damageRoll = Utils.Roll(this.strength)
                     if (attackRoll >= target.armor_class) {
                         console.log(this.name, 'hits! with a damage of', damageRoll)
                         target.health = target.health - damageRoll
@@ -56,9 +57,24 @@ export default class ActorBase {
             }
         }
     ]
-    gameInstance = null
     constructor(name) {
         this.name = name
+        makeObservable(this, {
+            isDead: observable,
+            isHero: observable,
+            isTurnActive: observable,
+            strength: observable,
+            dexterity: observable,
+            constitution: observable,
+            intelligence: observable,
+            charisma: observable,
+            experience: observable,
+            health: observable,
+            armor_class: observable,
+            items: observable,
+            max_ap: observable,
+            current_ap: observable
+        })
     }
 
 }

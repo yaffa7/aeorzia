@@ -1,4 +1,3 @@
-import { makeObservable, observable, action, computed } from "mobx";
 import { instance } from "../../GameStore";
 import defeat_scene from "../Impl/Scenes/defeat_scene";
 import Scene from "./Scene";
@@ -7,14 +6,7 @@ import Utils from './Utils'
 
 export default class BattleScene extends Scene {
 
-    constructor() {
-        super()
-        makeObservable(this, {
-            heroes: observable,
-            enemies: observable,
-            objects: observable,
-        })
-    }
+
     // Only returns alive heroes
     getActorsByInitiative() {
         return this.heroes.concat(this.enemies)
@@ -88,8 +80,7 @@ export default class BattleScene extends Scene {
 
     startHeroTurn() {
         console.log('Hero turn started!')
-        // set active turn
-        this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
+        this.setActiveTurn()
     }
 
     startEnemyTurn() {

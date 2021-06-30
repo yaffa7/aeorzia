@@ -1,6 +1,7 @@
+import { makeObservable, observable } from "mobx";
 
 export default class Scene {
-    name;
+    name = "";
     enemies = []
     heroes = []
     objects = []
@@ -10,5 +11,12 @@ export default class Scene {
     sceneManager;
     isBattleScene = false
     isDefeatScene = false
-
+    constructor() {
+        makeObservable(this, {
+            name: observable,
+            enemies: observable,
+            heroes: observable,
+            objects: observable
+        })
+    }
 }

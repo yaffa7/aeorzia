@@ -14,15 +14,13 @@ export const SceneArea = () => {
     }
 
     return (
-        <>
-            <div className="scene-area" style={computeBackgroundStyle()}>
-                {scene.isBattleScene &&
-                    <BattleScene />
-                }
-                {scene.isDefeatScene &&
-                    <GameOverScreen />
-                }
-            </div>
-        </>
+        <div className="scene-area" style={computeBackgroundStyle()}>
+            {scene.isBattleScene &&
+                <BattleScene />
+            }
+            {scene.isDefeatScene &&
+                <GameOverScreen />
+            }
+        </div>
     )
 }
