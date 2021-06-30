@@ -1,6 +1,6 @@
 import Utils from './Utils'
-
 import { nanoid } from 'nanoid'
+
 export default class ActorBase {
     name;
     id = nanoid()

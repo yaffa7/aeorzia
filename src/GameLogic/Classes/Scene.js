@@ -10,4 +10,5 @@ export default class Scene {
     sceneManager;
     isBattleScene = false
     isDefeatScene = false
+
 }
