@@ -63,7 +63,7 @@ export default class BattleScene extends Scene {
         // reset ap
         this.getActiveActor().current_ap = this.getActiveActor().max_ap
         if(!this.getActiveActor().isHero) {
-            setTimeout(() => this.startEnemyTurn(), window.delay)
+            setTimeout(() => this.startEnemyTurn(), 1000)
         } 
     }
 

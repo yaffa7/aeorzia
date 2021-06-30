@@ -9,7 +9,7 @@ export default class Hero extends ActorBase {
     intelligence = 12
     charisma = 12
     isHero = true
-    health = 20
+    health = 10
     max_ap = 2
     current_ap = 2
     items = [new Potion()]

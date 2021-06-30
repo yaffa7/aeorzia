@@ -1,4 +1,4 @@
-import React from 'react'
+import { Observer } from 'mobx-react-lite'
 import { useGameStore } from '../../GameContext'
 import { BattleScene } from '../Scenes/BattleScene'
 import { GameOverScreen } from '../Scenes/GameOverScreen'
@@ -14,13 +14,17 @@ export const SceneArea = () => {
     }
 
     return (
-        <div className="scene-area" style={computeBackgroundStyle()}>
-            {scene.isBattleScene &&
-                <BattleScene />
+        <Observer>
+            {() =>
+                <div className="scene-area" style={computeBackgroundStyle()}>
+                    {scene.isBattleScene &&
+                        <BattleScene />
+                    }
+                    {scene.isDefeatScene &&
+                        <GameOverScreen />
+                    }
+                </div>
             }
-            {scene.isDefeatScene &&
-                <GameOverScreen />
-            }
-        </div>
+        </Observer>
     )
 }

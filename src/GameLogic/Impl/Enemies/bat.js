@@ -8,7 +8,7 @@ export class bat extends ActorBase {
         this.description = "A furry bat"
         this.health = 15
         this.dexterity = 10
-        this.strength = 1
+        this.strength = 5
         this.armor_class = 3
     }
 }

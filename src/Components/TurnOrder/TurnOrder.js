@@ -1,5 +1,6 @@
 import React from 'react'
 import { useGameStore } from '../../GameContext'
+import { Observer } from 'mobx-react-lite'
 import './TurnOrder.css'
 
 export const TurnOrder = () => {
@@ -17,13 +18,17 @@ export const TurnOrder = () => {
     }
 
     return (
-        <div className="turn-container">
-            <div>Turn Order</div>
-            {
-                gameStore.sceneManager.current_scene.getActorsByInitiative().map((actor) =>
-                    <div className={() => getComputedClassName(actor)} key={actor.id}> {actor.name}</div>
-                )
+        <Observer>
+            {() =>
+                <div className="turn-container">
+                    <div>Turn Order</div>
+                    {
+                        gameStore.sceneManager.current_scene.getActorsByInitiative().map((actor) =>
+                            <div className={getComputedClassName(actor)} key={actor.id + 'turn-order'}> {actor.name}</div>
+                        )
+                    }
+                </div>
             }
-        </div>
+        </Observer>
     )
 }

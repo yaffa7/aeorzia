@@ -10,6 +10,10 @@ export default class battle_scene1a extends BattleScene {
         new bat(),
         new bat(),
         new bat(),
+        new bat(),
+        new bat(),
+        new bat(),
+        new bat(),
     ]
     background_image = mountains
 }
