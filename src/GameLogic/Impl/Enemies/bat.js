@@ -9,8 +9,6 @@ export class bat extends ActorBase {
         this.health = 15
         this.dexterity = 10
         this.strength = 1
+        this.armor_class = 3
     }
-
-
-    
 }
