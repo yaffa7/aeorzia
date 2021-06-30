@@ -12,6 +12,9 @@ div.enemy {
 div.hero.selected {
     border: 3px solid rgb(62, 200, 57);
 }
+div.enemy.selected {
+    border: 3px solid rgb(255, 0, 0);
+}
 
 div.hero.dead {
     background-color: gray;

@@ -1,16 +1,17 @@
+import { makeObservable, observable } from 'mobx';
 import battle_scene1a from '../Impl/Scenes/battle_scene1a'
 
 export default class SceneManager {
 
     scenes = []
-    current_scene;
+    current_scene = new battle_scene1a()
     next_scene;
     prev_scene;
     constructor(heroes) {
-        let startScene = new battle_scene1a()
-        startScene.heroes = heroes
-        this.current_scene = startScene
-        // this.current_scene.startCombat()
+        makeObservable(this, {
+            current_scene: observable
+        })
+        this.current_scene.heroes = heroes
     }
 
     loadNextScene(){

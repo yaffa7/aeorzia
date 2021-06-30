@@ -1,6 +1,5 @@
 import Potion from '../Impl/Items/potion'
 import ActorBase from './ActorBase'
-import Utils from './Utils'
 
 export default class Hero extends ActorBase {
     strength = 12
