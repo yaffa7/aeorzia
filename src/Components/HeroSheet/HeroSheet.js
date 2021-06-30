@@ -39,7 +39,6 @@ export const HeroSheet = () => {
                         {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
                             targetAction && hero.isTurnActive && !enemy.isDead &&
                             <button key={enemy.id} onClick={() => handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
-
                         )}
                         <div>AP: {hero.current_ap} </div>
                         <div>Health: {hero.health} </div>
