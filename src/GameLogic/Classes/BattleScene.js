@@ -39,8 +39,10 @@ export default class BattleScene extends Scene {
     }
 
     setActiveTurn() {
-         // set active turn
-         this.getActorsByInitiative().map((actor) => actor.isTurnActive = actor.name === this.getActiveActor().name ? true : false)
+        let actors = this.getActorsByInitiative()
+        this.getActiveActor().isTurnActive = false
+        this.active_index > actors.length - 1 ? this.active_index = 0 : this.active_index++
+        this.getActiveActor().isTurnActive = true
     }
 
     nextTurn() {
@@ -54,10 +56,7 @@ export default class BattleScene extends Scene {
         if(this.enemiesDead()) {
             console.log('Victory!')
         }
-        this.active_index++
-        if(this.active_index > this.getActorsByInitiative().length - 1) {
-            this.active_index = 0
-        }
+    
        this.setActiveTurn()
 
         // reset ap
@@ -71,6 +70,7 @@ export default class BattleScene extends Scene {
         console.log('combat started!', this.getActorsByInitiative())
         // Determine highest initiative in scene
         console.log('Highest Initiative was:', this.getActiveActor().name, 'with an initiative of', this.getActiveActor().dexterity )
+        this.getActiveActor().isTurnActive = true
         if(this.getActiveActor().isHero) {
             this.startHeroTurn()
         } else {
@@ -80,7 +80,6 @@ export default class BattleScene extends Scene {
 
     startHeroTurn() {
         console.log('Hero turn started!')
-        this.setActiveTurn()
     }
 
     startEnemyTurn() {
