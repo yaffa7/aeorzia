@@ -2,6 +2,7 @@ import { Observer } from 'mobx-react-lite'
 import { useGameStore } from '../../GameContext'
 import { BattleScene } from '../Scenes/BattleScene'
 import { GameOverScreen } from '../Scenes/GameOverScreen'
+import { VictoryScene } from '../Scenes/VictoryScene'
 import './SceneArea.css'
 
 
@@ -21,6 +22,9 @@ export const SceneArea = () => {
                     }
                     {gameStore.sceneManager.current_scene.isDefeatScene &&
                         <GameOverScreen />
+                    }
+                    {gameStore.sceneManager.current_scene.isVictoryScene &&
+                        <VictoryScene/>
                     }
                 </div>
             }

@@ -2,6 +2,7 @@ import { makeObservable, observable } from 'mobx';
 import battle_scene1a from '../Impl/Scenes/battle_scene1a'
 import battle_scene1b from '../Impl/Scenes/battle_scene1b'
 import { instance } from '../../GameStore'
+import victory_scene from '../Impl/Scenes/victory_scene';
 
 export default class SceneManager {
     scenes = [new battle_scene1a(), new battle_scene1b()]
@@ -22,8 +23,12 @@ export default class SceneManager {
 
         this.current_scene = null
         this.current_scene = this.scenes[curIndex + 1]
-        this.current_scene.heroes = instance.heroes
-        this.current_scene.startCombat()
+        if(this.current_scene == null) {
+            this.current_scene = new victory_scene()
+        } else {
+            this.current_scene.heroes = instance.heroes
+            this.current_scene.startCombat()
+        }
     }
 
     changeScene(scene) {

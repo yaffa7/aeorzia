@@ -9,6 +9,8 @@ export default class Scene {
     sceneManager;
     isBattleScene = false
     isDefeatScene = false
+    isVictoryScene = false
+    victory = false
     constructor() {
         makeObservable(this, {
             name: observable,
