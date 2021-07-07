@@ -46,6 +46,18 @@ export default class BattleScene extends Scene {
         return allDead
     }
 
+    clearTurnState() {
+        this.getAllActorsByInitiative().forEach(a => {
+            a.isTurnActive = false
+        })
+    }
+
+    resetPartyAP() {
+        this.heroes.forEach(hero => {
+            hero.current_ap = hero.max_ap
+        })
+    }
+
     setActiveTurn() {
         let active_index = 0
         // get current index of active actor
@@ -75,19 +87,22 @@ export default class BattleScene extends Scene {
         // Victory check
         if(this.enemiesDead()) {
             console.log('Victory!')
+            instance.sceneManager.loadNextScene()
+        } else {
+            this.setActiveTurn()
+             // reset ap
+             this.getActiveActor().current_ap = this.getActiveActor().max_ap
+             if(!this.getActiveActor().isHero) {
+                 setTimeout(() => this.startEnemyTurn(), 1000)
+             } 
         }
-    
-       this.setActiveTurn()
-
-        // reset ap
-        this.getActiveActor().current_ap = this.getActiveActor().max_ap
-        if(!this.getActiveActor().isHero) {
-            setTimeout(() => this.startEnemyTurn(), 1000)
-        } 
     }
+
 
     startCombat() {
         console.log('combat started!', this.getActorsByInitiative())
+        this.clearTurnState()
+        this.resetPartyAP()
         this.getAllActorsByInitiative()[0].isTurnActive = true
         if(this.getActiveActor().isHero) {
             this.startHeroTurn()
