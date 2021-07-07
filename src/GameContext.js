@@ -3,7 +3,7 @@ import { useLocalObservable } from 'mobx-react'
 import { instance } from './GameStore'
 
 export const GameContext = React.createContext("")
-
+window.instance = instance
 
 export const GameProvider = ({ children }) => {
     const gameStore = useLocalObservable(() => instance)

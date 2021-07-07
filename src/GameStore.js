@@ -10,10 +10,7 @@ export class GameStore {
         new Hero(this.getRandomName())
     ]
     sceneManager = new SceneManager(this.heroes)
-
-    setHeroDeadStatus(heroid, isDead) {
-        this.heroes.find(h => h.id === heroid).isDead = isDead
-    }
+    
     getRandomName() {
         let randIndex = Math.floor((Math.random() * this.names.length)) - 1
         return this.names.splice(randIndex, 1)[0]

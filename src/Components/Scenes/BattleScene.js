@@ -24,7 +24,7 @@ export class BattleScene extends React.Component {
                         <div className="monster-area">
                             {instance.sceneManager.current_scene.enemies.map((enemy) =>
                                 !enemy.isDead &&
-                                <div className="enemy" key={enemy.id}>{enemy.name} | ac {enemy.armor_class} | hp: {enemy.health}</div>
+                                <div className="enemy" key={enemy.id + 'monster-area'}>{enemy.name} | ac: {enemy.armor_class} | hp: {enemy.health}</div>
                             )}
                         </div>
                     </>

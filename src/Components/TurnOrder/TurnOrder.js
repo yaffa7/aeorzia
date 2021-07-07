@@ -16,6 +16,13 @@ export const TurnOrder = () => {
         }
         return className
     }
+    const getActors = () => {
+        // In cases where the scene changes mid-combat, check to make sure we can still call
+        // the function
+        if( gameStore.sceneManager.current_scene.getActorsByInitiative != null) {
+            return gameStore.sceneManager.current_scene.getActorsByInitiative()
+        } else return []
+    }
 
     return (
         <Observer>
@@ -23,7 +30,7 @@ export const TurnOrder = () => {
                 <div className="turn-container">
                     <div>Turn Order</div>
                     {
-                        gameStore.sceneManager.current_scene.getActorsByInitiative().map((actor) =>
+                        getActors().map((actor) =>
                             <div className={getComputedClassName(actor)} key={actor.id + 'turn-order'}> {actor.name}</div>
                         )
                     }

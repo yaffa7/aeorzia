@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import battle_scene1a from '../Impl/Scenes/battle_scene1a'
 
 export default class SceneManager {
@@ -9,7 +9,7 @@ export default class SceneManager {
     prev_scene;
     constructor(heroes) {
         makeObservable(this, {
-            current_scene: observable
+            current_scene: observable,
         })
         this.current_scene.heroes = heroes
     }

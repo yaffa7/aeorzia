@@ -14,9 +14,17 @@ export default class BattleScene extends Scene {
                             .filter(e => !e.isDead)
     }
 
-    getActiveActor() {
-        return this.getActorsByInitiative()[this.active_index]
+    getAllActorsByInitiative() {
+        return this.heroes.concat(this.enemies)
+                            .sort(function(a,b) { return a.dexterity < b.dexterity })
     }
+
+    getActiveActor() {
+        const actors = this.getActorsByInitiative()
+        let actor =  actors.find(a => a.isTurnActive === true)
+        return actor
+    }
+
 
     enemiesDead() {
         let allDead = true
@@ -39,10 +47,22 @@ export default class BattleScene extends Scene {
     }
 
     setActiveTurn() {
-        let actors = this.getActorsByInitiative()
-        this.getActiveActor().isTurnActive = false
-        this.active_index > actors.length - 1 ? this.active_index = 0 : this.active_index++
-        this.getActiveActor().isTurnActive = true
+        let active_index = 0
+        // get current index of active actor
+        this.getAllActorsByInitiative().forEach((actor,i) => {
+            if(actor.isTurnActive) {
+                active_index = i
+            }
+        })
+        // set current active actor turn to false
+        this.getAllActorsByInitiative()[active_index].isTurnActive = false
+        // reset index if we are at the end of the array, else move forward by one
+        active_index >= (this.getAllActorsByInitiative().length - 1) ? active_index = 0 : active_index++
+        // keep going until we get an actor that isnt dead
+        while(this.getAllActorsByInitiative()[active_index].isDead === true) {
+            active_index++
+        }
+        this.getAllActorsByInitiative()[active_index].isTurnActive = true
     }
 
     nextTurn() {
@@ -68,9 +88,7 @@ export default class BattleScene extends Scene {
 
     startCombat() {
         console.log('combat started!', this.getActorsByInitiative())
-        // Determine highest initiative in scene
-        console.log('Highest Initiative was:', this.getActiveActor().name, 'with an initiative of', this.getActiveActor().dexterity )
-        this.getActiveActor().isTurnActive = true
+        this.getAllActorsByInitiative()[0].isTurnActive = true
         if(this.getActiveActor().isHero) {
             this.startHeroTurn()
         } else {

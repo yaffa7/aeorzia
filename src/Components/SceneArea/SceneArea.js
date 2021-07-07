@@ -7,20 +7,19 @@ import './SceneArea.css'
 
 export const SceneArea = () => {
     const gameStore = useGameStore()
-    const scene = gameStore.sceneManager.current_scene
 
     const computeBackgroundStyle = () => {
-        return { backgroundImage: `url(${scene.background_image})` }
+        return { backgroundImage: `url(${gameStore.sceneManager.current_scene.background_image})` }
     }
 
     return (
         <Observer>
             {() =>
                 <div className="scene-area" style={computeBackgroundStyle()}>
-                    {scene.isBattleScene &&
+                    {gameStore.sceneManager.current_scene.isBattleScene &&
                         <BattleScene />
                     }
-                    {scene.isDefeatScene &&
+                    {gameStore.sceneManager.current_scene.isDefeatScene &&
                         <GameOverScreen />
                     }
                 </div>
