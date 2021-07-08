@@ -1,7 +1,5 @@
-
-
-export default function GameOverScreen() {
+export const GameOverScreen = () => {
     return (
-        <div>Game Over</div>
+        <>Game Over</>
     )
 }

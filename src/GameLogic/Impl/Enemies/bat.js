@@ -1,10 +1,14 @@
 import ActorBase from "../../Classes/ActorBase";
 
 export class bat extends ActorBase {
-    name = 'bat'
-    description = "A furry bat"
-    health = 10
-    dexterity = 10
-    strength = 1
-    armor_class = 2
+
+    constructor() {
+        super()
+        this.name = 'bat'
+        this.description = "A furry bat"
+        this.health = 15
+        this.dexterity = 10
+        this.strength = 5
+        this.armor_class = 3
+    }
 }

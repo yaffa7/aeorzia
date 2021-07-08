@@ -1,47 +1,33 @@
-import React from 'react'
-import BattleScene from '../Scenes/BattleScene'
-import GameOverScreen from '../Scenes/GameOverScreen'
-import VictoryScene from '../Scenes/VictoryScene'
+import { Observer } from 'mobx-react-lite'
+import { useGameStore } from '../../GameContext'
+import { BattleScene } from '../Scenes/BattleScene'
+import { GameOverScreen } from '../Scenes/GameOverScreen'
+import { VictoryScene } from '../Scenes/VictoryScene'
 import './SceneArea.css'
 
 
-export default class SceneArea extends React.Component {
+export const SceneArea = () => {
+    const gameStore = useGameStore()
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            game: props.game,
-            scene: props.game.sceneManager.current_scene,
-        }
+    const computeBackgroundStyle = () => {
+        return { backgroundImage: `url(${gameStore.sceneManager.current_scene.background_image})` }
     }
 
-    componentDidMount() {
-        window.game.sceneManager.registerCallback(() => this.setState(this.state.game.sceneManager.current_scene))
-    }
-
-    handleSceneChange = scene => {
-        this.setState({ scene: scene })
-    }
-
-    computeBackgroundStyle = () => {
-        return { backgroundImage: `url(${this.state.scene.background_image})` }
-    }
-
-    render() {
-        return (
-            <div>
-                <div className="scene-area" style={this.computeBackgroundStyle()}>
-                    {this.state.scene.isBattleScene &&
-                        <BattleScene game={this.state.game} scene={this.state.scene} handleSceneChange={this.handleSceneChange} />
+    return (
+        <Observer>
+            {() =>
+                <div className="scene-area" style={computeBackgroundStyle()}>
+                    {gameStore.sceneManager.current_scene.isBattleScene &&
+                        <BattleScene />
                     }
-                    {this.state.scene.isDefeatScene &&
+                    {gameStore.sceneManager.current_scene.isDefeatScene &&
                         <GameOverScreen />
                     }
-                    {this.state.scene.isVictoryScene &&
-                        <VictoryScene />
+                    {gameStore.sceneManager.current_scene.isVictoryScene &&
+                        <VictoryScene/>
                     }
                 </div>
-            </div>
-        )
-    }
+            }
+        </Observer>
+    )
 }

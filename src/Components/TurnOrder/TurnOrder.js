@@ -1,20 +1,12 @@
 import React from 'react'
+import { useGameStore } from '../../GameContext'
+import { Observer } from 'mobx-react-lite'
 import './TurnOrder.css'
 
-export default class TurnOrder extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            onSceneChange: props.onSceneChange,
-            scene: props.game.sceneManager.current_scene
-        }
-    }
+export const TurnOrder = () => {
+    const gameStore = useGameStore()
 
-    componentDidMount() {
-        window.game.sceneManager.registerCallback(() => this.setState({ scene: window.game.sceneManager.current_scene }))
-    }
-
-    getComputedClassName = (actor) => {
+    const getComputedClassName = (actor) => {
         let className = actor.isHero ? 'hero' : 'enemy'
         if (actor.isTurnActive) {
             className += ' selected'
@@ -24,17 +16,26 @@ export default class TurnOrder extends React.Component {
         }
         return className
     }
-
-    render() {
-        return (
-            <div className="turn-container">
-                <div>Turn Order</div>
-                {
-                    this.state.scene.getActorsByInitiative().map((actor) =>
-                        <div className={this.getComputedClassName(actor)}> {actor.name}</div>
-                    )
-                }
-            </div>
-        )
+    const getActors = () => {
+        // In cases where the scene changes mid-combat, check to make sure we can still call
+        // the function
+        if( gameStore.sceneManager.current_scene.getActorsByInitiative != null) {
+            return gameStore.sceneManager.current_scene.getActorsByInitiative()
+        } else return []
     }
+
+    return (
+        <Observer>
+            {() =>
+                <div className="turn-container">
+                    <div>Turn Order</div>
+                    {
+                        getActors().map((actor) =>
+                            <div className={getComputedClassName(actor)} key={actor.id + 'turn-order'}> {actor.name}</div>
+                        )
+                    }
+                </div>
+            }
+        </Observer>
+    )
 }

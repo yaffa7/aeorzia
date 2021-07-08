@@ -1,16 +1,22 @@
+import { makeObservable, observable } from "mobx";
 
 export default class Scene {
-    name;
+    name = "";
     enemies = []
     heroes = []
     objects = []
     background_image;
-    active_actor;
-    active_index = 0
+    sceneManager;
     isBattleScene = false
     isDefeatScene = false
     isVictoryScene = false
+    victory = false
     constructor() {
+        makeObservable(this, {
+            name: observable,
+            enemies: observable,
+            heroes: observable,
+            objects: observable
+        })
     }
-
 }
