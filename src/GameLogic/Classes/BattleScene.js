@@ -46,6 +46,14 @@ export default class BattleScene extends Scene {
         return allDead
     }
 
+    setDeathStatus() {
+        this.getActorsByInitiative().forEach(a => {
+            if(a.health <= 0) {
+                a.isDead = true
+            }
+        })
+    }
+
     clearTurnState() {
         this.getAllActorsByInitiative().forEach(a => {
             a.isTurnActive = false
@@ -78,12 +86,7 @@ export default class BattleScene extends Scene {
     }
 
     nextTurn() {
-        // Death check
-        this.getActorsByInitiative().forEach(a => {
-            if(a.health <= 0) {
-                a.isDead = true
-            }
-        })
+        this.setDeathStatus()
         // Victory check
         if(this.enemiesDead()) {
             console.log('Victory!')
@@ -118,7 +121,6 @@ export default class BattleScene extends Scene {
     startEnemyTurn() {
         console.log('Enemy turn started!')
         let enemy = this.getActiveActor()
-        console.log('active actor is', enemy)
         // select hero target at random
         let targetIndex = Utils.Roll(this.heroes.filter(h => !h.isDead).length)
         targetIndex--
@@ -133,8 +135,6 @@ export default class BattleScene extends Scene {
         } else { 
             instance.sceneManager.changeScene(new defeat_scene())
             console.log('Your party was defeated..')
-            return;
         }
     }
-
 }
