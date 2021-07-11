@@ -1,0 +1,37 @@
+div.hero-sheet-container {
+    display: flex;
+    flex-direction: row;
+    div.character-sheet {
+        flex:1;
+        border: 2px solid black;
+        background-color: rgba(213, 213, 213, 0.6);
+        border-radius: 1em;
+        padding: 3px;
+        margin: 0px 2px;
+        .dead {
+           visibility: hidden;
+        }
+        div[data-descr] {
+            position: relative;
+            text-decoration: underline;
+            font-size: smaller;
+            color: #00F;
+            cursor: help;
+          }
+          div[data-descr]:hover::after,
+          div[data-descr]:focus::after {
+            content: attr(data-descr);
+            position: absolute;
+            left: 0;
+            bottom: 15px;
+            max-width: 50px;
+            border: 1px #aaaaaa solid;
+            border-radius: 10px;
+            background-color: #ffffcc;
+            padding: 12px;
+            color: #000000;
+            font-size: 14px;
+            z-index: 1;
+          }
+    }
+}

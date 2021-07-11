@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGameStore } from '../../GameContext'
-import './HeroSheet.css'
+import './HeroSheet.scss'
 import { Observer } from 'mobx-react-lite';
 
 export const HeroSheet = () => {
@@ -29,28 +29,25 @@ export const HeroSheet = () => {
 
     return (
         <Observer>
-            { () => <>
-                {gameStore.sceneManager.current_scene.heroes.map((hero) =>
-                    <div className={hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
-                        <div >Name: {hero.name}</div>
-                        {hero.actions.map((action) =>
-                            <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)} key={hero.id}>{action.name}</button>
-                        )}
-                        {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
-                            targetAction && hero.isTurnActive && !enemy.isDead &&
-                            <button key={enemy.id} onClick={() => handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
-                        )}
-                        <div>AP: {hero.current_ap} </div>
-                        <div>Health: {hero.health} </div>
-                        <div >strength: {hero.strength}</div>
-                        <div >dexterity: {hero.dexterity}</div>
-                        <div >constitution: {hero.constitution}</div>
-                        <div >intelligence: {hero.intelligence}</div>
-                        <div >charisma: {hero.charisma}</div>
-                        <button disabled={!hero.isTurnActive} onClick={() => endTurn()}>end turn</button>
-                    </div>
-                )}
-            </>
+            {() =>
+                <div className="hero-sheet-container">
+                    {gameStore.sceneManager.current_scene.heroes.map((hero) =>
+                        <div className={hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
+                            <div>{hero.name}</div>
+                            {hero.actions.map((action) =>
+                                <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)} key={hero.id}>{action.name}</button>
+                            )}
+                            {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
+                                targetAction && hero.isTurnActive && !enemy.isDead &&
+                                <button key={enemy.id} onClick={() => handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
+                            )}
+                            <div>AP: {hero.current_ap} </div>
+                            <div>Health: {hero.health} </div>
+                            <div data-descr={'STR:' + hero.strength + ' DEX:' + hero.dexterity + ' CON:' + hero.constitution + " INT:" + hero.intelligence + " CHAR:" + hero.charisma}>Stats</div>
+                            <button disabled={!hero.isTurnActive} onClick={() => endTurn()}>end turn</button>
+                        </div>
+                    )}
+                </div>
             }
         </Observer>
     )
