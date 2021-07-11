@@ -7,10 +7,6 @@ import './BattleScene.scss'
 
 export class BattleScene extends React.Component {
 
-    constructor() {
-        super()
-    }
-
     componentDidMount() {
         instance.sceneManager.current_scene.startCombat()
     }

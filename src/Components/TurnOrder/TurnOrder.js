@@ -30,7 +30,7 @@ export const TurnOrder = () => {
                 <div className="turn-container">
                     {
                         getActors().map((actor) =>
-                            <div className={getComputedClassName(actor)} key={actor.id + 'turn-order'}> {actor.name}</div>
+                            <div className={'actor ' + getComputedClassName(actor)} key={actor.id + 'turn-order'}> {actor.name}</div>
                         )
                     }
                 </div>

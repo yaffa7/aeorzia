@@ -4,6 +4,7 @@ import { makeObservable, observable } from 'mobx';
 
 export default class ActorBase {
     name = "";
+    image = ""
     id = nanoid()
     description = ""
     isDead = false
