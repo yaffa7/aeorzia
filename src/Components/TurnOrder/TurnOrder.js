@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGameStore } from '../../GameContext'
 import { Observer } from 'mobx-react-lite'
-import './TurnOrder.css'
+import './TurnOrder.scss'
 
 export const TurnOrder = () => {
     const gameStore = useGameStore()
@@ -28,7 +28,6 @@ export const TurnOrder = () => {
         <Observer>
             {() =>
                 <div className="turn-container">
-                    <div>Turn Order</div>
                     {
                         getActors().map((actor) =>
                             <div className={getComputedClassName(actor)} key={actor.id + 'turn-order'}> {actor.name}</div>

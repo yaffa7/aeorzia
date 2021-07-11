@@ -1,0 +1,9 @@
+div.monster-area {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: 200px;
+    .monster {
+        border: 1px solid rgb(255, 0, 0);
+    }
+}
