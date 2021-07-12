@@ -6,8 +6,13 @@ export default class Utils {
         return Math.floor((Math.random() * sides) + 1)
     }
 
-    static PrintDelayed(func) {
-        window.delay+=this.add_delay
-        setTimeout(() => func(), window.delay)
+    static RollFromString(rollString) {
+        let totalDamage = 0
+        let numDice = rollString.split('d')[0]
+        let sides = rollString.split('d')[1]
+        for(let i = 0;i<numDice;i++) {
+            totalDamage+=this.Roll(sides)
+        }
+        return totalDamage
     }
 }

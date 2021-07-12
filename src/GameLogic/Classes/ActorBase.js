@@ -1,6 +1,7 @@
 import Utils from './Utils'
 import { nanoid } from 'nanoid'
 import { makeObservable, observable } from 'mobx';
+import { Sparks, Fireball, Cure } from '../Impl/Skills';
 
 export default class ActorBase {
     name = "";
@@ -58,6 +59,20 @@ export default class ActorBase {
             }
         }
     ]
+    skills = [
+        Sparks,
+        Fireball,
+        Cure
+    ]
+    onSkillUsedOn = (skill, user) => {
+        // this is called when a skill is used on a target
+        // the follwing runs from the context of the actor being targeted
+        console.log(user.name + ' used ' + skill.skillName + ' on ' + this.name)
+        user.current_ap-=skill.apCost
+        let damage = Utils.RollFromString(skill.damageRoll)
+        console.log('Rolled for ', damage)
+        this.health-=damage
+    }
     constructor(name) {
         this.name = name
         makeObservable(this, {
@@ -77,5 +92,4 @@ export default class ActorBase {
             current_ap: observable
         })
     }
-
 }

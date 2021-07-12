@@ -90,7 +90,7 @@ export default class BattleScene extends Scene {
         // Victory check
         if(this.enemiesDead()) {
             console.log('Victory!')
-            instance.sceneManager.loadNextScene()
+            this.victory = true
         } else {
             this.setActiveTurn()
              // reset ap

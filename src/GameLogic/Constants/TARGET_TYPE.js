@@ -1,0 +1,6 @@
+const TARGET_TYPE  = {
+    SINGLE_TARGET: 'SINGLE_TARGET',
+    MULTI_TARGET: 'MULTI_TARGET'
+}
+
+export default TARGET_TYPE
