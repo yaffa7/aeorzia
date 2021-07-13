@@ -42,7 +42,7 @@ export const HeroSheet = () => {
                         <div className={hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
                             <div>{hero.name}</div>
                             {hero.actions.map((action) =>
-                                <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)} key={hero.id}>{action.name}</button>
+                                <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)} key={hero.id}><strong>{action.name}</strong></button>
                             )}
                             {hero.skills.map((skill) => 
                                 <button disabled={!hero.isTurnActive} onClick={() => setState(true, action, skill)}>{skill.skillName}</button>

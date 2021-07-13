@@ -7,7 +7,7 @@ export default class battle_scene1a extends BattleScene {
     isBattleScene = true
     enemies = [
         new bat(),
-        new bat(),
+ 
     ]
     background_image = mountains
 }

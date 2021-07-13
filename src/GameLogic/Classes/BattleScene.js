@@ -148,7 +148,6 @@ export default class BattleScene extends Scene {
         // Give the hero the item
         this.getActiveActor().items.push(item)
         // Remove the item from the scene's drops
-        console.log(this.droppedItems.filter(existing => existing.id !== item.id))
         this.droppedItems = this.droppedItems.filter(existing => existing.id !== item.id)
     }
 }
