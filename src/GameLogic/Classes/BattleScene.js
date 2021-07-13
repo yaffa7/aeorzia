@@ -137,4 +137,9 @@ export default class BattleScene extends Scene {
             console.log('Your party was defeated..')
         }
     }
+
+    generateLootDrops() {
+        let someEnemy = this.getAllActorsByInitiative().filter(actor => actor.isHero === false)[0]
+        return someEnemy.DROP_TABLE
+    }
 }

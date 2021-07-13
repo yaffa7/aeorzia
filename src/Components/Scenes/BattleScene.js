@@ -28,18 +28,26 @@ export class BattleScene extends React.Component {
                                 !enemy.isDead &&
                                 <div className="monster" key={enemy.id + 'monster-area'}>{enemy.name} | ac: {enemy.armor_class} | hp: {enemy.health}</div>
                             )}
-                            { instance.sceneManager.current_scene.victory &&
-                                <div className="reward-container"> 
+                            {instance.sceneManager.current_scene.victory &&
+                                <div className="reward-container">
                                     <div>Victory! rewards:</div>
-                                    <div> Gold: {instance.sceneManager.current_scene.enemies.length * 100 * (1.0 + (Utils.Roll(50)/100))}</div>
+                                    <div> Gold: {instance.sceneManager.current_scene.enemies.length * 100 * (1.0 + (Utils.Roll(50) / 100))}</div>
                                     <div>Items </div>
-                                    <button onClick={ () => instance.sceneManager.loadNextScene()}>Next</button>
+                                    {instance.sceneManager.current_scene.generateLootDrops().map((item) =>
+                                        <div className="item">
+                                            {item.name}
+                                            <span>
+                                                <button onClick={instance.sceneManager.current_scene.getActiveActor().push(item)}>Take</button>
+                                            </span>
+                                        </div>
+                                    )}
+                                    <button onClick={() => instance.sceneManager.loadNextScene()}>Next</button>
                                 </div>
                             }
                         </div>
                         <TurnOrder />
                     </div>
-                <HeroSheet />
+                    <HeroSheet />
                 </>
                 }
             </Observer>

@@ -2,6 +2,7 @@ import Utils from './Utils'
 import { nanoid } from 'nanoid'
 import { makeObservable, observable } from 'mobx';
 import { Sparks, Fireball, Cure } from '../Impl/Skills';
+import DROP_TABLE from '../Constants/DROP_TABLE';
 
 export default class ActorBase {
     name = "";
@@ -22,6 +23,7 @@ export default class ActorBase {
     items = []
     max_ap = 10
     current_ap = 10
+    DROP_TABLE = DROP_TABLE.NONE
     actions = [
         {
             name: "attack",
