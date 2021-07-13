@@ -55,6 +55,10 @@ export const HeroSheet = () => {
                             <div>AP: {hero.current_ap} </div>
                             <div>Health: {hero.health} </div>
                             <div data-descr={'STR:' + hero.strength + ' DEX:' + hero.dexterity + ' CON:' + hero.constitution + " INT:" + hero.intelligence + " CHAR:" + hero.charisma}>Stats</div>
+                            <div><strong>Items</strong></div>
+                            { hero.items.map((item) => 
+                                <div>{item.name}</div>
+                            )}
                             <button disabled={!hero.isTurnActive} onClick={() => endTurn()}>end turn</button>
                         </div>
                     )}

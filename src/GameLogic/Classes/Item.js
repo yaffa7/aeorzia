@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid"
+
 // items are objects that can be used in battle
 export default class Item {
     constructor() {
@@ -7,5 +9,6 @@ export default class Item {
             console.log(this.user, 'used', this.name, 'on', this.target)
         }
         this.value = 0
+        this.id = nanoid()
     }
 }

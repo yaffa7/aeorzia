@@ -33,11 +33,11 @@ export class BattleScene extends React.Component {
                                     <div>Victory! rewards:</div>
                                     <div> Gold: {instance.sceneManager.current_scene.enemies.length * 100 * (1.0 + (Utils.Roll(50) / 100))}</div>
                                     <div>Items </div>
-                                    {instance.sceneManager.current_scene.generateLootDrops().map((item) =>
+                                    {instance.sceneManager.current_scene.droppedItems.map((item) =>
                                         <div className="item">
                                             {item.name}
                                             <span>
-                                                <button onClick={instance.sceneManager.current_scene.getActiveActor().push(item)}>Take</button>
+                                                <button onClick={() => instance.sceneManager.current_scene.transferItem(item)}>Take</button>
                                             </span>
                                         </div>
                                     )}

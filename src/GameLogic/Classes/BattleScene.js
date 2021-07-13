@@ -90,6 +90,7 @@ export default class BattleScene extends Scene {
         // Victory check
         if(this.enemiesDead()) {
             console.log('Victory!')
+            this.generateLootDrops()
             this.victory = true
         } else {
             this.setActiveTurn()
@@ -140,6 +141,14 @@ export default class BattleScene extends Scene {
 
     generateLootDrops() {
         let someEnemy = this.getAllActorsByInitiative().filter(actor => actor.isHero === false)[0]
-        return someEnemy.DROP_TABLE
+        this.droppedItems = someEnemy.DROP_TABLE
+    }
+
+    transferItem(item) {
+        // Give the hero the item
+        this.getActiveActor().items.push(item)
+        // Remove the item from the scene's drops
+        console.log(this.droppedItems.filter(existing => existing.id !== item.id))
+        this.droppedItems = this.droppedItems.filter(existing => existing.id !== item.id)
     }
 }
