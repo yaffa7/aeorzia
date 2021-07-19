@@ -5,9 +5,5 @@ import BattleScene from "../../Classes/BattleScene";
 export default class battle_scene1a extends BattleScene {
     name = "battle_scene1a"
     isBattleScene = true
-    enemies = [
-        new bat(),
- 
-    ]
     background_image = mountains
 }

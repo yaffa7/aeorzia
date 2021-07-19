@@ -3,9 +3,10 @@ import battle_scene1a from '../Impl/Scenes/battle_scene1a'
 import battle_scene1b from '../Impl/Scenes/battle_scene1b'
 import { instance } from '../../GameStore'
 import victory_scene from '../Impl/Scenes/victory_scene';
+import BattleGenerator from '../Classes/BattleGenerator';
 
 export default class SceneManager {
-    scenes = [new battle_scene1a(), new battle_scene1b()]
+    scenes = BattleGenerator.GenerateBattles('ZONE_1', 5)
     current_scene = "";
     getCurrentIndex() {
         return this.scenes.indexOf(this.current_scene)

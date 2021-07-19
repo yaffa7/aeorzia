@@ -1,13 +1,16 @@
-import Hero from './GameLogic/Classes/Hero'
 import SceneManager from './GameLogic/Controllers/SceneManager'
+import { Felen } from './GameLogic/Impl/Heroes/Felen'
+import { Elumbar } from './GameLogic/Impl/Heroes/Elumbar'
+import { Ingos } from './GameLogic/Impl/Heroes/Ingos'
+import { Varne } from './GameLogic/Impl/Heroes/Varne'
 
 export class GameStore {
     names = ['varne', 'felen', 'elumbar', 'ingos']
     heroes = [
-        new Hero(this.getRandomName()),
-        new Hero(this.getRandomName()),
-        new Hero(this.getRandomName()),
-        new Hero(this.getRandomName())
+        new Felen(),
+        new Elumbar(),
+        new Ingos(),
+        new Varne()
     ]
     sceneManager = new SceneManager(this.heroes)
     

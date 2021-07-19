@@ -1,7 +1,6 @@
 import Utils from './Utils'
 import { nanoid } from 'nanoid'
 import { makeObservable, observable } from 'mobx';
-import { Sparks, Fireball, Cure } from '../Impl/Skills';
 import DROP_TABLE from '../Constants/DROP_TABLE';
 
 export default class ActorBase {
@@ -60,11 +59,6 @@ export default class ActorBase {
                 } else { console.log(this.name, 'Not enough AP!') }
             }
         }
-    ]
-    skills = [
-        Sparks,
-        Fireball,
-        Cure
     ]
     onSkillUsedOn = (skill, user) => {
         // this is called when a skill is used on a target

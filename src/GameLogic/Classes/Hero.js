@@ -1,5 +1,7 @@
 import Potion from '../Impl/Items/potion'
 import ActorBase from './ActorBase'
+import { Sparks, Fireball, Cure } from '../Impl/Skills'
+
 
 export default class Hero extends ActorBase {
     strength = 12
@@ -12,13 +14,9 @@ export default class Hero extends ActorBase {
     max_ap = 2
     current_ap = 2
     items = [new Potion()]
-
-    constructor(name) {
-        super(name)
-        this.name = name
-    }
-
-    printStats = () => {
-        return (this.strength, this.dexterity, this.constitution, this.intelligence, this.charisma)
-    }
+    skills = [
+        Sparks,
+        Fireball,
+        Cure
+    ]
 }

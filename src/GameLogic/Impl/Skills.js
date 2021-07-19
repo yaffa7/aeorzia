@@ -28,4 +28,24 @@ const Cure  = {
     targetType: TARGET_TYPE.SINGLE_TARGET,
 }
 
-export { Sparks, Fireball, Cure }
+// ENEMIES
+
+const Bite = {
+    skillName: 'Bite',
+    damageRoll: '1d6',
+    damageType: DAMAGE_TYPE.PIERCING_DAMAGE,
+    apCost: 2,
+    description: 'ima bite ya',
+    targetType: TARGET_TYPE.SINGLE_TARGET
+}
+
+const Scratch = {
+    skillName: 'Scratch',
+    damageRoll: '1d4',
+    damageType: DAMAGE_TYPE.PIERCING_DAMAGE,
+    apCost: 2,
+    description: 'ima scratch ya',
+    targetType: TARGET_TYPE.SINGLE_TARGET
+}
+
+export { Sparks, Fireball, Cure, Bite, Scratch }
