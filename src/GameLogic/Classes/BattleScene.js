@@ -6,7 +6,7 @@ import Utils from './Utils'
 
 export default class BattleScene extends Scene {
 
-
+    gold_reward;
     // Only returns alive heroes
     getActorsByInitiative() {
         return this.heroes.concat(this.enemies)
@@ -149,5 +149,12 @@ export default class BattleScene extends Scene {
         this.getActiveActor().items.push(item)
         // Remove the item from the scene's drops
         this.droppedItems = this.droppedItems.filter(existing => existing.id !== item.id)
+    }
+
+    generateGoldReward() {
+        if(this.gold_reward == null) {
+            this.gold_reward =  this.enemies.length * 100 * (1.0 + (Utils.Roll(50) / 100))
+        }
+        return this.gold_reward
     }
 }

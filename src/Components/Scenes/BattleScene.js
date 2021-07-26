@@ -5,7 +5,6 @@ import { Observer } from 'mobx-react-lite';
 import { TurnOrder } from "../TurnOrder/TurnOrder"
 import { HeroSheet } from '../HeroSheet/HeroSheet'
 import './BattleScene.scss'
-import Utils from '../../GameLogic/Classes/Utils';
 
 export class BattleScene extends React.Component {
 
@@ -17,6 +16,10 @@ export class BattleScene extends React.Component {
         return { backgroundImage: `url(${instance.sceneManager.current_scene.background_image})` }
     }
 
+    nextScene = () => {
+        instance.partyGold += instance.sceneManager.current_scene.gold_reward
+        instance.sceneManager.loadNextScene()
+    }
 
     render() {
         console.log([...instance.sceneManager.current_scene.enemies])
@@ -32,7 +35,7 @@ export class BattleScene extends React.Component {
                             {instance.sceneManager.current_scene.victory &&
                                 <div className="reward-container">
                                     <div>Victory! rewards:</div>
-                                    <div> Gold: {instance.sceneManager.current_scene.enemies.length * 100 * (1.0 + (Utils.Roll(50) / 100))}</div>
+                                    <div> Gold: {instance.sceneManager.current_scene.generateGoldReward()}</div>
                                     <div>Items </div>
                                     {instance.sceneManager.current_scene.droppedItems.map((item) =>
                                         <div className="item">
@@ -42,7 +45,7 @@ export class BattleScene extends React.Component {
                                             </span>
                                         </div>
                                     )}
-                                    <button onClick={() => instance.sceneManager.loadNextScene()}>Next</button>
+                                    <button onClick={() => this.nextScene()}>Next</button>
                                 </div>
                             }
                         </div>

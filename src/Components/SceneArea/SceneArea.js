@@ -13,7 +13,7 @@ export const SceneArea = () => {
         <Observer>
             {() =>
                 <>
-                    <div className="name-area">{gameStore.sceneManager.current_scene.name}</div>
+                    <div className="name-area">{gameStore.sceneManager.current_scene.name} - Gold:{gameStore.partyGold}</div>
                     {gameStore.sceneManager.current_scene.isBattleScene &&
                         <BattleScene />
                     }
