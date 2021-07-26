@@ -12,8 +12,7 @@ export default class Scene {
     isVictoryScene = false
     victory = false
     droppedItems = []
-    constructor(enemies) {
-        this.enemies = enemies
+    constructor() {
         makeObservable(this, {
             name: observable,
             enemies: observable,

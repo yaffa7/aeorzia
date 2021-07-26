@@ -19,6 +19,7 @@ export class BattleScene extends React.Component {
 
 
     render() {
+        console.log([...instance.sceneManager.current_scene.enemies])
         return (
             <Observer>
                 {() => <>
