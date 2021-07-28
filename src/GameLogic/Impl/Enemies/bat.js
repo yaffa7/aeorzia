@@ -10,6 +10,7 @@ export class bat extends ActorBase {
     strength = 5
     armor_class = 1
     DROP_TABLE = DROP_TABLE.SMALL_CREATURE
+    image = "https://cdn.pixabay.com/photo/2013/07/12/13/26/bat-147038_1280.png"
     skills = [
         Bite
     ]

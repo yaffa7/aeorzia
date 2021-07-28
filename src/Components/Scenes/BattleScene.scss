@@ -1,10 +1,17 @@
 div.monster-area {
     display: flex;
+    flex: 1;
     flex-flow: row wrap;
     justify-content: center;
-    height: 200px;
+    height: 100%;
     .monster {
+        height: 100%;
+        flex: 1;
         border: 1px solid rgb(255, 0, 0);
+        img {
+            // height: 100%;
+            max-width: 75%;
+        }
     }
 }
 

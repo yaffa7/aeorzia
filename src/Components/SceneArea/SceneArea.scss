@@ -1,7 +1,11 @@
 div.scene-area {
-    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    min-height: 250px;
     border-bottom: 2px solid black;
     padding: 3px;
+    background-repeat: no-repeat;
+    background-position:left;
 }
 
 div.name-area {

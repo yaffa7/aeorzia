@@ -10,6 +10,7 @@ export class dog extends ActorBase {
     strength = 5
     armor_class = 4
     DROP_TABLE = DROP_TABLE.SMALL_CREATURE
+    image = "https://cdn.pixabay.com/photo/2013/07/12/15/02/dog-149300_1280.png"
     skills = [
         Bite
     ]

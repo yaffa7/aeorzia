@@ -6,7 +6,7 @@ import DAMAGE_TYPE from '../Constants/DAMAGE_TYPE';
 
 export default class ActorBase {
     name = "";
-    image = ""
+    image = null
     id = nanoid()
     description = ""
     isDead = false

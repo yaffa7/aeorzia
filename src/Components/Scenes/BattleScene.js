@@ -17,12 +17,11 @@ export class BattleScene extends React.Component {
     }
 
     nextScene = () => {
-        instance.partyGold += instance.sceneManager.current_scene.gold_reward
+        instance.partyGold += Math.floor(instance.sceneManager.current_scene.gold_reward)
         instance.sceneManager.loadNextScene()
     }
 
     render() {
-        console.log([...instance.sceneManager.current_scene.enemies])
         return (
             <Observer>
                 {() => <>
@@ -30,7 +29,10 @@ export class BattleScene extends React.Component {
                         <div className="monster-area">
                             {instance.sceneManager.current_scene.enemies.map((enemy) =>
                                 !enemy.isDead &&
-                                <div className="monster" key={enemy.id + 'monster-area'}>{enemy.name} | ac: {enemy.armor_class} | hp: {enemy.health}</div>
+                                <div className="monster" key={enemy.id + 'monster-area'}>
+                                    <div>{enemy.name} | ac: {enemy.armor_class} | hp: {enemy.health}</div>
+                                    <img src={enemy.image ? enemy.image : ""}></img>
+                                </div>
                             )}
                             {instance.sceneManager.current_scene.victory &&
                                 <div className="reward-container">
