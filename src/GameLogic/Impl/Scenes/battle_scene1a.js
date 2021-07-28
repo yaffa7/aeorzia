@@ -1,4 +1,3 @@
-import { bat } from "../Enemies/bat";
 import mountains from '../../../assets/Scenes/mountains.jpg'
 import BattleScene from "../../Classes/BattleScene";
 

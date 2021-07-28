@@ -2,6 +2,7 @@ import Utils from './Utils'
 import { nanoid } from 'nanoid'
 import { makeObservable, observable } from 'mobx';
 import DROP_TABLE from '../Constants/DROP_TABLE';
+import DAMAGE_TYPE from '../Constants/DAMAGE_TYPE';
 
 export default class ActorBase {
     name = "";
@@ -63,11 +64,18 @@ export default class ActorBase {
     onSkillUsedOn = (skill, user) => {
         // this is called when a skill is used on a target
         // the follwing runs from the context of the actor being targeted
-        console.log(user.name + ' used ' + skill.skillName + ' on ' + this.name)
-        user.current_ap-=skill.apCost
-        let damage = Utils.RollFromString(skill.damageRoll)
-        console.log('Rolled for ', damage)
-        this.health-=damage
+        if(user.current_ap >= skill.apCost) {
+            console.log(user.name + ' used ' + skill.skillName + ' on ' + this.name)
+            user.current_ap-=skill.apCost
+            let damage = Utils.RollFromString(skill.damageRoll)
+            if(skill.damageType === DAMAGE_TYPE.HEALING) {
+                console.log('Rolled for', `(${skill.damageRoll})` ,`[${damage} ${skill.damageType}]`)
+                damage=-damage
+            } else {
+                console.log('Rolled for', `(${skill.damageRoll})` ,`[${damage} ${skill.damageType}]`)
+            }
+            this.health-=damage
+        }
     }
     constructor(name) {
         this.name = name

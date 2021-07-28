@@ -79,8 +79,8 @@ export default class BattleScene extends Scene {
         // reset index if we are at the end of the array, else move forward by one
         active_index >= (this.getAllActorsByInitiative().length - 1) ? active_index = 0 : active_index++
         // keep going until we get an actor that isnt dead
-        while(this.getAllActorsByInitiative()[active_index].isDead === true) {
-            active_index++
+        while(this.getAllActorsByInitiative()[active_index].isDead === true ) {
+            active_index >= (this.getAllActorsByInitiative().length - 1) ? active_index = 0 : active_index++
         }
         this.getAllActorsByInitiative()[active_index].isTurnActive = true
     }
@@ -127,11 +127,12 @@ export default class BattleScene extends Scene {
         targetIndex--
         let targetHero = this.heroes.filter(h => !h.isDead)[targetIndex]
         if (targetHero != null) {
-            enemy.actions.forEach(action => {
-                if(action.name === 'attack') {
-                    action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
-                }
-            });
+            targetHero.onSkillUsedOn(enemy.skills[0], enemy)
+            // enemy.actions.forEach(action => {
+            //     if(action.name === 'attack') {
+            //         action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
+            //     }
+            // });
             this.nextTurn()
         } else { 
             instance.sceneManager.changeScene(new defeat_scene())

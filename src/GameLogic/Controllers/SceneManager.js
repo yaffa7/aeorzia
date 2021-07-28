@@ -1,6 +1,4 @@
 import { makeObservable, observable } from 'mobx';
-import battle_scene1a from '../Impl/Scenes/battle_scene1a'
-import battle_scene1b from '../Impl/Scenes/battle_scene1b'
 import { instance } from '../../GameStore'
 import victory_scene from '../Impl/Scenes/victory_scene';
 import BattleGenerator from '../Classes/BattleGenerator';

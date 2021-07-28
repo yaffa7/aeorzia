@@ -4,11 +4,11 @@ import { racoon } from "../Impl/Enemies/racoon";
 
 const MOB_TABLE = {
     'ZONE_1': [
-        [ new bat(),  new bat(),  new bat(),  new bat()],
-        [ new dog(),  new bat(),  new bat()],
-        [ new racoon(),  new bat(),  new dog()],
-        [ new racoon()],
-        [ new dog(),  new dog()]
+        [  bat,   bat,   bat,   bat],
+        [  dog,   bat,   bat],
+        [  racoon,   bat,   dog],
+        [  racoon],
+        [  dog,   dog],
     ]
 }
 
