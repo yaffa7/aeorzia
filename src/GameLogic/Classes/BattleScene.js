@@ -25,6 +25,19 @@ export default class BattleScene extends Scene {
         return actor
     }
 
+    getActiveHero() {
+        let activeHeros = this.heroes.filter(hero => hero.isTurnActive === true)
+        if (activeHeros.length == 0) {
+            return []
+        }
+        return activeHeros
+    }
+
+    getInactiveHeroes() {
+        let activeHeros = this.heroes.filter(hero => hero.isTurnActive === false)
+        return activeHeros
+    }
+
 
     enemiesDead() {
         let allDead = true

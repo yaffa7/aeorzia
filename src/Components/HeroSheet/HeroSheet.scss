@@ -1,40 +1,34 @@
 div.hero-sheet-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 4px;
     border: 2px solid black;
     padding: 3px;
     div.character-sheet {
-        flex:1;
+        flex: 25%;
         border: 2px solid black;
         background-color: rgba(213, 213, 213, 0.6);
-        border-radius: 1em;
+        border-radius: 4px;
         padding: 3px;
         margin: 0px 2px;
         .dead {
            visibility: hidden;
         }
-        div[data-descr] {
-            position: relative;
-            text-decoration: underline;
-            font-size: smaller;
-            color: #00F;
-            cursor: help;
-          }
-          div[data-descr]:hover::after,
-          div[data-descr]:focus::after {
-            content: attr(data-descr);
-            position: absolute;
-            left: 0;
-            bottom: 15px;
-            max-width: 50px;
-            border: 1px #aaaaaa solid;
-            border-radius: 10px;
-            background-color: #ffffcc;
-            padding: 12px;
-            color: #000000;
-            font-size: 14px;
-            z-index: 1;
-          }
+      }
+    .active-row {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 5px;
+      div.detail-panel {
+        flex: 75%;
+        border-radius: 4px;
+        border: 2px solid black;
+        padding: 3px;
+        height: 150px;
+      }
+    }
+    .inactive-row {
+      display: flex;
+      flex-direction: row wrap;
     }
 }
