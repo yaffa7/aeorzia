@@ -51,15 +51,6 @@ export default class ActorBase {
                 } else { console.log(this.name, 'Not enough AP!') }
             }
         },
-        {
-            name: "Items",
-            onExecute: (target) => {
-                if (this.current_ap >= 1) {
-                    this.current_ap--
-                    console.log(this.name, "used an item action on", target.name)
-                } else { console.log(this.name, 'Not enough AP!') }
-            }
-        }
     ]
     onSkillUsedOn = (skill, user) => {
         // this is called when a skill is used on a target

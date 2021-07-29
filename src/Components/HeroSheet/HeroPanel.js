@@ -3,14 +3,23 @@ import { useGameStore } from '../../GameContext'
 
 const HeroPanel = (props) => {
     const gameStore = useGameStore()
+
+    const computeClassName = () =>  {
+        let classname = ''
+        props.hero.isDead === true ? classname+='character-sheet dead ' : classname+='character-sheet '
+        props.hero.isTurnActive === true ? classname+='active' : classname+='inactive'
+
+        return classname
+    }
+
     return (
         <Observer>
             {() =>
-                <div className={props.hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
+                <div className={computeClassName()}>
                     <div>{props.hero.name}</div>
-                    {/* {props.hero.actions.map((action) =>
+                    {props.hero.actions.map(action => (
                         <button disabled={!props.hero.isTurnActive} style={{ display: 'block' }} onClick={() => props.setState(true, action)} key={props.hero.id}><strong>{action.name}</strong></button>
-                    )} */}
+                    ))}
                     {/* {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
                         props.action && props.hero.isTurnActive && !enemy.isDead &&
                         <button key={enemy.id} onClick={() => props.handleAction(enemy, props.hero)}>{enemy.name} | {enemy.health}</button>
