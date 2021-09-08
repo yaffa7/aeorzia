@@ -1,6 +1,9 @@
+import './DetailPanel.scss'
+import { useGameStore } from '../../GameContext'
 
 const DetailPanel = (props) => {
-
+    const gameStore = useGameStore()
+    
     const activePanel = () => {
         if (props.activePanel === 'skills') {
             return (
@@ -8,6 +11,10 @@ const DetailPanel = (props) => {
                     {props.hero.skills.map(s => (
                         <button>{s.skillName}</button>
                     ))}
+                    {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
+                        props.action && props.hero.isTurnActive && !enemy.isDead &&
+                        <button key={enemy.id} onClick={() => props.handleAction(enemy, props.hero)}>{enemy.name} | {enemy.health}</button>
+                    )}
                 </>
             )
         }

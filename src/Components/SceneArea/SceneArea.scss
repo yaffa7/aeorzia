@@ -2,13 +2,14 @@ div.scene-area {
     display: flex;
     flex-flow: column wrap;
     min-height: 250px;
-    border-bottom: 2px solid black;
     padding: 3px;
-    background-repeat: no-repeat;
-    background-position:left;
+    background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position:left;
 }
 
 div.name-area {
     border-radius: 4px;
     border: 2px solid black;
+    height: 3rem;
 }
