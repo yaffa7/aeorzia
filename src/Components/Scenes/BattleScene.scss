@@ -3,16 +3,21 @@ div.monster-area {
     flex: 1;
     flex-flow: row wrap;
     justify-content: center;
-    height: 100%;
     .monster {
-        height: 100%;
         flex: 1;
         border: 1px solid rgb(255, 0, 0);
         img {
-            // height: 100%;
-            max-width: 75%;
+            height: 200px;
+            width: 200px;
         }
     }
+}
+
+div.combat-log {
+    padding: 5px;
+    border: 1px solid black;
+    height: 200px;
+    overflow: scroll;
 }
 
 div.reward-container {
