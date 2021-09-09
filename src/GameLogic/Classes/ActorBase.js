@@ -47,7 +47,8 @@ export default class ActorBase {
             onExecute: (target) => {
                 if (this.current_ap >= 1) {
                     this.current_ap--
-                } else { Utils.log(this.name + ' Not enough AP!') }
+                    Utils.log(`${target.description}`)
+                } else { Utils.log(`${this.name} Not enough AP!`) }
             }
         },
         {

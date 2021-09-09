@@ -26,6 +26,7 @@ export class BattleScene extends React.Component {
         return (
             <Observer>
                 {() => <>
+                    <div className="panel">
                     <div className="scene-area" style={this.computeBackgroundStyle()}>
                         <div className="monster-area">
                             {instance.sceneManager.current_scene.enemies.map((enemy) =>
@@ -55,7 +56,10 @@ export class BattleScene extends React.Component {
                         
                         <TurnOrder />
                     </div>
+                    </div>
+                    <br/>
                     <HeroSheet />
+                    <br/>
                     <CombatLog/>
                 </>
                 }

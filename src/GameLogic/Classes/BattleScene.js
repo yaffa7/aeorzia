@@ -90,6 +90,7 @@ export default class BattleScene extends Scene {
         // Victory check
         if(this.enemiesDead()) {
             Utils.log('Victory!')
+            Utils.log('----------------------------------------------------------')
             this.generateLootDrops()
             this.victory = true
         } else {

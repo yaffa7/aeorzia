@@ -39,6 +39,7 @@ export const HeroSheet = () => {
             {() =>
                 <div className="hero-sheet-container">
                     {gameStore.sceneManager.current_scene.heroes.map((hero) =>
+                        <div className="panel">
                         <div className={hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
                             <div>{hero.name}</div>
                             {hero.actions.map((action) =>
@@ -60,6 +61,7 @@ export const HeroSheet = () => {
                                 <div>{item.name}</div>
                             )}
                             <button disabled={!hero.isTurnActive} onClick={() => endTurn()}>end turn</button>
+                        </div>
                         </div>
                     )}
                 </div>
