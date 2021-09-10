@@ -2,7 +2,6 @@ div.scene-area {
     display: flex;
     flex-flow: column wrap;
     height: 300px;
-    border-bottom: 2px solid black;
     padding: 3px;
     background-repeat: no-repeat;
     background-position:left;
@@ -10,6 +9,7 @@ div.scene-area {
 }
 
 div.panel {
+    text-shadow: black 1px 1px;
     font-family: '8 bit limit';
     color: white;
     font-size: 25px;
@@ -18,5 +18,5 @@ div.panel {
     border: 3px solid rgb(255, 255, 255);
     background: rgb(81,82,214);
     background: linear-gradient(180deg, rgba(81,82,214,1) 0%, rgba(52,50,183,1) 54%, rgba(23,22,142,1) 100%);
-    box-shadow: 4px 4px 2px -2px #872849, inset 4px 4px 4px -1px #872849;
+    box-shadow: 4px 4px 2px -2px #000000, inset 4px 4px 4px -1px rgba(0,0,0,.7);
 }

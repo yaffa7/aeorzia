@@ -1,7 +1,10 @@
 div.hero-sheet-container {
+  &margin-r5 {
+    margin-right: 5px;
+  }
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     div.character-sheet {
         flex:1;
         .dead {
