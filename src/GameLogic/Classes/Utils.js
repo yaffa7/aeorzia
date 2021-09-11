@@ -20,6 +20,7 @@ export default class Utils {
     }
 
     static log(message) {
+        console.log(message)
         instance.combat_log.push(message)
     }
 }
