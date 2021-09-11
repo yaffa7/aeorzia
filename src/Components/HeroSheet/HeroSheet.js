@@ -2,15 +2,13 @@ import React from 'react'
 import { useGameStore } from '../../GameContext'
 import './HeroSheet.scss'
 import { Observer } from 'mobx-react-lite';
-import HeroPanel from './HeroPanel';
-import DetailPanel from './DetailPanel';
+import { CombatLog } from '../CombatLog/CombatLog';
 
 export const HeroSheet = () => {
     const gameStore = useGameStore()
     const [targetAction, setTargetAction] = React.useState("")
     const [targetSkill, setTargetSkill] = React.useState("")
     const [action, setAction] = React.useState("")
-    const [activePanel, setActivePanel] = React.useState("details")
 
     const handleAction = (target, hero) => {
         if (targetSkill) {
@@ -42,7 +40,7 @@ export const HeroSheet = () => {
             {() =>
                 <div className="hero-sheet-container">
                     {gameStore.sceneManager.current_scene.heroes.map((hero) =>
-                        <div className="panel">
+                        <div className="panel text-medium">
                         <div className={hero.isDead ? 'character-sheet dead' : 'character-sheet'}>
                             <div>{hero.name}</div>
                             {hero.actions.map((action) =>
@@ -67,6 +65,7 @@ export const HeroSheet = () => {
                         </div>
                         </div>
                     )}
+                    <CombatLog/>
                 </div>
             }
         </Observer>

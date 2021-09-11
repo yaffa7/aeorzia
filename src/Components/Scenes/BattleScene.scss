@@ -1,7 +1,6 @@
 div.monster-area {
     display: flex;
     flex: 1;
-    flex-flow: row wrap;
     justify-content: center;
     .monster {
         flex: 1;
@@ -14,8 +13,8 @@ div.monster-area {
 }
 
 div.combat-log {
-    height: 200px;
-    overflow: scroll;
+    height: 300px;
+    overflow-y: auto;
 }
 
 div.reward-container {

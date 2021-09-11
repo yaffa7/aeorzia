@@ -1,19 +1,42 @@
 import { Observer } from "mobx-react-lite"
 import { useGameStore } from "../../GameContext"
+import React, { createRef } from 'react'
+import { instance } from '../../GameStore'
 
-export const CombatLog = () => {
-    const gameStore = useGameStore()
-    return (
-        <Observer>
-            {() => 
-            <div className="panel">
-                <div class="combat-log">
-                    {gameStore.combat_log.slice().reverse().map((m) => 
-                            <div className="message">{m}</div>
-                    )}
-                </div>
-            </div>
+export class CombatLog extends React.Component {
+    constructor(props) {
+        super(props)
+        this.gameStore = instance
+        this.logRef = createRef(null)
+    }
+
+    updateScrollPosition = (logRef) => {
+        if (logRef.current) {
+            if (logRef.current.childNodes.length !== 0) {
+                let lastMessage = Array.from(logRef.current.childNodes)[logRef.current.childNodes.length - 1]
+                console.log(lastMessage)
+                setTimeout(() => lastMessage.scrollIntoView({ behavior: 'smooth' }), 100)
+            } else {
+                console.log('null case')
             }
-        </Observer>
-    )
+        }
+    }
+
+
+    render() {
+        return (
+            <Observer>
+                {() =>
+                    <div className="panel">
+                        {this.updateScrollPosition(this.logRef)}
+                        <div ref={this.logRef} class="combat-log">
+                            {this.gameStore.combat_log.map((m) =>
+                                <div className="message">{m}</div>
+                            )}
+                        </div>
+                    </div>
+                }
+            </Observer>
+        )
+    }
 }

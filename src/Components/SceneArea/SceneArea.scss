@@ -3,9 +3,9 @@ div.scene-area {
     flex-flow: column wrap;
     height: 300px;
     padding: 3px;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position:left;
-    overflow: scroll;
 }
 
 div.panel {
@@ -19,4 +19,13 @@ div.panel {
     background: rgb(81,82,214);
     background: linear-gradient(180deg, rgba(81,82,214,1) 0%, rgba(52,50,183,1) 54%, rgba(23,22,142,1) 100%);
     box-shadow: 4px 4px 2px -2px #000000, inset 4px 4px 4px -1px rgba(0,0,0,.7);
+    &.no-padding {
+        padding: 0px;
+    }
+    &.text-medium {
+        font-size: 18px
+    }
+    &.text-small {
+        font-size: 12px;
+    }
 }
