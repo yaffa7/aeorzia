@@ -7,6 +7,7 @@ import { makeObservable, observable } from 'mobx'
 
 export class GameStore {
     names = ['varne', 'felen', 'elumbar', 'ingos']
+    combat_log = []
     heroes = [
         new Felen(),
         new Elumbar(),
@@ -24,7 +25,8 @@ export class GameStore {
     }
     constructor() {
         makeObservable(this, {
-            partyGold: observable
+            partyGold: observable,
+            combat_log: observable
         })
     }
 }

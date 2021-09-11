@@ -1,4 +1,7 @@
+import { instance } from "../../GameStore";
+
 export default class Utils {
+    
 
     add_delay = 500
 
@@ -14,5 +17,10 @@ export default class Utils {
             totalDamage+=this.Roll(sides)
         }
         return totalDamage
+    }
+
+    static log(message) {
+        console.log(message)
+        instance.combat_log.push(message)
     }
 }

@@ -30,16 +30,16 @@ export default class ActorBase {
             onExecute: (target) => {
                 if (this.current_ap >= 2) {
                     this.current_ap = this.current_ap - 2
-                    console.log(this.name, 'attacked!', target.name)
+                    Utils.log(`${this.name} attacked! ${target.name}`)
                     let attackRoll = Utils.Roll(20)
                     let damageRoll = Utils.Roll(this.strength)
                     if (attackRoll >= target.armor_class) {
-                        console.log(this.name, 'hits! with a damage of', damageRoll)
+                        Utils.log(`${this.name} hits! with a damage of ${damageRoll}`)
                         target.health = target.health - damageRoll
                     } else {
-                        console.log(this.name, 'missed! their target', target.name, 'with a roll of', attackRoll)
+                        Utils.log(this.name + ' missed! their target ' + target.name + ' with a roll of ' + attackRoll)
                     }
-                } else { console.log(this.name, 'Not enough AP!') }
+                } else { Utils.log(this.name + ' Not enough AP!') }
             }
         },
         {
@@ -47,24 +47,31 @@ export default class ActorBase {
             onExecute: (target) => {
                 if (this.current_ap >= 1) {
                     this.current_ap--
-                    console.log(target.description)
-                } else { console.log(this.name, 'Not enough AP!') }
+                    Utils.log(`${target.description}`)
+                } else { Utils.log(`${this.name} Not enough AP!`) }
             }
         },
+        {
+            name: "Items",
+            onExecute: (target) => {
+                if (this.current_ap >= 1) {
+                    this.current_ap--
+                    Utils.log(`${this.name} used an item action on ${target.name}`)
+                } else { Utils.log(this.name +  ' Not enough AP!') }
+            }
+        }
     ]
     onSkillUsedOn = (skill, user) => {
         // this is called when a skill is used on a target
         // the follwing runs from the context of the actor being targeted
         if(user.current_ap >= skill.apCost) {
-            console.log(user.name + ' used ' + skill.skillName + ' on ' + this.name)
+            Utils.log(`${user.name} used ${skill.skillName} on ${this.name}`)
             user.current_ap-=skill.apCost
             let damage = Utils.RollFromString(skill.damageRoll)
             if(skill.damageType === DAMAGE_TYPE.HEALING) {
-                console.log('Rolled for', `(${skill.damageRoll})` ,`[${damage} ${skill.damageType}]`)
                 damage=-damage
-            } else {
-                console.log('Rolled for', `(${skill.damageRoll})` ,`[${damage} ${skill.damageType}]`)
             }
+            Utils.log(`${user.name} Rolled for (${skill.damageRoll})  [${damage} ${skill.damageType}]`)
             this.health-=damage
         }
     }

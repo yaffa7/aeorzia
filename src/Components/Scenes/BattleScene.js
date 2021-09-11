@@ -5,6 +5,7 @@ import { Observer } from 'mobx-react-lite';
 import { TurnOrder } from "../TurnOrder/TurnOrder"
 import { HeroSheet } from '../HeroSheet/HeroSheet'
 import './BattleScene.scss'
+import { CombatLog } from '../CombatLog/CombatLog';
 
 export class BattleScene extends React.Component {
 
@@ -25,6 +26,7 @@ export class BattleScene extends React.Component {
         return (
             <Observer>
                 {() => <>
+                    <div className="panel">
                     <div className="scene-area" style={this.computeBackgroundStyle()}>
                         <div className="monster-area">
                             {instance.sceneManager.current_scene.enemies.map((enemy) =>
@@ -51,9 +53,14 @@ export class BattleScene extends React.Component {
                                 </div>
                             }
                         </div>
+                        
                         <TurnOrder />
                     </div>
+                    </div>
+                    <br/>
                     <HeroSheet />
+                    <br/>
+                    <CombatLog/>
                 </>
                 }
             </Observer>
