@@ -14,7 +14,9 @@ div.monster-area {
 
 div.combat-log {
     height: 300px;
+    flex: 2;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 div.reward-container {
