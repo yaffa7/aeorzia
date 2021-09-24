@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/aeorzia/static/css/main.dee13cf1.chunk.css",
+    "main.js": "/aeorzia/static/js/main.9cc6c4d4.chunk.js",
+    "main.js.map": "/aeorzia/static/js/main.9cc6c4d4.chunk.js.map",
+    "runtime-main.js": "/aeorzia/static/js/runtime-main.88869f98.js",
+    "runtime-main.js.map": "/aeorzia/static/js/runtime-main.88869f98.js.map",
+    "static/js/2.858ab925.chunk.js": "/aeorzia/static/js/2.858ab925.chunk.js",
+    "static/js/2.858ab925.chunk.js.map": "/aeorzia/static/js/2.858ab925.chunk.js.map",
+    "static/js/3.0a0463cd.chunk.js": "/aeorzia/static/js/3.0a0463cd.chunk.js",
+    "static/js/3.0a0463cd.chunk.js.map": "/aeorzia/static/js/3.0a0463cd.chunk.js.map",
+    "index.html": "/aeorzia/index.html",
+    "static/css/main.dee13cf1.chunk.css.map": "/aeorzia/static/css/main.dee13cf1.chunk.css.map",
+    "static/js/2.858ab925.chunk.js.LICENSE.txt": "/aeorzia/static/js/2.858ab925.chunk.js.LICENSE.txt",
+    "static/media/_font.scss": "/aeorzia/static/media/8bitlim.5e3ffbf0.ttf",
+    "static/media/mountains.fa9d67f4.jpg": "/aeorzia/static/media/mountains.fa9d67f4.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.88869f98.js",
+    "static/js/2.858ab925.chunk.js",
+    "static/css/main.dee13cf1.chunk.css",
+    "static/js/main.9cc6c4d4.chunk.js"
+  ]
+}
