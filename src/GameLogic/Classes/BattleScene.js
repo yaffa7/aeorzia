@@ -10,13 +10,15 @@ export default class BattleScene extends Scene {
     // Only returns alive heroes
     getActorsByInitiative() {
         return this.heroes.concat(this.enemies)
-                            .sort(function(a,b) { return a.dexterity < b.dexterity })
+                            .sort(function(a,b) { return b.dexterity < a.dexterity })
                             .filter(e => !e.isDead)
     }
 
     getAllActorsByInitiative() {
         return this.heroes.concat(this.enemies)
-                            .sort(function(a,b) { return a.dexterity < b.dexterity })
+                            .sort(function(a,b) { 
+                                console.log("sorting",a.dexterity,b.dexterity)
+                                return b.dexterity < a.dexterity })
     }
 
     getActiveActor() {
@@ -119,7 +121,7 @@ export default class BattleScene extends Scene {
 
     startCombat() {
         Utils.log(`combat started!`)
-        console.log(this.getActorsByInitiative())
+        console.log("LOG ACTORS", this.getAllActorsByInitiative())
         this.clearTurnState()
         this.resetPartyAP()
         this.getAllActorsByInitiative()[0].isTurnActive = true
