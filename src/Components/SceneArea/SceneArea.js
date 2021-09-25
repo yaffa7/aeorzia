@@ -8,7 +8,6 @@ import './SceneArea.scss'
 
 export const SceneArea = () => {
     const gameStore = useGameStore()
-    console.log("scene area scne", gameStore.sceneManager.current_scene)
     const newGame = ()=>{
         localStorage.removeItem("gameStore")
         window.location.reload()

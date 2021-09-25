@@ -7,8 +7,6 @@ window.instance = instance
 
 export const GameProvider = ({ children }) => {
     const gameStore = useLocalObservable(() => instance)
-    console.log('store from Provider', instance)
-
     return <GameContext.Provider value={gameStore}>
         {children}
     </GameContext.Provider>

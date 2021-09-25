@@ -47,7 +47,6 @@ if(oldInstance){
     newScenes = newInstance.sceneManager.scenes.map((scene) => {
         scene.enemies = scene.enemies.map((enemy) => {
             const enemyClass = MOB_TO_CLASS[enemy.name]
-            console.log(enemyClass)
             enemy = new enemyClass(null,enemy)
             return enemy
         })
@@ -56,7 +55,6 @@ if(oldInstance){
     let curSceneEnemies = newInstance.sceneManager.current_scene.enemies
     curSceneEnemies = curSceneEnemies.map((enemy) => {
         const enemyClass = MOB_TO_CLASS[enemy.name]
-        console.log(enemyClass)
         enemy = new enemyClass(null,enemy)
         return enemy
     })
@@ -65,9 +63,7 @@ if(oldInstance){
 }
 export const instance = newInstance
 reaction(() => {
-    console.log( " ze instance ", JSON.stringify(instance) )
     localStorage.setItem("gameStore",JSON.stringify(instance))
     return instance
 }, ()=>{
-    console.log("yolo")
 })
