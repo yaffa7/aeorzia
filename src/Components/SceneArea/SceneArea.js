@@ -9,12 +9,19 @@ import './SceneArea.scss'
 export const SceneArea = () => {
     const gameStore = useGameStore()
     console.log("scene area scne", gameStore.sceneManager.current_scene)
+    const newGame = ()=>{
+        localStorage.removeItem("gameStore")
+        window.location.reload()
+    }
     return (
         <Observer>
             {() =>
                 <>
-                    <div className="panel text-medium">{gameStore.sceneManager.current_scene.name} - Gold:{gameStore.partyGold}</div>
-                    <div></div>
+                    <div className="panel text-medium">
+                        <span>{gameStore.sceneManager.current_scene.name} - Gold:{gameStore.partyGold}</span>
+                        <button style={{marginLeft : "15px"}} onClick={newGame}>New Game</button>
+                    </div>
+                    
                     {gameStore.sceneManager.current_scene.isBattleScene &&
                         <BattleScene />
                     }
