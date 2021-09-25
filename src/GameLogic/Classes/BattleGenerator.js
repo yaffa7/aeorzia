@@ -1,5 +1,5 @@
 import Utils from "./Utils";
-import MOB_TABLE from "../Constants/MOB_TABLE";
+import {MOB_TABLE} from "../Constants/MOB_TABLE";
 import battle_scene1a from "../Impl/Scenes/battle_scene1a";
 
 export default class BattleGenerator {

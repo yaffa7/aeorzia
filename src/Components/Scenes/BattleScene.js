@@ -63,3 +63,5 @@ export class BattleScene extends React.Component {
         )
     }
 }
+
+export default BattleScene

@@ -8,12 +8,13 @@ import './SceneArea.scss'
 
 export const SceneArea = () => {
     const gameStore = useGameStore()
-
+    console.log("scene area scne", gameStore.sceneManager.current_scene)
     return (
         <Observer>
             {() =>
                 <>
                     <div className="panel text-medium">{gameStore.sceneManager.current_scene.name} - Gold:{gameStore.partyGold}</div>
+                    <div></div>
                     {gameStore.sceneManager.current_scene.isBattleScene &&
                         <BattleScene />
                     }

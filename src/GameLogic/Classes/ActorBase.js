@@ -75,8 +75,13 @@ export default class ActorBase {
             this.health-=damage
         }
     }
-    constructor(name) {
+    constructor(name=null, actorData=null) {
         this.name = name
+        if(actorData){
+            for(let key in actorData){
+                this[key] = actorData[key]
+            }
+        }
         makeObservable(this, {
             isDead: observable,
             isHero: observable,

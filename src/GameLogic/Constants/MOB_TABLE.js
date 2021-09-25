@@ -12,5 +12,10 @@ const MOB_TABLE = {
     ]
 }
 
+const MOB_TO_CLASS = {
+    "bat" : bat,
+    "dog" : dog,
+    "racoon" : racoon
+}
 
-export default MOB_TABLE
+export {MOB_TABLE, MOB_TO_CLASS}

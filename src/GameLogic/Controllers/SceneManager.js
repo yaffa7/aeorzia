@@ -2,18 +2,29 @@ import { makeObservable, observable } from 'mobx';
 import { instance } from '../../GameStore'
 import victory_scene from '../Impl/Scenes/victory_scene';
 import BattleGenerator from '../Classes/BattleGenerator';
-
+import BattleScene from '../Classes/BattleScene'
 export default class SceneManager {
     scenes = BattleGenerator.GenerateBattles('ZONE_1', 5)
     current_scene = "";
     getCurrentIndex() {
         return this.scenes.indexOf(this.current_scene)
     }
-    constructor(heroes) {
+    constructor(heroes, sceneManager=null) {
         makeObservable(this, {
             current_scene: observable,
         })
-        this.current_scene = this.scenes[0]
+        if(sceneManager){
+            this.scenes = sceneManager.scenes
+            let curScene
+            if(sceneManager.current_scene.isBattleScene){
+                curScene = new BattleScene(sceneManager.current_scene)
+            }
+            console.log("check cur scene", curScene)
+            this.current_scene = curScene
+        }else{
+            this.current_scene = this.scenes[0] 
+        }
+        console.log("scane manager", this)
         this.current_scene.heroes = heroes
     }
 
