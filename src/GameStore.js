@@ -9,6 +9,7 @@ import { render } from 'react-dom'
 import {MOB_TO_CLASS} from './GameLogic/Constants/MOB_TABLE';
 import Utils from './GameLogic/Classes/Utils'
 import DAMAGE_TYPE from './GameLogic/Constants/DAMAGE_TYPE';
+import Scene from './GameLogic/Classes/Scene'
 
 window.React = React
 
@@ -134,7 +135,7 @@ if(oldInstance){
             enemy = new enemyClass(null,enemy)
             return enemy
         })
-        return scene
+        return new Scene(scene)
     });
     let curSceneEnemies = oldInstance.sceneManager.current_scene.enemies
     curSceneEnemies = curSceneEnemies.map((enemy) => {
@@ -143,7 +144,10 @@ if(oldInstance){
         return enemy
     })
     newInstance.sceneManager.current_scene.enemies = curSceneEnemies
-    newInstance .sceneManager.scenes = newScenes
+    newInstance.sceneManager.scenes = newScenes
+    newInstance.combat_log = oldInstance.combat_log
+    newInstance.partyGold = oldInstance.partyGold
+    newInstance.names = oldInstance.names
 }
 export const instance = newInstance
 reaction(() => {
