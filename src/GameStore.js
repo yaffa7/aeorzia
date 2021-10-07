@@ -37,8 +37,15 @@ export class GameStore {
         console.log(this.activeAction)
     }
     handleAction = (target, actor) => {
+        console(this.activeAction)
         if(this.activeAction.name == "attack"){
             this.onAttack(actor, target)
+        }
+        if(this.activeAction.name == "examine") {
+            this.onExamine(actor, target)
+        }
+        if(this.activeAction.name == "items") {
+            this.onUserItem(actor)
         }
     }
     activateSkill = (skill) => {
