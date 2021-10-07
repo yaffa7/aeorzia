@@ -10,7 +10,9 @@ import { CombatLog } from '../CombatLog/CombatLog';
 export class BattleScene extends React.Component {
 
     componentDidMount() {
-        instance.sceneManager.current_scene.startCombat()
+        if(!instance.sceneManager.current_scene.combatStarted){
+            instance.sceneManager.current_scene.startCombat()
+        }
     }
 
     computeBackgroundStyle = () => {

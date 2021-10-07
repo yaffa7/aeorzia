@@ -12,6 +12,7 @@ export default class Scene {
     isVictoryScene = false
     victory = false
     droppedItems = []
+    combatStarted = false
     constructor(sceneData=null) {
         if(sceneData){
             for(let key in sceneData){

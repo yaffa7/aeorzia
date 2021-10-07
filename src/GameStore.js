@@ -7,6 +7,8 @@ import { makeObservable, observable, reaction } from 'mobx'
 import React from 'react'
 import { render } from 'react-dom'
 import {MOB_TO_CLASS} from './GameLogic/Constants/MOB_TABLE';
+import Utils from './GameLogic/Classes/Utils'
+import DAMAGE_TYPE from './GameLogic/Constants/DAMAGE_TYPE';
 
 window.React = React
 
@@ -21,6 +23,8 @@ export class GameStore {
     ]
     sceneManager = new SceneManager(this.heroes)
     partyGold = 0
+    activeAction = null
+    activeSkill = null
     getRandomName() {
         let randIndex = Math.floor((Math.random() * this.names.length)) - 1
         return this.names.splice(randIndex, 1)[0]
@@ -28,18 +32,91 @@ export class GameStore {
     getHeroes() {
         return this.heroes
     }
+    activateAction = (action) => {
+        this.activeAction = action
+        console.log(this.activeAction)
+    }
+    handleAction = (target, actor) => {
+        if(this.activeAction.name == "attack"){
+            this.onAttack(actor, target)
+        }
+    }
+    activateSkill = (skill) => {
+        this.activeSkill = skill
+        console.log("activated skill", this.activeSkill)
+    }
+    handleSkill = (target, actor) => {
+        this.onSkill(this.activeSkill, target, actor)
+    }
+    onAttack = (attacker, target) => {
+        console.log("start attack", target)
+        if (attacker.current_ap >= 2) {
+            attacker.current_ap = attacker.current_ap - 2
+            Utils.log(`${attacker.name} attacked ${target.name}!`)
+            let attackRoll = Utils.Roll(20)
+            let damageRoll = Utils.Roll(attacker.strength)
+            if (attackRoll >= target.armor_class) {
+                Utils.log(`${attacker.name} hits with a damage of ${damageRoll}!`)
+                target.health = target.health - damageRoll
+            } else {
+                Utils.log(attacker.name + ' missed their target ' + target.name + ' with a roll of ' + attackRoll + ".")
+            }
+        } else { Utils.log(attacker.name + ' Not enough AP!') }
+        this.activeAction = null
+        console.log("end attack", target)
+        if(attacker.current_ap == 0){
+            this.endTurn()
+        }
+    }
+
+    onExamine = (target) => {
+        if (this.current_ap >= 1) {
+            this.current_ap--
+            Utils.log(`${target.description}`)
+        } else { Utils.log(`${this.name} Not enough AP!`) }
+    }
+
+    onUserItem = (target) => {
+        if (this.current_ap >= 1) {
+            this.current_ap--
+            Utils.log(`${this.name} used an item action on ${target.name}`)
+        } else { Utils.log(this.name +  ' Not enough AP!') }
+    }
+    onSkill = (skill, target, hero) => {
+        // this is called when a skill is used on a target
+        // the follwing runs from the context of the actor being targeted
+        if(hero.current_ap >= skill.apCost) {
+            Utils.log(`${hero.name} used ${skill.skillName} on ${target.name}`)
+            hero.current_ap-=skill.apCost
+            let damage = Utils.RollFromString(skill.damageRoll)
+            if(skill.damageType === DAMAGE_TYPE.HEALING) {
+                damage=-damage
+            }
+            Utils.log(`${hero.name} Rolled for (${skill.damageRoll})  [${damage} ${skill.damageType}]`)
+            target.health-=damage
+        }
+        this.activeSkill = null
+        if(hero.current_ap == 0){
+            this.endTurn()
+        }
+    }
+    endTurn = () => {
+        this.sceneManager.current_scene.nextTurn()
+    }
     constructor() {
 
         makeObservable(this, {
             partyGold: observable,
-            combat_log: observable
+            combat_log: observable,
+            activeAction : observable,
+            activeSkill : observable
         })
     }
 }
 
 let newInstance = new GameStore()
 const oldInstance = localStorage.getItem("gameStore")
-if(oldInstance){
+if(null){
     newInstance = JSON.parse(oldInstance)
     newInstance.sceneManager = new SceneManager(newInstance.heroes, newInstance.sceneManager)
     newInstance.heroes = newInstance.sceneManager.current_scene.heroes

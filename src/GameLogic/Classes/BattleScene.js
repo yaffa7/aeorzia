@@ -1,4 +1,4 @@
-import { instance } from "../../GameStore";
+import { GameStore, instance } from "../../GameStore";
 import defeat_scene from "../Impl/Scenes/defeat_scene";
 import Scene from "./Scene";
 import Utils from './Utils'
@@ -84,20 +84,22 @@ export default class BattleScene extends Scene {
     setActiveTurn() {
         let active_index = 0
         // get current index of active actor
-        this.getAllActorsByInitiative().forEach((actor,i) => {
+        let curActors = this.getAllActorsByInitiative()
+        curActors.forEach((actor,i) => {
             if(actor.isTurnActive) {
                 active_index = i
             }
         })
         // set current active actor turn to false
-        this.getAllActorsByInitiative()[active_index].isTurnActive = false
+        curActors[active_index].isTurnActive = false
         // reset index if we are at the end of the array, else move forward by one
-        active_index >= (this.getAllActorsByInitiative().length - 1) ? active_index = 0 : active_index++
+        active_index >= (curActors.length - 1) ? active_index = 0 : active_index++
         // keep going until we get an actor that isnt dead
-        while(this.getAllActorsByInitiative()[active_index].isDead === true ) {
-            active_index >= (this.getAllActorsByInitiative().length - 1) ? active_index = 0 : active_index++
+        while(curActors[active_index].isDead === true ) {
+            active_index >= (curActors.length - 1) ? active_index = 0 : active_index++
         }
-        this.getAllActorsByInitiative()[active_index].isTurnActive = true
+        curActors[active_index].isTurnActive = true
+        console.log("set turns",curActors)
     }
 
     nextTurn() {
@@ -121,15 +123,19 @@ export default class BattleScene extends Scene {
 
     startCombat() {
         Utils.log(`combat started!`)
-        console.log("LOG ACTORS", this.getAllActorsByInitiative())
+        let curActors = this.getAllActorsByInitiative()
+        curActors.forEach((curActor)=>{
+            console.log({...curActor})
+        })
         this.clearTurnState()
         this.resetPartyAP()
-        this.getAllActorsByInitiative()[0].isTurnActive = true
+        curActors[0].isTurnActive = true
         if(this.getActiveActor().isHero) {
             this.startHeroTurn()
         } else {
             this.startEnemyTurn()
         }
+        this.combatStarted = true
     }
 
     startHeroTurn() {
@@ -144,12 +150,7 @@ export default class BattleScene extends Scene {
         targetIndex--
         let targetHero = this.heroes.filter(h => !h.isDead)[targetIndex]
         if (targetHero != null) {
-            targetHero.onSkillUsedOn(enemy.skills[0], enemy)
-            // enemy.actions.forEach(action => {
-            //     if(action.name === 'attack') {
-            //         action.onExecute(this.heroes.filter(h => !h.isDead)[targetIndex])
-            //     }
-            // });
+            instance.onAttack(enemy, targetHero)
             this.nextTurn()
         } else { 
             instance.sceneManager.changeScene(new defeat_scene())

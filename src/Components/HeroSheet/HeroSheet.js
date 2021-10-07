@@ -9,33 +9,7 @@ export const HeroSheet = () => {
     const [targetAction, setTargetAction] = React.useState("")
     const [targetSkill, setTargetSkill] = React.useState("")
     const [action, setAction] = React.useState("")
-    console.log("ASDF")
-    const handleAction = (target, hero) => {
-        if (targetSkill) {
-            target.onSkillUsedOn(targetSkill, hero)
-        } else {
-            action.onExecute(target)
-        }
-        setTargetAction(false)
-        setTargetSkill(null)
-        if (hero.current_ap === 0) {
-            endTurn()
-        }
-    }
-
-    const setState = (targetAction, action, skill) => {
-        setTargetSkill(skill)
-        setTargetAction(targetAction)
-        setAction(action)
-    }
-
-    const endTurn = () => {
-        console.log('Turn ended')
-        gameStore.sceneManager.current_scene.nextTurn()
-    }
-
     
-
     return (
         <Observer>
             {() =>
@@ -52,15 +26,31 @@ export const HeroSheet = () => {
                                     <div className={panelClass}>
                                         <div>{hero.name}</div>
                                         {hero.actions.map((action) =>
-                                            <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => setState(true, action)} key={hero.id}><strong>{action.name}</strong></button>
+                                            <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => {
+                                                console.log(gameStore)
+                                                gameStore.activateAction(action)
+                                            }} key={hero.id}><strong>{action.name}</strong></button>
                                         )}
                                         {hero.skills.map((skill) => 
-                                            <button disabled={!hero.isTurnActive} onClick={() => setState(true, action, skill)}>{skill.skillName}</button>
+                                            <button disabled={!hero.isTurnActive} onClick={() => {
+                                                gameStore.activateSkill(skill)
+                                            }}>{skill.skillName}</button>
                                         )}
-                                        {gameStore.sceneManager.current_scene.enemies.map((enemy) =>
-                                            targetAction && hero.isTurnActive && !enemy.isDead &&
-                                            <button key={enemy.id} onClick={() => handleAction(enemy, hero)}>{enemy.name} | {enemy.health}</button>
-                                        )}
+                                        {gameStore.sceneManager.current_scene.enemies.map((enemy) =>{
+                                            if(enemy.isDead||!hero.isTurnActive){
+                                                return null
+                                            }
+                                            let handler
+                                            console.log("activeact ", gameStore.activeAction, gameStore.activeSkill)
+                                            if(gameStore.activeAction){
+                                                handler = gameStore.handleAction
+                                            }else if(gameStore.activeSkill){
+                                                handler = gameStore.handleSkill
+                                            }else{
+                                                return null
+                                            }
+                                            return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
+                                        })}
                                         
                                         <div>AP: {hero.current_ap} </div>
                                         <div>Health: {hero.health} </div>
@@ -69,7 +59,7 @@ export const HeroSheet = () => {
                                         { hero.items.map((item) => 
                                             <div>{item.name}</div>
                                         )}
-                                        <button disabled={!hero.isTurnActive} onClick={() => endTurn()}>end turn</button>
+                                        <button disabled={!hero.isTurnActive} onClick={() => gameStore.endTurn()}>end turn</button>
                                     </div>
                                 </div>
                             )
