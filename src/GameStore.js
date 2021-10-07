@@ -115,13 +115,13 @@ export class GameStore {
 }
 
 let newInstance = new GameStore()
-const oldInstance = localStorage.getItem("gameStore")
-if(null){
-    newInstance = JSON.parse(oldInstance)
-    newInstance.sceneManager = new SceneManager(newInstance.heroes, newInstance.sceneManager)
-    newInstance.heroes = newInstance.sceneManager.current_scene.heroes
+let oldInstance = localStorage.getItem("gameStore")
+if(oldInstance){
+    oldInstance = JSON.parse(oldInstance)
+    newInstance.sceneManager = new SceneManager(oldInstance.heroes, oldInstance.sceneManager)
+    newInstance.heroes = oldInstance.sceneManager.current_scene.heroes
     let newScenes
-    newScenes = newInstance.sceneManager.scenes.map((scene) => {
+    newScenes = oldInstance.sceneManager.scenes.map((scene) => {
         scene.enemies = scene.enemies.map((enemy) => {
             const enemyClass = MOB_TO_CLASS[enemy.name]
             enemy = new enemyClass(null,enemy)
@@ -129,14 +129,14 @@ if(null){
         })
         return scene
     });
-    let curSceneEnemies = newInstance.sceneManager.current_scene.enemies
+    let curSceneEnemies = oldInstance.sceneManager.current_scene.enemies
     curSceneEnemies = curSceneEnemies.map((enemy) => {
         const enemyClass = MOB_TO_CLASS[enemy.name]
         enemy = new enemyClass(null,enemy)
         return enemy
     })
     newInstance.sceneManager.current_scene.enemies = curSceneEnemies
-    newInstance.sceneManager.scenes = newScenes
+    newInstance .sceneManager.scenes = newScenes
 }
 export const instance = newInstance
 reaction(() => {
