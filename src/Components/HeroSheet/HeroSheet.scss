@@ -29,4 +29,17 @@ div.hero-sheet-container {
       display: flex;
       flex-direction: row wrap;
     }
+    .modal-container{
+      position : absolute;
+      top : 0;
+      left : 100%;
+      background-color : white;
+      z-index : 1;
+      padding-left : 10
+    }
+    .model-item{
+      position : relative;
+      background-color : blue;
+      border : 1px solid black;
+    }
 }

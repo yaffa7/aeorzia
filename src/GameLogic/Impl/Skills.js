@@ -2,7 +2,7 @@ import DAMAGE_TYPE from "../Constants/DAMAGE_TYPE";
 import TARGET_TYPE from "../Constants/TARGET_TYPE";
 
 const Sparks = {
-    skillName: 'Sparks',
+    name: 'Sparks',
     damageRoll: '4d3',
     damageType: DAMAGE_TYPE.LIGHTNING_DAMAGE,
     apCost: 2,
@@ -11,7 +11,7 @@ const Sparks = {
 }
 
 const Fireball = {
-    skillName: 'Fireball',
+    name: 'Fireball',
     damageRoll: '1d12',
     damageType: DAMAGE_TYPE.FIRE_DAMAGE,
     apCost: 2,
@@ -20,7 +20,7 @@ const Fireball = {
 }
 
 const Cure  = {
-    skillName: 'Cure',
+    name: 'Cure',
     damageRoll: '1d12',
     damageType: DAMAGE_TYPE.HEALING,
     apCost: 2,
@@ -31,7 +31,7 @@ const Cure  = {
 // ENEMIES
 
 const Bite = {
-    skillName: 'Bite',
+    name: 'Bite',
     damageRoll: '1d6',
     damageType: DAMAGE_TYPE.PIERCING_DAMAGE,
     apCost: 2,
@@ -40,7 +40,7 @@ const Bite = {
 }
 
 const Scratch = {
-    skillName: 'Scratch',
+    name: 'Scratch',
     damageRoll: '1d4',
     damageType: DAMAGE_TYPE.PIERCING_DAMAGE,
     apCost: 2,

@@ -3,13 +3,9 @@ import { useGameStore } from '../../GameContext'
 import './HeroSheet.scss'
 import { Observer } from 'mobx-react-lite';
 import { CombatLog } from '../CombatLog/CombatLog';
-
+import { ModalList } from '../ModalList/ModalList'
 export const HeroSheet = () => {
     const gameStore = useGameStore()
-    const [targetAction, setTargetAction] = React.useState("")
-    const [targetSkill, setTargetSkill] = React.useState("")
-    const [action, setAction] = React.useState("")
-    
     return (
         <Observer>
             {() =>
@@ -21,36 +17,95 @@ export const HeroSheet = () => {
                             let panelClass = "character-sheet "
                             if(hero.isDead){ panelClass += 'dead'}
                             if(hero.isTurnActive){ panelClass += 'active'}
+                    
+                           const enemyModal = gameStore.sceneManager.current_scene.enemies.map((enemy) =>{
+                                if(enemy.isDead){
+                                    return null
+                                }
+                                let handler
+                                if(gameStore.activeAction && !gameStore.activeSkill){
+                                    handler = gameStore.handleAction
+                                }else if(gameStore.activeSkill){
+                                    handler = gameStore.handleSkill
+                                }else{
+                                    return null
+                                }
+                                return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
+                            })
+                           const actionModal = hero.actions.map((action) =>
+                                <div disabled={!hero.isTurnActive} 
+                                    className="modal-item"
+                                    onClick={
+                                        (e) => {
+                                            e.stopPropagation()
+                                            gameStore.activateAction(action)
+                                    }} key={hero.id}>
+                                    <strong>{action.name}</strong>
+                                    {
+                                        gameStore.activeAction && 
+                                        hero.isTurnActive && 
+                                        gameStore.activeAction.name == action.name ? 
+                                            <div className="modal-container">
+                                                {enemyModal}
+                                            </div>
+                                        :null
+                                    }
+                                </div>
+                                
+                            )
+                            const skillModal = hero.skills.map((skill) => {
+                                return (
+                                    <div disabled={!hero.isTurnActive} 
+                                    className="modal-item"
+                                    onClick={
+                                        (e) => {
+                                            e.stopPropagation()
+                                            gameStore.activateSkill(skill)
+                                    }} key={hero.id}>
+                                        <strong>{skill.name}</strong>
+            
+                                        {
+                                            gameStore.activeSkill && 
+                                            hero.isTurnActive && 
+                                            gameStore.activeSkill.name == skill.name ? 
+                                                <div className="modal-container">
+                                                    {enemyModal}
+                                                </div>
+                                            :null
+                                        }
+                                    </div>
+                                )
+                            })
+                            console.log("states",hero.isTurnActive, gameStore.activeSkill, gameStore.activeAction)
                             return (
                                 <div className="panel text-medium">
                                     <div className={panelClass}>
                                         <div>{hero.name}</div>
-                                        {hero.actions.map((action) =>
-                                            <button disabled={!hero.isTurnActive} style={{ display: 'block' }} onClick={() => {
-                                                console.log(gameStore)
-                                                gameStore.activateAction(action)
-                                            }} key={hero.id}><strong>{action.name}</strong></button>
-                                        )}
-                                        {hero.skills.map((skill) => 
-                                            <button disabled={!hero.isTurnActive} onClick={() => {
-                                                gameStore.activateSkill(skill)
-                                            }}>{skill.skillName}</button>
-                                        )}
-                                        {gameStore.sceneManager.current_scene.enemies.map((enemy) =>{
-                                            if(enemy.isDead||!hero.isTurnActive){
-                                                return null
-                                            }
-                                            let handler
-                                            console.log("activeact ", gameStore.activeAction, gameStore.activeSkill)
-                                            if(gameStore.activeAction){
-                                                handler = gameStore.handleAction
-                                            }else if(gameStore.activeSkill){
-                                                handler = gameStore.handleSkill
-                                            }else{
-                                                return null
-                                            }
-                                            return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
-                                        })}
+                                        <button 
+                                            disabled={!hero.isTurnActive} 
+                                            style={{ position: "relative"}} 
+                                            onClick={gameStore.toggleShowActions}>
+                                            Action
+                                            {gameStore.showActions && hero.isTurnActive? 
+                                                <div className="modal-container">
+                                                    {actionModal}
+                                                </div>
+                                            :null}
+                                        </button>
+                                       
+                                        <button 
+                                            disabled={!hero.isTurnActive} 
+                                            style={{ position: "relative"}} 
+                                            onClick={gameStore.toggleShowSkills}>
+                                            Skill
+                                            {gameStore.showSkills && hero.isTurnActive? 
+                                                <div className="modal-container">
+                                                    {skillModal}
+                                                </div>
+                                            :null}
+                                        </button>
+                                        
+                                       
                                         
                                         <div>AP: {hero.current_ap} </div>
                                         <div>Health: {hero.health} </div>
