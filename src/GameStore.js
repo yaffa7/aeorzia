@@ -38,7 +38,7 @@ export class GameStore {
         console.log(this.activeAction)
     }
     handleAction = (target, actor) => {
-        console(this.activeAction)
+        console.log(this.activeAction)
         if(this.activeAction.name == "attack"){
             this.onAttack(actor, target)
         }
@@ -77,11 +77,11 @@ export class GameStore {
         }
     }
 
-    onExamine = (target) => {
-        if (this.current_ap >= 1) {
-            this.current_ap--
+    onExamine = (actor, target) => {
+        if (actor.current_ap >= 1) {
+            actor.current_ap--
             Utils.log(`${target.description}`)
-        } else { Utils.log(`${this.name} Not enough AP!`) }
+        } else { Utils.log(`${actor.name} Not enough AP!`) }
     }
 
     onUserItem = (target) => {

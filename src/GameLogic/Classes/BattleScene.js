@@ -17,7 +17,6 @@ export default class BattleScene extends Scene {
     getAllActorsByInitiative() {
         return this.heroes.concat(this.enemies)
                             .sort(function(a,b) { 
-                                console.log("sorting",a.dexterity,b.dexterity)
                                 return b.dexterity < a.dexterity })
     }
 
