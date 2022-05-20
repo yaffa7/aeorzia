@@ -39,13 +39,14 @@ export class GameStore {
     }
     handleAction = (target, actor) => {
         console.log(this.activeAction)
+        debugger;
         if(this.activeAction.name == "attack"){
             this.onAttack(actor, target)
-        }
-        if(this.activeAction.name == "examine") {
+        } 
+        else if(this.activeAction.name == "examine") {
             this.onExamine(actor, target)
         }
-        if(this.activeAction.name == "items") {
+        else if(this.activeAction.name == "items") {
             this.onUserItem(actor)
         }
     }
