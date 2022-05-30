@@ -26,12 +26,20 @@ export class GameStore {
     partyGold = 0
     activeAction = null
     activeSkill = null
+    showSkills = false
+    showActions = false
     getRandomName() {
         let randIndex = Math.floor((Math.random() * this.names.length)) - 1
         return this.names.splice(randIndex, 1)[0]
     }
     getHeroes() {
         return this.heroes
+    }
+    toggleShowActions = () => {
+        this.showActions = !this.showActions
+        this.showSkills = false
+        this.activeAction = false
+        this.activeSkills = false
     }
     activateAction = (action) => {
         this.activeAction = action
@@ -49,6 +57,12 @@ export class GameStore {
         else if(this.activeAction.name == "items") {
             this.onUserItem(actor)
         }
+    }
+    toggleShowSkills = () => {
+        this.showSkills = !this.showSkills
+        this.showActions = false
+        this.activeAction = false
+        this.activeSkills = false
     }
     activateSkill = (skill) => {
         this.activeSkill = skill
@@ -72,6 +86,8 @@ export class GameStore {
             }
         } else { Utils.log(attacker.name + ' Not enough AP!') }
         this.activeAction = null
+        this.activeSkill = null
+        this.showActions = false
         console.log("end attack", target)
         if(attacker.current_ap == 0){
             this.endTurn()
@@ -95,7 +111,7 @@ export class GameStore {
         // this is called when a skill is used on a target
         // the follwing runs from the context of the actor being targeted
         if(hero.current_ap >= skill.apCost) {
-            Utils.log(`${hero.name} used ${skill.skillName} on ${target.name}`)
+            Utils.log(`${hero.name} used ${skill.name} on ${target.name}`)
             hero.current_ap-=skill.apCost
             let damage = Utils.RollFromString(skill.damageRoll)
             if(skill.damageType === DAMAGE_TYPE.HEALING) {
@@ -105,6 +121,7 @@ export class GameStore {
             target.health-=damage
         }
         this.activeSkill = null
+        this.showSkills = false
         if(hero.current_ap == 0){
             this.endTurn()
         }
@@ -118,7 +135,9 @@ export class GameStore {
             partyGold: observable,
             combat_log: observable,
             activeAction : observable,
-            activeSkill : observable
+            activeSkill : observable,
+            showActions : observable,
+            showSkills : observable
         })
     }
 }
