@@ -13,15 +13,11 @@ export const HeroSheet = () => {
                     {
                         gameStore.sceneManager.current_scene.heroes.map((hero) =>
                         {
-                            console.log("mapppin heroes")
                             let panelClass = "character-sheet "
                             if(hero.isDead){ panelClass += 'dead'}
                             if(hero.isTurnActive){ panelClass += 'active'}
                     
-                           const enemyModal = gameStore.sceneManager.current_scene.enemies.map((enemy) =>{
-                                if(!gameStore.activeAction && !gameStore.activeSkill) {
-                                    return null
-                                }
+                           const enemyModal = gameStore.sceneManager.current_scene.enemies.map((enemy) => {
                                 if(enemy.isDead){
                                     return null
                                 }
@@ -33,6 +29,8 @@ export const HeroSheet = () => {
                                 }else{
                                     return null
                                 }
+
+                              
                                 return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
                             })
                            const actionModal = hero.actions.map((action) =>
@@ -80,16 +78,17 @@ export const HeroSheet = () => {
                                 )
                             })
 
-                            const itemModal = hero.items.map((item) => {{
-
-                            }})
+                            const itemModal = hero.items.map((item) => {
+                               
+                            
+                            })
 
                             return (
                                 <div className="panel text-medium">
                                     <div className={panelClass}>
                                         <div>{hero.name}</div>
                                         <button 
-                                            disabled={!hero.isTurnActive} 
+                                            disabled={!hero.isTurnActive || gameStore.sceneManager.current_scene.victory} 
                                             style={{ position: "relative"}} 
                                             onClick={gameStore.toggleShowActions}>
                                             Action
@@ -101,7 +100,7 @@ export const HeroSheet = () => {
                                         </button>
                                        
                                         <button 
-                                            disabled={!hero.isTurnActive} 
+                                            disabled={!hero.isTurnActive || gameStore.sceneManager.current_scene.victory} 
                                             style={{ position: "relative"}} 
                                             onClick={gameStore.toggleShowSkills}>
                                             Skill

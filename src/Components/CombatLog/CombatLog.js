@@ -13,7 +13,6 @@ export class CombatLog extends React.Component {
         if (logRef.current) {
             if (logRef.current.childNodes.length !== 0) {
                 let lastMessage = Array.from(logRef.current.childNodes)[logRef.current.childNodes.length - 1]
-                console.log(lastMessage)
                 setTimeout(() => lastMessage.scrollIntoView({ behavior: 'smooth' }), 100)
             } else {
                 console.log('null case')
