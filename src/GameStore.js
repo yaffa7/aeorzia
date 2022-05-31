@@ -33,22 +33,22 @@ export class GameStore {
     getHeroes() {
         return this.heroes
     }
+
     toggleShowActions = () => {
         this.showActions = !this.showActions;
         this.showSkills = false
         this.activeAction = null
-        this.activeSkills = null
+        this.activeSkill = null
     }
     toggleShowSkills = () => {
         this.showSkills = !this.showSkills
         this.showActions = false;
         this.activeAction = null
-        this.activeSkills = null
+        this.activeSkill = null
     }
     activateAction = (action) => {
         this.activeAction = action
         console.log(this.activeAction)
-
     }
     handleAction = (target, actor) => {
         console.log(this.activeAction)
@@ -61,14 +61,15 @@ export class GameStore {
         else if(this.activeAction.name === "items") {
             this.onUserItem(actor)
         }
+        this.resetAbilityState();
     }
     activateSkill = (skill) => {
         this.activeSkill = skill
         console.log("activated skill", this.activeSkill)
-
     }
     handleSkill = (target, actor) => {
         this.onSkill(this.activeSkill, target, actor)
+        this.resetAbilityState();
     }
     onAttack = (attacker, target) => {
         console.log("start attack", target)
@@ -116,13 +117,17 @@ export class GameStore {
             }
             Utils.log(`${hero.name} Rolled for (${skill.damageRoll})  [${damage} ${skill.damageType}]`)
             target.health-=damage
-        }
+        } else { Utils.log(`${hero.name} Not enough AP!`) }
         if(hero.current_ap === 0){
             this.endTurn()
         }
     }
     endTurn = () => {
         this.sceneManager.current_scene.nextTurn()
+        this.resetAbilityState();
+    }
+    
+    resetAbilityState() {
         this.showActions = false;
         this.showSkills = false;
         this.activeSkill = null;
