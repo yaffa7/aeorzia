@@ -47,7 +47,6 @@ export class GameStore {
     }
     handleAction = (target, actor) => {
         console.log(this.activeAction)
-        debugger;
         if(this.activeAction.name == "attack"){
             this.onAttack(actor, target)
         } 
