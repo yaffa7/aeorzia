@@ -34,14 +34,21 @@ export class GameStore {
         return this.heroes
     }
     toggleShowActions = () => {
-        this.showActions = !this.showActions
+        this.showActions = !this.showActions;
         this.showSkills = false
-        this.activeAction = false
-        this.activeSkills = false
+        this.activeAction = null
+        this.activeSkills = null
+    }
+    toggleShowSkills = () => {
+        this.showSkills = !this.showSkills
+        this.showActions = false;
+        this.activeAction = null
+        this.activeSkills = null
     }
     activateAction = (action) => {
         this.activeAction = action
         console.log(this.activeAction)
+
     }
     handleAction = (target, actor) => {
         console.log(this.activeAction)
@@ -54,21 +61,14 @@ export class GameStore {
         else if(this.activeAction.name === "items") {
             this.onUserItem(actor)
         }
-        this.toggleShowActions();
-    }
-    toggleShowSkills = () => {
-        this.showSkills = !this.showSkills
-        this.showActions = false
-        this.activeAction = false
-        this.activeSkills = false
     }
     activateSkill = (skill) => {
         this.activeSkill = skill
         console.log("activated skill", this.activeSkill)
+
     }
     handleSkill = (target, actor) => {
         this.onSkill(this.activeSkill, target, actor)
-        this.toggleShowSkills();
     }
     onAttack = (attacker, target) => {
         console.log("start attack", target)
@@ -117,14 +117,16 @@ export class GameStore {
             Utils.log(`${hero.name} Rolled for (${skill.damageRoll})  [${damage} ${skill.damageType}]`)
             target.health-=damage
         }
-        this.activeSkill = null
-        this.showSkills = false
         if(hero.current_ap === 0){
             this.endTurn()
         }
     }
     endTurn = () => {
         this.sceneManager.current_scene.nextTurn()
+        this.showActions = false;
+        this.showSkills = false;
+        this.activeSkill = null;
+        this.activeAction = null;
     }
     constructor() {
 

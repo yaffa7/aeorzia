@@ -19,11 +19,14 @@ export const HeroSheet = () => {
                             if(hero.isTurnActive){ panelClass += 'active'}
                     
                            const enemyModal = gameStore.sceneManager.current_scene.enemies.map((enemy) =>{
+                                if(!gameStore.activeAction && !gameStore.activeSkill) {
+                                    return null
+                                }
                                 if(enemy.isDead){
                                     return null
                                 }
                                 let handler
-                                if(gameStore.activeAction && !gameStore.activeSkill){
+                                if(gameStore.activeAction){
                                     handler = gameStore.handleAction
                                 }else if(gameStore.activeSkill){
                                     handler = gameStore.handleSkill
@@ -62,8 +65,8 @@ export const HeroSheet = () => {
                                             e.stopPropagation()
                                             gameStore.activateSkill(skill)
                                     }} key={hero.id}>
-                                        <strong>{skill.name}</strong>
             
+                                        <strong>{skill.name}</strong>
                                         {
                                             gameStore.activeSkill && 
                                             hero.isTurnActive && 
@@ -76,7 +79,11 @@ export const HeroSheet = () => {
                                     </div>
                                 )
                             })
-                            console.log("states",hero.isTurnActive, gameStore.activeSkill, gameStore.activeAction)
+
+                            const itemModal = hero.items.map((item) => {{
+
+                            }})
+
                             return (
                                 <div className="panel text-medium">
                                     <div className={panelClass}>
@@ -86,7 +93,7 @@ export const HeroSheet = () => {
                                             style={{ position: "relative"}} 
                                             onClick={gameStore.toggleShowActions}>
                                             Action
-                                            {gameStore.showActions && hero.isTurnActive? 
+                                            {gameStore.showActions && hero.isTurnActive ? 
                                                 <div className="modal-container">
                                                     {actionModal}
                                                 </div>
@@ -98,7 +105,7 @@ export const HeroSheet = () => {
                                             style={{ position: "relative"}} 
                                             onClick={gameStore.toggleShowSkills}>
                                             Skill
-                                            {gameStore.showSkills && hero.isTurnActive? 
+                                            {gameStore.showSkills && hero.isTurnActive ? 
                                                 <div className="modal-container">
                                                     {skillModal}
                                                 </div>
@@ -114,7 +121,7 @@ export const HeroSheet = () => {
                                         { hero.items.map((item) => 
                                             <div>{item.name}</div>
                                         )}
-                                        <button disabled={!hero.isTurnActive} onClick={() => gameStore.endTurn()}>end turn</button>
+                                        <button disabled={!hero.isTurnActive || gameStore.sceneManager.current_scene.victory} onClick={() => gameStore.endTurn()}>end turn</button>
                                     </div>
                                 </div>
                             )
