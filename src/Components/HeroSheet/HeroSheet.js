@@ -37,8 +37,8 @@ export const HeroSheet = () => {
                                 return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
                             })
 
-                            const heroesModal = gameStore.sceneManager.current_scene.heroes.map((enemy) => {
-                                if(enemy.isDead){
+                            const heroesModal = gameStore.sceneManager.current_scene.heroes.map((modalHero) => {
+                                if(modalHero.isDead){
                                     return null
                                 }
                                 let handler
@@ -54,7 +54,7 @@ export const HeroSheet = () => {
                                 }
 
                               
-                                return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
+                                return <button key={modalHero.id} onClick={() => handler(modalHero, hero)}>{modalHero.name} | {modalHero.health}</button>
                             })
                            const actionModal = hero.actions.map((action) =>
                                 <div disabled={!hero.isTurnActive} 
