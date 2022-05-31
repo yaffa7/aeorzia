@@ -26,7 +26,10 @@ export const HeroSheet = () => {
                                     handler = gameStore.handleAction
                                 }else if(gameStore.activeSkill){
                                     handler = gameStore.handleSkill
-                                }else{
+                                } else if(gameStore.activeItem) {
+                                    handler = gameStore.handleItem
+                                }
+                                else {
                                     return null
                                 }
 
@@ -79,7 +82,26 @@ export const HeroSheet = () => {
                             })
 
                             const itemModal = hero.items.map((item) => {
-                               
+                                return (
+                                    <div disabled={!hero.isTurnActive} 
+                                    className="modal-item"
+                                    onClick={
+                                        (e) => {
+                                            e.stopPropagation()
+                                            gameStore.activateItem(item)
+                                    }} key={hero.id}>
+            
+                                        <strong>{item.name}</strong>
+                                        {
+                                            gameStore.activeItem && 
+                                            hero.isTurnActive ? 
+                                                <div className="modal-container">
+                                                    {enemyModal}
+                                                </div>
+                                            :null
+                                        }
+                                    </div>
+                                )
                             
                             })
 
@@ -110,16 +132,25 @@ export const HeroSheet = () => {
                                                 </div>
                                             :null}
                                         </button>
+
+                                        <button 
+                                            disabled={!hero.isTurnActive || gameStore.sceneManager.current_scene.victory} 
+                                            style={{ position: "relative"}} 
+                                            onClick={gameStore.toggleShowItems}>
+                                            
+                                            Items
+                                            {gameStore.showItems && hero.isTurnActive ? 
+                                                <div className="modal-container">
+                                                    {itemModal}
+                                                </div>
+                                            :null}
+                                        </button>
                                         
                                        
                                         
                                         <div>AP: {hero.current_ap} </div>
                                         <div>Health: {hero.health} </div>
                                         <div data-descr={'STR:' + hero.strength + ' DEX:' + hero.dexterity + ' CON:' + hero.constitution + " INT:" + hero.intelligence + " CHAR:" + hero.charisma}>Stats</div>
-                                        <div><strong>Items</strong></div>
-                                        { hero.items.map((item) => 
-                                            <div>{item.name}</div>
-                                        )}
                                         <button disabled={!hero.isTurnActive || gameStore.sceneManager.current_scene.victory} onClick={() => gameStore.endTurn()}>end turn</button>
                                     </div>
                                 </div>

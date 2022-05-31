@@ -24,8 +24,10 @@ export class GameStore {
     partyGold = 0
     activeAction = null
     activeSkill = null
+    activeItem = null
     showSkills = false
     showActions = false
+    showItems = false
     getRandomName() {
         let randIndex = Math.floor((Math.random() * this.names.length)) - 1
         return this.names.splice(randIndex, 1)[0]
@@ -33,18 +35,29 @@ export class GameStore {
     getHeroes() {
         return this.heroes
     }
-
+    toggleShowItems = () => {
+        this.showItems = !this.showItems;
+        this.showSkills = false
+        this.showActions = false
+        this.activeAction = null
+        this.activeSkill = null
+        this.activeItem = null
+    }
     toggleShowActions = () => {
         this.showActions = !this.showActions;
         this.showSkills = false
+        this.showItems = false
         this.activeAction = null
         this.activeSkill = null
+        this.activeItem = null
     }
     toggleShowSkills = () => {
         this.showSkills = !this.showSkills
         this.showActions = false;
+        this.showItems = false
         this.activeAction = null
         this.activeSkill = null
+        this.activeItem = null
     }
     activateAction = (action) => {
         this.activeAction = action
@@ -58,10 +71,13 @@ export class GameStore {
         else if(this.activeAction.name === "examine") {
             this.onExamine(actor, target)
         }
-        else if(this.activeAction.name === "items") {
-            this.onUserItem(actor)
-        }
         this.resetAbilityState();
+    }
+    handleItem = (target, actor) => {
+        this.onUserItem(actor, target)
+    }
+    activateItem = (item) => {
+        this.activeItem = item
     }
     activateSkill = (skill) => {
         this.activeSkill = skill
@@ -97,13 +113,22 @@ export class GameStore {
             actor.current_ap--
             Utils.log(`${target.description}`)
         } else { Utils.log(`${actor.name} Not enough AP!`) }
+
+        if(actor.current_ap === 0){
+            this.endTurn()
+        }
     }
 
-    onUserItem = (target) => {
-        if (this.current_ap >= 1) {
-            this.current_ap--
-            Utils.log(`${this.name} used an item action on ${target.name}`)
-        } else { Utils.log(this.name +  ' Not enough AP!') }
+    onUserItem = (actor, target) => {
+        if (actor.current_ap >= 1) {
+            actor.current_ap--
+            this.activeItem.onUse(actor,target) 
+            actor.removeItem(this.activeItem)
+        }  else { Utils.log(`${actor.name} Not enough AP!`) }
+
+        if(actor.current_ap === 0){
+            this.endTurn()
+        }
     }
     onSkill = (skill, target, hero) => {
         // this is called when a skill is used on a target
@@ -130,8 +155,10 @@ export class GameStore {
     resetAbilityState() {
         this.showActions = false;
         this.showSkills = false;
+        this.showItems = false;
         this.activeSkill = null;
         this.activeAction = null;
+        this.activeItem = null
     }
     constructor() {
 
@@ -140,8 +167,10 @@ export class GameStore {
             combat_log: observable,
             activeAction : observable,
             activeSkill : observable,
+            activeItem: observable,
             showActions : observable,
-            showSkills : observable
+            showSkills : observable,
+            showItems : observable
         })
     }
 }

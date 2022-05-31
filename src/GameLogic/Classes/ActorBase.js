@@ -29,10 +29,16 @@ export default class ActorBase {
         {
             name: "examine",
         },
-        {
-            name: "Items",
-        }
     ]
+    removeItem(itemToRemove) {
+        let itemIndex = 0;
+        this.items.forEach((item, index) => {
+            if(item.id === itemToRemove.id) {
+                itemIndex = index;
+            }
+        })
+        this.items.splice(itemIndex, 1)
+    }
     
     constructor(name=null, actorData=null) {
         this.name = name

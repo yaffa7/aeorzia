@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import Utils from "./Utils"
 
 // items are objects that can be used in battle
 export default class Item {
@@ -6,7 +7,11 @@ export default class Item {
         this.name = ""
         this.description = ""
         this.onUse = (user, target) => {
-            console.log(this.user, 'used', this.name, 'on', this.target)
+            Utils.log(`${user.name} used ${this.name} on ${target.name}`)
+            this.useEffect(user,target)
+        }
+        this.useEffect = (user, target) => {
+
         }
         this.value = 0
         this.id = nanoid()
