@@ -1,7 +1,9 @@
 import { makeObservable, observable } from "mobx";
+import { nanoid } from "nanoid";
 
 export default class Scene {
     name = "";
+    id = nanoid()
     enemies = []
     heroes = []
     objects = []

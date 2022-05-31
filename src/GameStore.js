@@ -141,36 +141,38 @@ export class GameStore {
     }
 }
 
-let newInstance = new GameStore()
-let oldInstance = localStorage.getItem("gameStore")
-if(oldInstance){
-    oldInstance = JSON.parse(oldInstance)
-    newInstance.sceneManager = new SceneManager(oldInstance.heroes, oldInstance.sceneManager)
-    newInstance.heroes = oldInstance.sceneManager.current_scene.heroes
-    let newScenes
-    newScenes = oldInstance.sceneManager.scenes.map((scene) => {
-        scene.enemies = scene.enemies.map((enemy) => {
-            const enemyClass = MOB_TO_CLASS[enemy.name]
-            enemy = new enemyClass(null,enemy)
-            return enemy
-        })
-        return new Scene(scene)
-    });
-    let curSceneEnemies = oldInstance.sceneManager.current_scene.enemies
-    curSceneEnemies = curSceneEnemies.map((enemy) => {
-        const enemyClass = MOB_TO_CLASS[enemy.name]
-        enemy = new enemyClass(null,enemy)
-        return enemy
-    })
-    newInstance.sceneManager.current_scene.enemies = curSceneEnemies
-    newInstance.sceneManager.scenes = newScenes
-    newInstance.combat_log = oldInstance.combat_log
-    newInstance.partyGold = oldInstance.partyGold
-    newInstance.names = oldInstance.names
-}
-export const instance = newInstance
-reaction(() => {
-    localStorage.setItem("gameStore",JSON.stringify(instance))
-    return instance
-}, ()=>{
-})
+let store = new GameStore();
+export const instance = store;
+// let newInstance = new GameStore()
+// let oldInstance = localStorage.getItem("gameStore")
+// if(oldInstance){
+//     oldInstance = JSON.parse(oldInstance)
+//     newInstance.sceneManager = new SceneManager(oldInstance.heroes, oldInstance.sceneManager)
+//     newInstance.heroes = oldInstance.sceneManager.current_scene.heroes
+//     let newScenes
+//     newScenes = oldInstance.sceneManager.scenes.map((scene) => {
+//         scene.enemies = scene.enemies.map((enemy) => {
+//             const enemyClass = MOB_TO_CLASS[enemy.name]
+//             enemy = new enemyClass(null,enemy)
+//             return enemy
+//         })
+//         return new Scene(scene)
+//     });
+//     let curSceneEnemies = oldInstance.sceneManager.current_scene.enemies
+//     curSceneEnemies = curSceneEnemies.map((enemy) => {
+//         const enemyClass = MOB_TO_CLASS[enemy.name]
+//         enemy = new enemyClass(null,enemy)
+//         return enemy
+//     })
+//     newInstance.sceneManager.current_scene.enemies = curSceneEnemies
+//     newInstance.sceneManager.scenes = newScenes
+//     newInstance.combat_log = oldInstance.combat_log
+//     newInstance.partyGold = oldInstance.partyGold
+//     newInstance.names = oldInstance.names
+// }
+// export const instance = newInstance
+// reaction(() => {
+//     localStorage.setItem("gameStore",JSON.stringify(instance))
+//     return instance
+// }, ()=>{
+// })

@@ -5,7 +5,6 @@ import { Observer } from 'mobx-react-lite';
 import { TurnOrder } from "../TurnOrder/TurnOrder"
 import { HeroSheet } from '../HeroSheet/HeroSheet'
 import './BattleScene.scss'
-import { CombatLog } from '../CombatLog/CombatLog';
 
 export class BattleScene extends React.Component {
 
