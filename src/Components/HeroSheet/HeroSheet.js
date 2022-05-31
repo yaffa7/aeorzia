@@ -3,7 +3,7 @@ import { useGameStore } from '../../GameContext'
 import './HeroSheet.scss'
 import { Observer } from 'mobx-react-lite';
 import { CombatLog } from '../CombatLog/CombatLog';
-import { ModalList } from '../ModalList/ModalList'
+
 export const HeroSheet = () => {
     const gameStore = useGameStore()
     return (
@@ -44,7 +44,7 @@ export const HeroSheet = () => {
                                     {
                                         gameStore.activeAction && 
                                         hero.isTurnActive && 
-                                        gameStore.activeAction.name == action.name ? 
+                                        gameStore.activeAction.name === action.name ? 
                                             <div className="modal-container">
                                                 {enemyModal}
                                             </div>
@@ -67,7 +67,7 @@ export const HeroSheet = () => {
                                         {
                                             gameStore.activeSkill && 
                                             hero.isTurnActive && 
-                                            gameStore.activeSkill.name == skill.name ? 
+                                            gameStore.activeSkill.name === skill.name ? 
                                                 <div className="modal-container">
                                                     {enemyModal}
                                                 </div>

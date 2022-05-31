@@ -1,5 +1,4 @@
 import { Observer } from "mobx-react-lite"
-import { useGameStore } from "../../GameContext"
 import React, { createRef } from 'react'
 import { instance } from '../../GameStore'
 

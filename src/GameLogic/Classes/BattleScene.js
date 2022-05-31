@@ -1,4 +1,4 @@
-import { GameStore, instance } from "../../GameStore";
+import { instance } from "../../GameStore";
 import defeat_scene from "../Impl/Scenes/defeat_scene";
 import Scene from "./Scene";
 import Utils from './Utils'
@@ -28,7 +28,7 @@ export default class BattleScene extends Scene {
 
     getActiveHero() {
         let activeHeros = this.heroes.filter(hero => hero.isTurnActive === true)
-        if (activeHeros.length == 0) {
+        if (activeHeros.length === 0) {
             return []
         }
         return activeHeros

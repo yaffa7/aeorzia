@@ -3,13 +3,11 @@ import { Felen } from './GameLogic/Impl/Heroes/Felen'
 import { Elumbar } from './GameLogic/Impl/Heroes/Elumbar'
 import { Ingos } from './GameLogic/Impl/Heroes/Ingos'
 import { Varne } from './GameLogic/Impl/Heroes/Varne'
-import { makeObservable, observable, reaction } from 'mobx'
+import { makeObservable, observable } from 'mobx'
 import React from 'react'
-import { render } from 'react-dom'
-import {MOB_TO_CLASS} from './GameLogic/Constants/MOB_TABLE';
 import Utils from './GameLogic/Classes/Utils'
 import DAMAGE_TYPE from './GameLogic/Constants/DAMAGE_TYPE';
-import Scene from './GameLogic/Classes/Scene'
+
 
 window.React = React
 
@@ -47,15 +45,16 @@ export class GameStore {
     }
     handleAction = (target, actor) => {
         console.log(this.activeAction)
-        if(this.activeAction.name == "attack"){
+        if(this.activeAction.name === "attack"){
             this.onAttack(actor, target)
         } 
-        else if(this.activeAction.name == "examine") {
+        else if(this.activeAction.name === "examine") {
             this.onExamine(actor, target)
         }
-        else if(this.activeAction.name == "items") {
+        else if(this.activeAction.name === "items") {
             this.onUserItem(actor)
         }
+        this.toggleShowActions();
     }
     toggleShowSkills = () => {
         this.showSkills = !this.showSkills
@@ -69,6 +68,7 @@ export class GameStore {
     }
     handleSkill = (target, actor) => {
         this.onSkill(this.activeSkill, target, actor)
+        this.toggleShowSkills();
     }
     onAttack = (attacker, target) => {
         console.log("start attack", target)
@@ -84,11 +84,9 @@ export class GameStore {
                 Utils.log(attacker.name + ' missed their target ' + target.name + ' with a roll of ' + attackRoll + ".")
             }
         } else { Utils.log(attacker.name + ' Not enough AP!') }
-        this.activeAction = null
-        this.activeSkill = null
-        this.showActions = false
+
         console.log("end attack", target)
-        if(attacker.current_ap == 0){
+        if(attacker.current_ap === 0){
             this.endTurn()
         }
     }
@@ -121,7 +119,7 @@ export class GameStore {
         }
         this.activeSkill = null
         this.showSkills = false
-        if(hero.current_ap == 0){
+        if(hero.current_ap === 0){
             this.endTurn()
         }
     }

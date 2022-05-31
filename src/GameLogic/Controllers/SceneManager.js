@@ -9,7 +9,7 @@ export default class SceneManager {
     getCurrentIndex() {
         let currIndex = 0;
         this.scenes.forEach((scene,index) => {
-            if(scene.id == this.current_scene.id) {
+            if(scene.id === this.current_scene.id) {
                 currIndex = index
             }
         } )

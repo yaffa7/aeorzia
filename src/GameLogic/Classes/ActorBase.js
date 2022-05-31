@@ -1,4 +1,3 @@
-import Utils from './Utils'
 import { nanoid } from 'nanoid'
 import { makeObservable, observable } from 'mobx';
 import DROP_TABLE from '../Constants/DROP_TABLE';

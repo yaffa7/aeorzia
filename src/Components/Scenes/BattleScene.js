@@ -34,7 +34,7 @@ export class BattleScene extends React.Component {
                                 !enemy.isDead &&
                                 <div className="monster" key={enemy.id + 'monster-area'}>
                                     <div>{enemy.name} | ac: {enemy.armor_class} | hp: {enemy.health}</div>
-                                    <img src={enemy.image ? enemy.image : ""}></img>
+                                    <img alt={enemy.name} src={enemy.image ? enemy.image : ""}></img>
                                 </div>
                             )}
                             {instance.sceneManager.current_scene.victory &&
