@@ -1,3 +1,4 @@
+import { runInAction } from "mobx";
 import { instance } from "../../GameStore";
 
 export default class Utils {
@@ -20,7 +21,9 @@ export default class Utils {
     }
 
     static log(message) {
-        console.log(message)
-        instance.combat_log.push(message)
+        runInAction(() => {
+            console.log(message)
+            instance.combat_log.push(message)
+        })
     }
 }

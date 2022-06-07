@@ -1,3 +1,4 @@
+import { runInAction } from "mobx";
 import { instance } from "../../GameStore";
 import defeat_scene from "../Impl/Scenes/defeat_scene";
 import Scene from "./Scene";
@@ -70,7 +71,9 @@ export default class BattleScene extends Scene {
 
     clearTurnState() {
         this.getAllActorsByInitiative().forEach(a => {
-            a.isTurnActive = false
+            runInAction(() => {
+                a.isTurnActive = false
+            })
         })
     }
 
@@ -81,60 +84,66 @@ export default class BattleScene extends Scene {
     }
 
     setActiveTurn() {
-        let active_index = 0
-        // get current index of active actor
-        let curActors = this.getAllActorsByInitiative()
-        curActors.forEach((actor,i) => {
-            if(actor.isTurnActive) {
-                active_index = i
-            }
-        })
-        // set current active actor turn to false
-        curActors[active_index].isTurnActive = false
-        // reset index if we are at the end of the array, else move forward by one
-        active_index >= (curActors.length - 1) ? active_index = 0 : active_index++
-        // keep going until we get an actor that isnt dead
-        while(curActors[active_index].isDead === true ) {
+        runInAction(() => {
+            let active_index = 0
+            // get current index of active actor
+            let curActors = this.getAllActorsByInitiative()
+            curActors.forEach((actor,i) => {
+                if(actor.isTurnActive) {
+                    active_index = i
+                }
+            })
+            // set current active actor turn to false
+            curActors[active_index].isTurnActive = false
+            // reset index if we are at the end of the array, else move forward by one
             active_index >= (curActors.length - 1) ? active_index = 0 : active_index++
-        }
-        curActors[active_index].isTurnActive = true
-        console.log("set turns",curActors)
+            // keep going until we get an actor that isnt dead
+            while(curActors[active_index].isDead === true ) {
+                active_index >= (curActors.length - 1) ? active_index = 0 : active_index++
+            }
+            curActors[active_index].isTurnActive = true
+            console.log("set turns",curActors)
+        })
     }
 
     nextTurn() {
-        this.setDeathStatus()
-        // Victory check
-        if(this.enemiesDead()) {
-            Utils.log('Victory!')
-            Utils.log('----------------------------------------------------------')
-            this.generateLootDrops()
-            this.victory = true
-        } else {
-            this.setActiveTurn()
-             // reset ap
-             this.getActiveActor().current_ap = this.getActiveActor().max_ap
-             if(!this.getActiveActor().isHero) {
-                 setTimeout(() => this.startEnemyTurn(), 500)
-             } 
-        }
+        runInAction(() => {
+            this.setDeathStatus()
+            // Victory check
+            if(this.enemiesDead()) {
+                Utils.log('Victory!')
+                Utils.log('----------------------------------------------------------')
+                this.generateLootDrops()
+                this.victory = true
+            } else {
+                this.setActiveTurn()
+                // reset ap
+                this.getActiveActor().current_ap = this.getActiveActor().max_ap
+                if(!this.getActiveActor().isHero) {
+                    setTimeout(() => this.startEnemyTurn(), 500)
+                } 
+            }
+        })
     }
 
 
     startCombat() {
-        Utils.log(`combat started!`)
-        let curActors = this.getAllActorsByInitiative()
-        curActors.forEach((curActor)=>{
-            console.log({...curActor})
+        runInAction(() => {
+            Utils.log(`combat started!`)
+            let curActors = this.getAllActorsByInitiative()
+            curActors.forEach((curActor)=>{
+                console.log({...curActor})
+            })
+            this.clearTurnState()
+            this.resetPartyAP()
+            curActors[0].isTurnActive = true
+            if(this.getActiveActor().isHero) {
+                this.startHeroTurn()
+            } else {
+                this.startEnemyTurn()
+            }
+            this.combatStarted = true
         })
-        this.clearTurnState()
-        this.resetPartyAP()
-        curActors[0].isTurnActive = true
-        if(this.getActiveActor().isHero) {
-            this.startHeroTurn()
-        } else {
-            this.startEnemyTurn()
-        }
-        this.combatStarted = true
     }
 
     startHeroTurn() {
