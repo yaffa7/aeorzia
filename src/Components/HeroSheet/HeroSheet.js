@@ -127,7 +127,7 @@ export const HeroSheet = () => {
                             })
 
                             return (
-                                <div className="panel text-medium">
+                                <div className="panel text-medium" key={hero.id}>
                                     <div className={panelClass}>
                                         <div>{hero.name}</div>
                                         <button 
