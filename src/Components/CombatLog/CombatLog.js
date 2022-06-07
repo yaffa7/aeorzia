@@ -27,7 +27,7 @@ export class CombatLog extends React.Component {
                 {() =>
                     <div className="panel">
                         {this.updateScrollPosition(this.logRef)}
-                        <div ref={this.logRef} class="combat-log">
+                        <div ref={this.logRef} className="combat-log">
                             {this.gameStore.combat_log.map((m, i) =>
                                 <div className="message" key={i}>{m}</div>
                             )}
