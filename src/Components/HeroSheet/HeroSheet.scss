@@ -33,13 +33,19 @@ div.hero-sheet-container {
       position : absolute;
       top : 0;
       left : 100%;
+      width: fit-content;
       background-color : white;
       z-index : 1;
-      padding-left : 10
+      margin: 0 4px;
+      border: 1px solid black;
+      border-radius: 4px;
     }
-    .model-item{
-      position : relative;
-      background-color : blue;
-      border : 1px solid black;
+    .modal-item {
+      display: block;
+      padding: 4px 8px;
+      width: max-content;
+      &:not(:last-of-type) {
+        border-bottom: 1px solid black;
+      }
     }
 }

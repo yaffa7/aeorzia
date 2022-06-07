@@ -32,9 +32,8 @@ export const HeroSheet = () => {
                                 else {
                                     return null
                                 }
-
                               
-                                return <button key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</button>
+                                return <div className="modal-item" key={enemy.id} onClick={() => handler(enemy, hero)}>{enemy.name} | {enemy.health}</div>
                             })
 
                             const heroesModal = gameStore.sceneManager.current_scene.heroes.map((modalHero) => {
@@ -54,16 +53,17 @@ export const HeroSheet = () => {
                                 }
 
                               
-                                return <button key={modalHero.id} onClick={() => handler(modalHero, hero)}>{modalHero.name} | {modalHero.health}</button>
+                                return <div className="modal-item" key={modalHero.id} onClick={() => handler(modalHero, hero)}>{modalHero.name} | {modalHero.health}</div>
                             })
-                           const actionModal = hero.actions.map((action) =>
+
+                           const actionModal = hero.actions.map((action, index) =>
                                 <div disabled={!hero.isTurnActive} 
                                     className="modal-item"
                                     onClick={
                                         (e) => {
                                             e.stopPropagation()
                                             gameStore.activateAction(action)
-                                    }} key={hero.id}>
+                                    }} key={index}>
                                     <strong>{action.name}</strong>
                                     {
                                         gameStore.activeAction && 
@@ -77,7 +77,7 @@ export const HeroSheet = () => {
                                 </div>
                                 
                             )
-                            const skillModal = hero.skills.map((skill) => {
+                            const skillModal = hero.skills.map((skill, index) => {
                                 return (
                                     <div disabled={!hero.isTurnActive} 
                                     className="modal-item"
@@ -85,7 +85,7 @@ export const HeroSheet = () => {
                                         (e) => {
                                             e.stopPropagation()
                                             gameStore.activateSkill(skill)
-                                    }} key={hero.id}>
+                                    }} key={index}>
             
                                         <strong>{skill.name}</strong>
                                         {
@@ -101,7 +101,7 @@ export const HeroSheet = () => {
                                 )
                             })
 
-                            const itemModal = hero.items.map((item) => {
+                            const itemModal = hero.items.map((item, index) => {
                                 return (
                                     <div disabled={!hero.isTurnActive} 
                                     className="modal-item"
@@ -109,7 +109,7 @@ export const HeroSheet = () => {
                                         (e) => {
                                             e.stopPropagation()
                                             gameStore.activateItem(item)
-                                    }} key={hero.id}>
+                                    }} key={index}>
             
                                         <strong>{item.name}</strong>
                                         {

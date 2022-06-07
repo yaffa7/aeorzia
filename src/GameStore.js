@@ -3,7 +3,7 @@ import { Felen } from './GameLogic/Impl/Heroes/Felen'
 import { Elumbar } from './GameLogic/Impl/Heroes/Elumbar'
 import { Ingos } from './GameLogic/Impl/Heroes/Ingos'
 import { Varne } from './GameLogic/Impl/Heroes/Varne'
-import { makeObservable, observable } from 'mobx'
+import { makeObservable, observable, runInAction } from 'mobx'
 import React from 'react'
 import Utils from './GameLogic/Classes/Utils'
 import DAMAGE_TYPE from './GameLogic/Constants/DAMAGE_TYPE';
@@ -36,32 +36,40 @@ export class GameStore {
         return this.heroes
     }
     toggleShowItems = () => {
-        this.showItems = !this.showItems;
-        this.showSkills = false
-        this.showActions = false
-        this.activeAction = null
-        this.activeSkill = null
-        this.activeItem = null
+        runInAction(() => {
+            this.showItems = !this.showItems;
+            this.showSkills = false
+            this.showActions = false
+            this.activeAction = null
+            this.activeSkill = null
+            this.activeItem = null
+        })
     }
     toggleShowActions = () => {
-        this.showActions = !this.showActions;
-        this.showSkills = false
-        this.showItems = false
-        this.activeAction = null
-        this.activeSkill = null
-        this.activeItem = null
+        runInAction(() => {
+            this.showActions = !this.showActions;
+            this.showSkills = false
+            this.showItems = false
+            this.activeAction = null
+            this.activeSkill = null
+            this.activeItem = null
+        })
     }
     toggleShowSkills = () => {
-        this.showSkills = !this.showSkills
-        this.showActions = false;
-        this.showItems = false
-        this.activeAction = null
-        this.activeSkill = null
-        this.activeItem = null
+        runInAction(() => {
+            this.showSkills = !this.showSkills
+            this.showActions = false;
+            this.showItems = false
+            this.activeAction = null
+            this.activeSkill = null
+            this.activeItem = null
+        })
     }
     activateAction = (action) => {
-        this.activeAction = action
-        console.log(this.activeAction)
+        runInAction(() => {
+            this.activeAction = action
+            console.log(this.activeAction)
+        })
     }
     handleAction = (target, actor) => {
         console.log(this.activeAction)
